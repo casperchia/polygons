@@ -1,8 +1,8 @@
-* Project Vision *
+# Project Vision #
 Produce a web application that allows users to interactively plan their CSE degrees based on degree/course constraints and to also allow users to contribute to publicly viewable course reviews/evaluations.
 
-** Degree Planner **
+## Degree Planner ##
 Interaction with the user begins by getting them to choose from a list of degrees/programs offered by CSE. Upon making a selection, a list is produced which contains all the mandatory courses that are required to complete the degree, where each course is allocated in a degree time slot (e.g. Semester 2, Year 2). Where there are gaps between the mandatory courses, a user can fill them in from a list that would be appropriate to the time slot and pre-requisite constraints.
 
-**  Course Reviewer **
+##  Course Reviewer ##
 Each course offered by UNSW will be listed on the web application and have it’s own review page which consists of aggregated ratings (e.g. fun factor, challenge factor, etc.) and more detailed reviews all submitted by users. I.e. A user can select a course and submit a review that will be aggregated onto the course review page and contribute to the aid of students deciding on what courses they would like to study.
