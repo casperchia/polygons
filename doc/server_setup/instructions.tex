@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1cm]{geometry}
+\usepackage{color}
+
+\pagenumbering{gobble}
+
+\newenvironment{command}
+   { 
+      \begin{quote}\itshape
+      \color{blue}
+   }
+   { \end{quote} }
+
+\newenvironment{data}
+   { 
+      \begin{quote}\itshape
+      \color{red}
+   }
+   { \end{quote} }
+
+\begin{document}
+
+\section{Introduction}
+This document will provide step-by-step instructions on how to configure the
+COMP4920 Polygons web application stack. \\*
+The instructions assume you are running the Ubuntu 14.04 (or some other
+Debian-dervied) operating system. \\*
+
+\begin{command} Note that text in this style denotes commands that need to be
+executed within a console/terminal. \end{command}
+
+\begin{data} Note that text in this style denotes data that should be entered or
+pasted into the instructed file. \end{data}
+
+Replace all mentions of "\$PARENT\_DIR" with the path where your clone of the
+repository will be kept. I.e. not the repo path itself, but it's parent
+directory path.
+
+Replace all mentions of "\$PROJECT\_ROOT" with the path of the repository, e.g.
+it should look something like "\$PARENT\_ROOT/polygons/", assuming you haven't
+renamed the directory that the repository was cloned into.
+
+\section{Steps}
+
+\begin{enumerate}
+   \item \begin{command} sudo apt-get install git \end{command}
+   \item \begin{command} cd \$PARENT\_DIR \end{command}
+   \item \begin{command} git clone "git clone
+         https://bitbucket.org/mciancio/polygons.git" \end{command}
+   \item \begin{command} sudo apt-get install python-pip \end{command}
+   \item \begin{command} sudo pip install django-lockout \end{command}
+   \item \begin{command} sudo apt-get install apache2 \end{command}
+   \item Copy the polygons.conf file into /etc/apache2/sites-available/
+   \item \begin{command} sudo apt-get install libapache2-mog-wsgi \end{command}
+   \item Add the following line to /etc/apache2/envvars:
+         \begin{data}
+         export POLYGONS\_ROOT=\$REPO\_ROOT/src/
+         \end{data}
+   \item \begin{command} sudo service apache2 restart \end{command}
+   \item \begin{command} sudo pip install Django==1.7 \end{command}
+   \item \begin{command} sudo apt-get install postgresql \end{command}
+   \item \begin{command} sudo apt-get install python-psycopg2 \end{command}
+   \item \begin{command} sudo su - postgres \end{command}
+   \item \begin{command} createdb polygons \end{command}
+   \item \begin{command} exit \end{command}
+   \item Edit the file /etc/postgresql/9.3/main/pg\_hba.conf and ensure there is
+         a line in it like so (note there is no \# at the begnning):
+         \begin{data}
+         local all postgres trust
+         \end{data}
+   \item \begin{command} sudo service postgresql restart \end{command}
+   \item \begin{command} cd \$REPO\_ROOT/src \end{command}
+   \item \begin{command} ./manage.py migrate \end{command}
+\end{enumerate}
+
+If you now visit http://localhost:9000/ in your web browser, you should
+hopefully see a hello world message, which indicates a successful setup.
+
+\end{document}
+
