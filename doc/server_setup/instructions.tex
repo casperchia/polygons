@@ -57,6 +57,10 @@ renamed the directory that the repository was cloned into.
          \begin{data}
          export POLYGONS\_ROOT=\$REPO\_ROOT/src/
          \end{data}
+   \item Add the following line to /etc/apache2/ports.conf:
+         \begin{data}
+         Listen 9000
+         \end{data}
    \item \begin{command} sudo service apache2 restart \end{command}
    \item \begin{command} sudo pip install Django==1.7 \end{command}
    \item \begin{command} sudo apt-get install postgresql \end{command}
@@ -78,4 +82,3 @@ If you now visit http://localhost:9000/ in your web browser, you should
 hopefully see a hello world message, which indicates a successful setup.
 
 \end{document}
-
