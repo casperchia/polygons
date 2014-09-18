@@ -1,0 +1,96 @@
+* Indentation: 4 spaces (NO TABS!)
+  Please ensure all your editors use 4 spaces for indentation and make sure they
+  don't use tabs. The reason being is because tabs are rendered differently on
+  every machine/program and it's extremely annoying to see Python source get
+  screwed up because of that.
+
+* Naming convention for variables, functions, methods, files, classes, etc.:
+  underscores (not camel case).
+  The reason for this is because when Django translates the model names into
+  actual SQL, DBMSs (like PostgreSQL) treat SQL as case insensitive and thus
+  if you have long model names in camel case, the SQL gets hard to read as one
+  long string of lowercase letters.
+  Since model names have to use underscores, to retain consistency, everything
+  else might as well too.
+
+* Underscore namings should always be in lowercase, except when naming classes
+  of any kind (that includes models), where uppercase letters should be used
+  for the first letter and every letter after an underscore e.g.:
+  # variable
+  hello_world = 'testing'
+
+  # function
+  def my_func():
+
+  # class
+  class My_Class(object):
+
+* Use descriptive names for everything, abbreviating only when necessary. I.e.
+  don't have massively long names, but then don't have miniscule ones either.
+  People argue that commenting is necessary, but actually, if you name things
+  clearly the code speaks for itself and comments will never become stale,
+  because they won't (need to) exist!
+
+* If you do need to comment (for whatever reason), please use a "#" followed by
+  a space for single-line and multi-line comments. E.g.:
+
+  # This is a single line comment...
+
+  # This is
+  # a
+  # multi-line comment...
+
+* When importing, avoid wild imports, e.g.:
+
+  from hello import *
+
+  ...and separate all imports onto separate lines to make understanding code
+  easier. E.g.
+
+  # Don't do this:
+  from hello import a, b, c
+
+  # Do this instead:
+  from hello import a
+  from hello import b
+  from hello import c
+
+* Where possible, favour using try/except over if/else and when doing exception
+  handling, always try to use multiple narrow exceptions, as opposed to a
+  general exception. E.g.:
+
+  # Don't do this
+  if os.path.isfile('some_path'):
+     ...
+  else:
+     ...
+  
+  # ...if you can do this:
+  try:
+      file = open('some_path', 'r')
+  except IOError:
+      ...
+
+  # ...and don't do this:
+  try:
+     ...
+  except:
+     ...
+
+  # ...unless absolutely necessary, or when it happens to rarely be cleaner.
+  # Do this instead:
+  try:
+      ...
+  except IOError:
+      ...
+  except ValueError:
+      ...
+  finally:
+      ...
+
+* Please try to keep line lengths to no more than 80 characters wide. This is
+  not a concrete rule, in the sense that if the code looks cleaner on lines of
+  more than 80 characters, then that's fine, just try and break/wrap around 80
+  as much as possible. 
+  Note: Please read up on multi-line strings in Python. Yes you can use triple
+  quotes, but that will include new line characters in your string.
