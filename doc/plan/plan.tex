@@ -1,0 +1,891 @@
+\documentclass[12pt,titlepage]{article}
+
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{tabularx}
+\usepackage{geometry}
+\usepackage{parskip}
+
+\headheight 15pt
+\cfoot{\textbf{\thepage}\ of \textbf{\pageref{LastPage}}}
+
+\newenvironment{storyPoint}
+   {\color{blue} \bfseries}
+   {}
+
+\newenvironment{storyId}
+   {\color{Bittersweet} \itshape}
+   {}
+
+\newenvironment{optionalStory}
+   {\color[rgb]{0.015625,0.2890625,0.046875}}
+   {}
+
+\begin{document}
+
+\title{
+   Project Plan \\
+   COMP4920 -- 2014s2
+}
+
+\author{
+   Andrew Cai -- z3290228 \\
+   \and
+   Casper Chia -- z3413140 \\
+   \and 
+   Matthew Gino Ciancio -- z3374281 \\
+   \and
+   Luna Pradhananga -- z3358423 \\
+   \and
+   Corey Tattam -- z3221450
+}
+
+\date{\today}
+
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Project Vision}
+Produce a web application that allows users to interactively plan their CSE
+degrees based on degree/course constraints and to also allow users to contribute
+to publicly viewable course reviews/evaluations.
+
+\subsection{Degree Planner}
+Interaction with the user begins by getting them to choose from a list of
+CSE degrees/programs offered by UNSW. Upon making a selection, a list is
+produced which contains all the mandatory courses that are required to complete
+the degree, where each course is allocated in a degree time slot (e.g. Semester
+2, Year 2). Where there are gaps between the mandatory courses, a user can fill
+them in from a list that would be appropriate to the time slot and prerequisite
+constraints.
+
+\subsection{Course Reviewer}
+Each course offered by UNSW will be listed on the web application and have it's
+own review page which consists of aggregated ratings (e.g. fun factor, challenge
+factor, etc.) and more detailed reviews all submitted by users. I.e. A user can
+select a course and submit a review that will be aggregated onto the course
+review page and contribute to the aid of students deciding on what courses
+they would like to study.
+
+\subsection{Misc}
+While these two features are useful in themselves, when combined, they do an
+excellent job at helping a future student choose a CSE degree that they will
+enjoy and hopefully get the most out of. I.e. They will be more informed about
+all levels of a degree, like never before.
+
+\section{Epics}
+
+Note: All epics and user stories are written from the perspective of an
+end-user, more specifically a student/prospective student user.
+
+% Define epics here in this hacky way, so that they can be spewed out as many 
+% times as needed throughout the document.
+\newcommand{\epicOne}{
+   Be able to visit a website in my web browser with an appealing interface.
+}
+\newcommand{\epicTwo}{
+   Be able to choose the CSE degree I am interested in studying at UNSW.
+}
+\newcommand{\epicThree}{
+   See what courses I have to take in order to complete a degree.
+}
+\newcommand{\epicFour}{
+   Observe what electives I can choose throughout my degree and add them into my
+   degree plan.
+}
+\newcommand{\epicFive}{
+   Save my degree so that I can come back and edit it later on.
+}
+\newcommand{\epicSix}{
+   Export my degree plan as a PDF document.
+}
+\newcommand{\epicSeven}{
+   Browse through the list of courses offered by UNSW and to be able to sort and
+   filter them in various ways.
+}
+\newcommand{\epicEight}{
+   View the review page of a course which contains various forms of ratings and
+   detailed reviews of the course, submitted by previous students.
+}
+\newcommand{\epicNine}{
+   Be able to submit a review of a course I have previously studied and have it
+   added to the pool of reviews for a course (i.e. my review should appear on
+   the course review page).
+}
+\newcommand{\epicTen}{
+   I should be able to edit any part of any review I have ever submitted, at any
+   time in the future and the course review page should be updated accordingly.
+}
+\newcommand{\epicEleven}{
+   Users should be able to create an account, but have to supply an email
+   address with a ``.*unsw.edu.au'' domain and follow the activation link sent
+   to that email, in order to confirm they are a UNSW student.
+}
+\newcommand{\epicTwelve}{
+   There should be a user profile page that allows users to edit their profile
+   details, lists all their degree plans and all their course reviews.
+}
+\newcommand{\epicThirteen}{
+   I should be able to plan other UNSW degrees beyond the school of Computer
+   Science and Engineering.
+}
+
+\begin{enumerate}
+   \item \epicOne{}
+   \item \epicTwo{}
+   \item \epicThree{} 
+   \item \epicFour{}
+   \item \epicFive{}
+   \item \epicSix{}
+   \item \epicSeven{} 
+   \item \epicEight{}
+   \item \epicNine{}
+   \item \epicTen{}
+   \item \epicEleven{} 
+   \item \epicTwelve{}
+   \item \epicThirteen{}
+\end{enumerate}
+
+\section{User Stories}
+
+\begin{storyId}
+Note: The text in this style after each user story denotes the ID of the user
+story.
+\end{storyId}
+
+\begin{storyPoint}
+Note: The text that appears with this style at the beginning of each user story
+is the assigned story points.
+\end{storyPoint}
+
+\begin{optionalStory}
+Note: The text that appears with this style, indicates that a user story is not
+mandatory for the successful release of the system/project.
+\end{optionalStory}
+
+\subsection{\epicOne{}}
+
+% Define user stories here in this hacky way, so that they can be spewed out
+% as many times as needed throughout the document.
+\newcommand{\storyOnePointOne}{
+   \begin{storyPoint}1\end{storyPoint}
+   Visit a URL and be taken to the website.
+   \begin{storyId}1.1\end{storyId}
+}
+\newcommand{\storyOnePointTwo}{
+   \begin{storyPoint}5\end{storyPoint}
+   Website should be aesthetically pleasing, have a unified interface and be
+   easy to use.
+   \begin{storyId}1.2\end{storyId}
+}
+\newcommand{\storyOnePointThree}{
+   \begin{storyPoint}1\end{storyPoint}
+   Ability to access degree planner, course list and course review pages all
+   without having to be logged into an account.
+   \begin{storyId}1.3\end{storyId}
+}
+\newcommand{\storyOnePointFour}{
+   \begin{storyPoint}1\end{storyPoint} 
+   Home page should summarise the website and provide links to the various
+   features/pages.
+   \begin{storyId}1.4\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyOnePointOne{}
+   \item \storyOnePointTwo{}
+   \item \storyOnePointThree{}
+   \item \storyOnePointFour{}
+\end{enumerate}
+
+\subsection{\epicTwo{}}
+
+\newcommand{\storyTwoPointOne}{
+   \begin{storyPoint}1\end{storyPoint}
+   Degree planner page should be accessible from all pages.
+   \begin{storyId}2.1\end{storyId}
+}
+\newcommand{\storyTwoPointTwo}{
+   \begin{storyPoint}2\end{storyPoint}
+   First degree planner page should present me with a list of CSE degrees to
+   choose from.
+   \begin{storyId}2.2\end{storyId}
+}
+\newcommand{\storyTwoPointThree}{
+   \begin{storyPoint}3\end{storyPoint}
+   I should be able to view all the degrees at once, or filtered degrees by
+   letter, or filtered degrees by faculty.
+   \begin{storyId}2.3\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyTwoPointOne{}
+   \item \storyTwoPointTwo{}
+   \item \storyTwoPointThree{}
+\end{enumerate}
+
+\subsection{\epicThree{}}
+
+\newcommand{\storyThreePointOne}{
+   \begin{storyPoint}3\end{storyPoint}
+   Upon selecting a degree from the list, a page should be displayed which
+   contains a link to the handbook entry for the degree and a list of compulsory
+   courses for the degree.
+   \begin{storyId}3.1\end{storyId}
+}
+\newcommand{\storyThreePointTwo}{
+   \begin{storyPoint}4\end{storyPoint}
+   Courses should be ordered by time slot (e.g. Semester 2, Year 2) and there
+   should be gaps between compulsory courses (for where electives are to go).
+   \begin{storyId}3.2\end{storyId}
+}
+\newcommand{\storyThreePointThree}{
+   \begin{storyPoint}2\end{storyPoint}
+   Each course should have its code, name and hyperlink to its review page.
+   \begin{storyId}3.3\end{storyId}
+}
+\newcommand{\storyThreePointFour}{
+   \begin{storyPoint}10\end{storyPoint}
+   There should be stand out text that displays whether the current degree plan
+   is eligible for graduation status or not, including the number of units of
+   credit that need to be added.
+   \begin{storyId}3.4\end{storyId}
+}
+\newcommand{\storyThreePointFive}{
+   \begin{storyPoint}2\end{storyPoint}
+   Mandatory courses should not be able to be removed from the plan.
+   \begin{storyId}3.5\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyThreePointOne{}
+   \item \storyThreePointTwo{}
+   \item \storyThreePointThree{}
+   \item \storyThreePointFour{}
+   \item \storyThreePointFive{}
+\end{enumerate}
+
+\subsection{\epicFour{}}
+
+\newcommand{\storyFourPointOne}{
+   \begin{storyPoint}3\end{storyPoint}
+   In each elective slot there should be a button to insert an elective, which
+   when clicked displays a list of courses that can be taken in that time frame.
+   \begin{storyId}4.1\end{storyId}
+}
+\newcommand{\storyFourPointTwo}{
+   \begin{storyPoint}7\end{storyPoint}
+   The elective course list should be populated by whether or not prerequisites
+   have been met at that stage, if the course is offered in that time period and
+   if it isn't already in the plan.
+   \begin{storyId}4.2\end{storyId}
+}
+\newcommand{\storyFourPointThree}{
+   \begin{storyPoint}4\end{storyPoint}
+   The courses should be able to be filtered alphabetically and by subject area
+   (e.g. COMP for Computer Science courses).
+   \begin{storyId}4.3\end{storyId}
+}
+\newcommand{\storyFourPointFour}{
+   \begin{storyPoint}2\end{storyPoint}
+   When a course is selected it should be added to the plan in the appropriate
+   time slot.
+   \begin{storyId}4.4\end{storyId}
+}
+\newcommand{\storyFourPointFive}{
+   \begin{storyPoint}2\end{storyPoint}
+   Non-compulsory courses in the plan should have a little ``X'' button appear
+   next to them when hovered and when pressed the course should be removed from
+   the plan.
+   \begin{storyId}4.5\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyFourPointOne{}
+   \item \storyFourPointTwo{}
+   \item \storyFourPointThree{}
+   \item \storyFourPointFour{}
+   \item \storyFourPointFive{}
+\end{enumerate}
+
+\subsection{\epicFive{}}
+
+\newcommand{\storyFivePointOne}{
+   \begin{storyPoint}1\end{storyPoint}
+   There should be a save/permalink button on the degree plan page.
+   \begin{storyId}5.1\end{storyId}
+}
+\newcommand{\storyFivePointTwo}{
+   \begin{storyPoint}2\end{storyPoint}
+   When the button is pressed, a widget/window should appear saying that I can
+   come back to this plan later on via the URL in this widget/window.
+   \begin{storyId}5.2\end{storyId}
+}
+\newcommand{\storyFivePointThree}{
+   \begin{storyPoint}3\end{storyPoint}
+   If the user is logged in, the save/permalink button should tell them the plan
+   has been saved to their account/profile.
+   \begin{storyId}5.3\end{storyId}
+}
+\newcommand{\storyFivePointFour}{
+   \begin{storyPoint}5\end{storyPoint}
+   Degree plans should be saved indefinitely, even for non-logged in users.
+   \begin{storyId}5.4\end{storyId}
+}
+\newcommand{\storyFivePointFive}{
+   \begin{storyPoint}3\end{storyPoint}
+   For logged in users, their latest degree plan will not be saved to their
+   account unless they press the save/permalink button. Between the time when
+   they create the plan and when they save it, the plan is treated like an
+   anonymous user's plan (i.e. it is saved indefinitely, but only accessible
+   via the permalink).
+   \begin{storyId}5.5\end{storyId}
+}
+\newcommand{\storyFivePointSix}{
+   \begin{storyPoint}5\end{storyPoint}
+   If a logged in user created plan is not saved within a week, it should be
+   deleted from the system, but not before a warning email is sent to the user,
+   containing a permalink to the plan so that they can save it before it is
+   deleted.
+   \begin{storyId}5.6\end{storyId}
+}
+\newcommand{\storyFivePointSeven}{
+   \begin{storyPoint}4\end{storyPoint}
+   Each degree plan page should have a delete button, which when pressed should
+   present a confirmation widget/window and then permanently delete the plan
+   from the system if the user confirms to do so.
+   \begin{storyId}5.7\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyFivePointOne{}
+   \item \storyFivePointTwo{}
+   \item \storyFivePointThree{}
+   \item \storyFivePointFour{}
+   \item \storyFivePointFive{}
+   \item \storyFivePointSix{}
+   \item \storyFivePointSeven{}
+\end{enumerate}
+
+\subsection{\epicSix{}}
+
+\newcommand{\storySixPointOne}{
+   \begin{storyPoint}1\end{storyPoint}
+   There should be a button on every degree plan page that says something along
+   the lines of ``Export as PDF''.
+   \begin{storyId}6.1\end{storyId}
+}
+\newcommand{\storySixPointTwo}{
+   \begin{storyPoint}5\end{storyPoint}
+   When pressed, a new browser tab should be opened and a PDF of the current
+   degree plan should be present in the tab (allowing the user to save it to
+   their computer if they wish).
+   \begin{storyId}6.2\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storySixPointOne{}
+   \item \storySixPointTwo{}
+\end{enumerate}
+
+\subsection{\epicSeven{}}
+
+\newcommand{\storySevenPointOne}{
+   \begin{storyPoint}1\end{storyPoint}
+   There should be a link to the UNSW course reviews from every page.
+   \begin{storyId}7.1\end{storyId}
+}
+\newcommand{\storySevenPointTwo}{
+   \begin{storyPoint}4\end{storyPoint}
+   The course review page should contain a description of what the course
+   reviews are all about, a link to all UNSW courses, set of alphabetical links
+   and a set of specialisation links (e.g. COMP for Computer Science).
+   \begin{storyId}7.2\end{storyId}
+}
+\newcommand{\storySevenPointThree}{
+   \begin{storyPoint}2\end{storyPoint}
+   When the ``All'' link is pressed, all UNSW courses should be presented.
+   \begin{storyId}7.3\end{storyId}
+}
+\newcommand{\storySevenPointFour}{
+   \begin{storyPoint}2\end{storyPoint}
+   When one of the alphabetic links is pressed, all courses according to the
+   letter pressed should be displayed.
+   \begin{storyId}7.4\end{storyId}
+}
+\newcommand{\storySevenPointFive}{
+   \begin{storyPoint}2\end{storyPoint}
+   When one of the specialisation links is pressed, all courses according to the
+   specialisation should be displayed.
+   \begin{storyId}7.5\end{storyId}
+}
+\newcommand{\storySevenPointSix}{
+   \begin{storyPoint}2\end{storyPoint}
+   Each course listing (on the various listing pages) should display the course
+   code, name and be a hyperlink to the individual course review page.
+   \begin{storyId}7.6\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storySevenPointOne{}
+   \item \storySevenPointTwo{}
+   \item \storySevenPointThree{}
+   \item \storySevenPointFour{}
+   \item \storySevenPointFive{}
+   \item \storySevenPointSix{}
+\end{enumerate}
+
+\subsection{\epicEight{}}
+
+\newcommand{\storyEightPointOne}{
+   \begin{storyPoint}1\end{storyPoint}
+   Each course review page should contain the course code, name and link to its
+   handbook entry.
+   \begin{storyId}8.1\end{storyId}
+}
+\newcommand{\storyEightPointTwo}{
+   \begin{storyPoint}3\end{storyPoint}
+   There should be displays of aggregated review results: interest, fun,
+   challenging, recommendable, encouraged you to think critically and education
+   on the topic.
+   \begin{storyId}8.2\end{storyId}
+}
+\newcommand{\storyEightPointThree}{
+   \begin{storyPoint}5\end{storyPoint}
+   There should be a list of Lecturers whom have taken the course and when the
+   user clicks on a lecturer, displays of aggregated results should be presented
+   for that lecturer: engaging, humble, experience, clarity and dedication.
+   \begin{storyId}8.3\end{storyId}
+}
+\newcommand{\storyEightPointFour}{
+   \begin{storyPoint}5\end{storyPoint}
+   Similar to the previous requirement, but for tutors.
+   \begin{storyId}8.4\end{storyId}
+}
+\newcommand{\storyEightPointFive}{
+   \begin{storyPoint}7\end{storyPoint}
+   There should also be a display of the aggregated overall rating (out of five)
+   of the course, e.g. a graph of the course ratings.
+   \begin{storyId}8.5\end{storyId}
+}
+\newcommand{\storyEightPointSix}{
+   \begin{storyPoint}3\end{storyPoint}
+   Users should be able to view a list of descriptive reviews of the course,
+   filtered by overall course rating.
+   \begin{storyId}8.6\end{storyId}
+}
+\newcommand{\storyEightPointSeven}{
+   \begin{storyPoint}1\end{storyPoint}
+   All reviews should be displayed anonymously, i.e. no identifiable information
+   shall be displayed next to each descriptive review.
+   \begin{storyId}8.7\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyEightPointOne{}
+   \item \storyEightPointTwo{}
+   \item \storyEightPointThree{}
+   \item \storyEightPointFour{}
+   \item \storyEightPointFive{}
+   \item \storyEightPointSix{}
+   \item \storyEightPointSeven{}
+\end{enumerate}
+
+\subsection{\epicNine{}}
+
+\newcommand{\storyNinePointOne}{
+   \begin{storyPoint}1\end{storyPoint}
+   On a course review page, there should a button that says something along the
+   lines of ``Submit Your Review''.
+   \begin{storyId}9.1\end{storyId}
+}
+\newcommand{\storyNinePointTwo}{
+   \begin{storyPoint}1\end{storyPoint}
+   If an anonymous user presses the button they should be redirected to the
+   login page, otherwise if the user is logged in, they should be taken to the
+   course review submission page.
+   \begin{storyId}9.2\end{storyId}
+}
+\newcommand{\storyNinePointThree}{
+   \begin{storyPoint}6\end{storyPoint}
+   The course review submission page should be very similar to the corresponding
+   course review page, except the displays should be replaced with editable
+   fields/widgets.
+   \begin{storyId}9.3\end{storyId}
+}
+\newcommand{\storyNinePointFour}{
+   \begin{storyPoint}3\end{storyPoint}
+   There should be a submit button which when pressed should confirm with the
+   user if they wish to submit the review and inform them that they can always
+   edit it later by coming to the course review page or clicking the link on
+   their profile page (under the list of submitted reviews).
+   \begin{storyId}9.4\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyNinePointOne{}
+   \item \storyNinePointTwo{}
+   \item \storyNinePointThree{}
+   \item \storyNinePointFour{}
+\end{enumerate}
+
+\subsection{\epicTen{}}
+
+\newcommand{\storyTenPointOne}{
+   \begin{storyPoint}2\end{storyPoint}
+   If a logged in user has submitted a review for a course, the course review
+   page should not contain a ``Submit Your Review'' button, but should instead
+   contain a ``Edit Your Review'' page which should take them to the course
+   review submission page, which contains all their previously saved work.
+   \begin{storyId}10.1\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyTenPointOne{}
+\end{enumerate}
+
+\subsection{\epicEleven{}}
+
+\newcommand{\storyElevenPointOne}{
+   \begin{storyPoint}1\end{storyPoint}
+   There should be a login button/link present on all pages when a user is not
+   logged in.
+   \begin{storyId}11.1\end{storyId}
+}
+\newcommand{\storyElevenPointTwo}{
+   \begin{storyPoint}1\end{storyPoint}
+   The login page should contain a link that says something along the lines of
+   ``Don't have an account yet?'' and takes them to the account creation page
+   when clicked.
+   \begin{storyId}11.2\end{storyId}
+}
+\newcommand{\storyElevenPointThree}{
+   \begin{storyPoint}2\end{storyPoint}
+   Account creation page should ask for various details: UNSW email address and
+   password. I.e. if they supply an email address without a ``*unsw.edu.au''
+   domain, account creation will be denied.
+   \begin{storyId}11.3\end{storyId}
+}
+\newcommand{\storyElevenPointFour}{
+   \begin{storyPoint}1\end{storyPoint}
+   The page should inform users that all reviews that they submit with their
+   account will be anonymous to others.
+   \begin{storyId}11.4\end{storyId}
+}
+\newcommand{\storyElevenPointFive}{
+   \begin{storyPoint}2\end{storyPoint}
+   When a user creates their account, an email should be sent to the supplied
+   UNSW email address containing an activation link which the user must visit in
+   order for them to login into and use their account.
+   \begin{storyId}11.5\end{storyId}
+}
+\newcommand{\storyElevenPointSix}{
+   \begin{storyPoint}4\end{storyPoint}
+   Inactivated accounts should be deleted after a week, not before another
+   activation email is sent to the user after the first one, also telling them
+   their account will be deleted if they do not activate it.
+   \begin{storyId}11.6\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyElevenPointOne{}
+   \item \storyElevenPointTwo{}
+   \item \storyElevenPointThree{}
+   \item \storyElevenPointFour{}
+   \item \storyElevenPointFive{}
+   \item \storyElevenPointSix{}
+\end{enumerate}
+
+\subsection{\epicTwelve{}}
+
+\newcommand{\storyTwelvePointOne}{
+   \begin{storyPoint}1\end{storyPoint}
+   A button/link should exist on every page for logged in users, which when
+   pressed, takes them to their profile page.
+   \begin{storyId}12.1\end{storyId}
+}
+\newcommand{\storyTwelvePointTwo}{
+   \begin{storyPoint}2\end{storyPoint}
+   The page should contain a form allowing them to change their password and
+   their email. Changing their email will result in them have to confirm the
+   UNSW email address again and if it is not confirmed within half an hour, the
+   old email address will not be updated.
+   \begin{storyId}12.2\end{storyId}
+}
+\newcommand{\storyTwelvePointThree}{
+   \begin{storyPoint}2\end{storyPoint}
+   The profile page should also contain a list of degree plans the user has
+   saved and links to view/edit them. 
+   \begin{storyId}12.3\end{storyId}
+}
+\newcommand{\storyTwelvePointFour}{
+   \begin{storyPoint}2\end{storyPoint}
+   The page should also contain a list of the reviews the user has submitted and
+   links to pages where they can be edited.
+   \begin{storyId}12.4\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyTwelvePointOne{}
+   \item \storyTwelvePointTwo{}
+   \item \storyTwelvePointThree{}
+   \item \storyTwelvePointFour{}
+\end{enumerate}
+
+\subsection{\epicThirteen{}}
+
+\newcommand{\storyThirteenPointOne}{
+   \begin{storyPoint}20\end{storyPoint}
+   \begin{optionalStory}
+   The degree planner should be “extended” to allow users to create plans for
+   all UNSW degrees.
+   \end{optionalStory}
+   \begin{storyId}13.1\end{storyId}
+}
+
+\begin{enumerate}
+   \item \storyThirteenPointOne{}
+\end{enumerate}
+
+\section{Product Backlog}
+
+User stories in the backlog are ordered by their priority to complete, where
+high priority stories are at the top and vice versa.
+
+\begin{enumerate}
+   \item \storyOnePointOne{}
+   \item \storyOnePointTwo{}
+   \item \storyOnePointFour{}
+   \item \storyTwoPointTwo{}
+   \item \storyTwoPointThree{} 
+   \item \storyThreePointOne{}
+   \item \storyFivePointFour{}
+   \item \storyThreePointThree{} 
+   \item \storyThreePointTwo{}
+   \item \storyThreePointFive{}
+   \item \storyFourPointOne{}
+   \item \storyFourPointTwo{}
+   \item \storyFourPointThree{} 
+   \item \storyFourPointFour{}
+   \item \storyFourPointFive{}
+   \item \storyFivePointOne{}
+   \item \storyFivePointTwo{}
+   \item \storyThreePointFour{}
+   \item \storySevenPointTwo{}
+   \item \storySevenPointThree{} 
+   \item \storySevenPointFour{}
+   \item \storySevenPointFive{}
+   \item \storySevenPointSix{}
+   \item \storyEightPointOne{}
+   \item \storyEightPointTwo{}
+   \item \storyEightPointThree{} 
+   \item \storyEightPointFour{}
+   \item \storyEightPointFive{}
+   \item \storyEightPointSix{}
+   \item \storyEightPointSeven{} 
+   \item \storyNinePointTwo{}
+   \item \storyOnePointThree{} 
+   \item \storyTwoPointOne{}
+   \item \storySevenPointOne{} 
+   \item \storyElevenPointOne{} 
+   \item \storyElevenPointTwo{}
+   \item \storyElevenPointThree{} 
+   \item \storyElevenPointFour{}
+   \item \storyElevenPointFive{}
+   \item \storyFivePointThree{} 
+   \item \storyFivePointFive{}
+   \item \storyNinePointOne{}
+   \item \storyNinePointThree{} 
+   \item \storyNinePointFour{}
+   \item \storyTenPointOne{}
+   \item \storyTwelvePointOne{}
+   \item \storyTwelvePointTwo{}
+   \item \storyTwelvePointThree{} 
+   \item \storyTwelvePointFour{}
+   \item \storySixPointOne{}
+   \item \storySixPointTwo{}
+   \item \storyFivePointSeven{} 
+   \item \storyFivePointSix{}
+   \item \storyElevenPointSix{}
+   \item \storyThirteenPointOne{}
+\end{enumerate}
+
+\section{Release Plan}
+
+\newgeometry{left=1cm,right=1cm}
+\begin{table}[H]
+\centering
+\def\tabularxcolumn#1{m{#1}}
+\begin{tabularx}{0.9\paperwidth}{|c|X|c|c|c|c|}
+\hline
+\textbf{\#} & \textbf{Description} & \textbf{Release Type} & \textbf{Sprints} &
+\textbf{Start Date} & \textbf{Release Date} \\
+\hline
+1 & Have basic website up and running. Able to choose degrees (within CSE) and
+    display compulsory courses. & Major & 1 & 22/9/2014 & 28/9/2014 \\
+\hline
+2 & Able to view, add and remove elective courses. Also able to check if current
+    plan is eligible for graduation status. & Major & 2 & 29/9/2014 & 5/10/2014
+    \\
+\hline
+3 & Course review system is complete. Users can create accounts to post reviews
+    and save degree plans. & Significant & 3-4 & 6/10/2014 & 19/10/2014 \\
+\hline
+4 & Degree planner now caters for most if not all UNSW degrees. & Major & 5 &
+20/10/2014 & 26/10/2014 \\
+\hline
+\end{tabularx}
+\end{table}
+\restoregeometry
+
+\subsection{Conditions of Satisfaction}
+Using test-driven development means that there will always be unit tests for
+code and therefore we can use them as an automated means of ensuring that things
+are working as they should and that we are progressing as planned.
+
+In addition to the automated unit testing, end-users of the system should always
+be able to operate and engage with the web application to check whether their
+requirements/stories have been fulfilled. \\*
+More specifically, we will have a physical production server and domain name
+which will be used to host a live version of the system for end-users to provide
+feedback on.
+
+\section{Sprints}
+Total story point tally = 171 \\*
+Number of sprints = 5 \\*
+Sprint story point capacity = ceiling(171 / 5) = 35
+
+Thus each sprint should ideally take around 35 story points, in the planned
+timetable. The ceiling was taken in order to spread the fraction of work over
+all sprints, as opposed to loading up the last sprint.
+
+\subsection{Sprint \#1 (Story point tally = 38)}
+\textbf{Schedule: 22nd September - 28th September}
+\begin{enumerate}
+   \item \storyOnePointOne{}
+   \item \storyOnePointTwo{}
+   \item \storyOnePointFour{}
+   \item \storyTwoPointTwo{}
+   \item \storyTwoPointThree{}
+   \item \storyThreePointOne{}
+   \item \storyFivePointFour{}
+   \item \storyThreePointThree{}
+   \item \storyThreePointTwo{}
+   \item \storyThreePointFive{}
+   \item \storyFourPointOne{}
+   \item \storyFourPointTwo{}
+\end{enumerate}
+
+\subsection{Sprint \#2 (Story point tally = 37)}
+\textbf{Schedule: 29th September - 5th October}
+\begin{enumerate}
+   \item \storyFourPointThree{}
+   \item \storyFourPointFour{}
+   \item \storyFourPointFive{}
+   \item \storyFivePointOne{}
+   \item \storyFivePointTwo{}
+   \item \storyThreePointFour{}
+   \item \storySevenPointTwo{}
+   \item \storySevenPointThree{}
+   \item \storySevenPointFour{}
+   \item \storySevenPointFive{}
+   \item \storySevenPointSix{}
+   \item \storyEightPointOne{}
+   \item \storyEightPointTwo{}
+\end{enumerate}
+
+\subsection{Sprint \#3 (Story point tally = 35)}
+\textbf{Schedule: 6th October - 12th October}
+\begin{enumerate}
+   \item \storyEightPointThree{}
+   \item \storyEightPointFour{}
+   \item \storyEightPointFive{}
+   \item \storyEightPointSix{}
+   \item \storyEightPointSeven{}
+   \item \storyNinePointTwo{}
+   \item \storyOnePointThree{}
+   \item \storyTwoPointOne{}
+   \item \storySevenPointOne{}
+   \item \storyElevenPointOne{}
+   \item \storyElevenPointTwo{}
+   \item \storyElevenPointThree{}
+   \item \storyElevenPointFour{}
+   \item \storyElevenPointFive{}
+   \item \storyFivePointThree{}
+\end{enumerate}
+
+\subsection{Sprint \#4 (Story point tally = 32)}
+\textbf{Schedule: 13th October - 19th October}
+\begin{enumerate}
+   \item \storyFivePointFive{}
+   \item \storyNinePointOne{}
+   \item \storyNinePointThree{}
+   \item \storyNinePointFour{}
+   \item \storyTenPointOne{}
+   \item \storyTwelvePointOne{}
+   \item \storyTwelvePointTwo{}
+   \item \storyTwelvePointThree{}
+   \item \storyTwelvePointFour{}
+   \item \storySixPointOne{}
+   \item \storySixPointTwo{}
+   \item \storyFivePointSeven{}
+\end{enumerate}
+
+\subsection{Sprint \#5 (Story point tally = 29)}
+\textbf{Schedule: 20th October - 26th October}
+\begin{enumerate}
+   \item \storyFivePointSix{}
+   \item \storyElevenPointSix{}
+   \item \storyThirteenPointOne{}
+\end{enumerate}
+
+\section{Allocation of Roles}
+
+\textbf{Scrum Master}: Matt \\*
+\textbf{Product Owner}: Andrew \\*
+\textbf{Developers}: Andrew, Casper, Corey, Luna, Matt \\*
+\textbf{Developmental Testers}: Andrew, Casper, Corey, Luna, Matt \\*
+
+\section{Meeting Schedule}
+
+\subsection{Daily Stand-up}
+Stand-up meetings have been organised to start from anywhere between 9-10pm every
+week night. \\*
+These meetings will be extremely brief and simply consist of everyone mentioning
+how they are going with the developmental work. Any issues will be raised and
+the scrum master will take notes and use them to ensure the problems get
+resolved ASAP.
+
+\subsection{Sprint Planning/Review/Retrospective}
+The goal here is to cut down on having three separate meetings, because they
+coincide so closely to each other (temporally) and it makes sense to merge them
+into a single meeting. \\*
+These meetings will be scheduled for 11am Monday mornings and will involve
+everyone discussing how they went with the previous sprint. \\*
+Stories will be rearranged between sprints as necessary, to compensate for being
+ahead/behind schedule. Feedback will also be given in regard to how well the
+previous sprint went, processes that need improving for future sprints and any
+other problems that should arise.
+
+\section{Extreme Programming}
+
+\subsection{Test-Driven Development}
+All developers will write their own test cases, preferably before they write
+code and the test cases will be added to the project-wide suite of unit test
+cases.
+
+Ideally developers should write test cases for other developers' code, but we
+need to be realistic and realise this is not practical given our circumstances
+(small time frame, external commitments, geographic differences, etc.) and would
+severely hinder team velocity. Having said that, if during end-user manual
+acceptance testing, bugs are spotted, then we will zero-in on the affected code
+and developers who did not write the code will write test cases for it, followed
+by the patching of the bug.
+
+All unit tests will be run daily to ensure that no regressions occur.
+
+\end{document}

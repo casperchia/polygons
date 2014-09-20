@@ -1,5 +1,4 @@
 *.aux
 *.log
 *.pyc
-
-doc/server_setup/instructions.pdf
+*.pdf
