@@ -38,7 +38,7 @@ repository will be kept. I.e. not the repo path itself, but it's parent
 directory path.
 
 Replace all mentions of "\$PROJECT\_ROOT" with the path of the repository, e.g.
-it should look something like "\$PARENT\_ROOT/polygons/", assuming you haven't
+it should look something like "\$PARENT\_DIR/polygons/", assuming you haven't
 renamed the directory that the repository was cloned into.
 
 \section{Steps}
@@ -55,7 +55,7 @@ renamed the directory that the repository was cloned into.
    \item \begin{command} sudo apt-get install libapache2-mog-wsgi \end{command}
    \item Add the following line to /etc/apache2/envvars:
          \begin{data}
-         export POLYGONS\_ROOT=\$REPO\_ROOT/src/
+         export POLYGONS\_ROOT=\$PROJECT\_ROOT/src/
          \end{data}
    \item Add the following line to /etc/apache2/ports.conf:
          \begin{data}
@@ -74,7 +74,7 @@ renamed the directory that the repository was cloned into.
          local all postgres trust
          \end{data}
    \item \begin{command} sudo service postgresql restart \end{command}
-   \item \begin{command} cd \$REPO\_ROOT/src \end{command}
+   \item \begin{command} cd \$PROJECT\_ROOT/src \end{command}
    \item \begin{command} ./manage.py migrate \end{command}
 \end{enumerate}
 
