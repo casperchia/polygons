@@ -9,6 +9,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'comp4920.settings'
 django.setup()
 
 from polygons.models.Acad_Obj_Group_Type import Acad_Obj_Group_Type
+from polygons.models.Career import Career
 
 VALUE_DELIMITER = '\t'
 COLUMN_DELIMITER = ', '
@@ -30,9 +31,22 @@ def acad_obj_groups__enumerated(**kwargs):
 def acad_obj_groups__gtype(**kwargs):
     return str(Acad_Obj_Group_Type.objects.get(name=kwargs['gtype']).id)
 
+def subjects__career(**kwargs):
+    return str(Career.objects.get(abbreviation=kwargs['career']).id)
+
+def programs__career(**kwargs):
+    return str(Career.objects.get(abbreviation=kwargs['career']).id)
+
 # Functions used to determine whether a record should make it through
+
 def do_nothing_filter(**kwargs):
     return True
+
+def subjects__filter(**kwargs):
+    return Career.objects.filter(abbreviation=kwargs['career']).exists()
+
+def courses__filter(**kwargs):
+    return int(kwargs['semester']) in [201, 203]
 
 # Configuration to convert the UNSW PostgreSQL dumped data into a dump that is
 # compatible with our application.
@@ -61,6 +75,60 @@ TABLES_TO_EDIT = {
         },
         'alter_columns' : {}, 
         'new_columns' : {},
+        'filter_func' : do_nothing_filter
+    },
+    'subjects' : {
+        'new_table_name' : 'subject',
+        'delete_columns' : ['name', 'eftsload', 'syllabus', 'contacthpw',
+                            'equivalent'],
+        'rename_columns' : {
+            'longname' : 'name',
+            'offeredby' : 'offered_by'
+        },
+        'alter_columns' : {
+            'career' : subjects__career
+        }, 
+        'new_columns' : {},
+        'filter_func' : subjects__filter
+    },
+    'courses' : {
+        'new_table_name' : 'course',
+        'delete_columns' : ['homepage'],
+        'rename_columns' : {},
+        'alter_columns' : {}, 
+        'new_columns' : {},
+        'filter_func' : courses__filter
+    },
+    'program_degrees' : {
+        'new_table_name' : 'degree',
+        'delete_columns' : ['program', 'dtype'],
+        'rename_columns' : {
+            'abbrev' : 'abbreviation'
+        },
+        'alter_columns' : {}, 
+        'new_columns' : {},
+        'filter_func' : do_nothing_filter
+    },
+    'orgunit_groups' : {
+        'new_table_name' : 'org_unit_group',
+        'delete_columns' : [],
+        'rename_columns' : {},
+        'alter_columns' : {}, 
+        'new_columns' : {},
+        'filter_func' : do_nothing_filter
+    },
+    'programs' : {
+        'new_table_name' : 'program',
+        'delete_columns' : ['code', 'uoc', 'duration'],
+        'rename_columns' : {
+            'offeredby' : 'offered_by'
+        },
+        'alter_columns' : {
+            'career' : programs__career
+        }, 
+        'new_columns' : {
+            'degree' : 
+        },
         'filter_func' : do_nothing_filter
     }
 }
