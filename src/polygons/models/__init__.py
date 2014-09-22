@@ -4,3 +4,4 @@ from Career import Career
 from Program import Program
 from Acad_Obj_Group_Type import Acad_Obj_Group_Type
 from Acad_Obj_Group import Acad_Obj_Group
+from Program_Group_Member import Program_Group_Member
