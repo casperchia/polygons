@@ -4,3 +4,6 @@
 *.pdf
 *.out
 *.toc
+
+src/.project
+src/.pydevproject
