@@ -127,9 +127,6 @@ def semesters():
     record = Semester(abbreviation='S2', name='Semester 2')
     records.append(record)
     
-    record = Semester(abbreviation='X1', name='Summer Semester')
-    records.append(record)
-    
     insert_records(records)
 
 def main():
