@@ -11,3 +11,4 @@ class Org_Unit_Group(models.Model):
     
     class Meta:
         app_label = 'polygons'
+        unique_together = ['owner', 'member']
