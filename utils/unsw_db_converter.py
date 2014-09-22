@@ -30,6 +30,9 @@ def acad_obj_groups__enumerated(**kwargs):
 def acad_obj_groups__gtype(**kwargs):
     return str(Acad_Obj_Group_Type.objects.get(name=kwargs['gtype']).id)
 
+def orgunits__utype(**kwargs):
+    return str(Org_Unit_Type.objects.get(name=kwargs['utype']).id)
+
 # Functions used to determine whether a record should make it through
 def do_nothing_filter(**kwargs):
     return True
@@ -49,6 +52,19 @@ TABLES_TO_EDIT = {
         'new_columns' : {
             'enumerated' : acad_obj_groups__enumerated
         },
+        'filter_func' : do_nothing_filter
+    }
+    'orgunits' : {
+        'new_table_name' : 'org_unit',
+        'delete_columns' : ['name', 'unswid', 'phone', 'email', 'website',
+                            'starting', 'ending'],
+        'rename_columns' : {
+            'utype' : 'type'
+        },
+        'alter_columns' : {
+            'utype' : orgunits__utype 
+        }, 
+        'new_columns' : {},
         'filter_func' : do_nothing_filter
     }
 }
