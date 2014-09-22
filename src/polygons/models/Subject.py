@@ -12,8 +12,8 @@ class Subject(models.Model):
     offered_by = models.ForeignKey(Org_Unit, on_delete=models.PROTECT,
                                    null=True)
     career = models.ForeignKey(Career, on_delete=models.PROTECT)
-    acad_obj_group = models.ForeignKey(Acad_Obj_Group, on_delete=models.PROTECT,
-                                       null=True)
+    excluded = models.ForeignKey(Acad_Obj_Group, on_delete=models.PROTECT,
+                                 null=True)
     
     
     class Meta:
