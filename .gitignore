@@ -6,6 +6,3 @@
 *.toc
 
 !doc/unsw_db/*.pdf
-
-src/.project
-src/.pydevproject
