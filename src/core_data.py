@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
 import os
+import django
+
 os.environ['DJANGO_SETTINGS_MODULE'] = 'comp4920.settings'
+django.setup()
 
 from django.db import IntegrityError, transaction
 
@@ -58,34 +61,46 @@ def org_unit_types():
     print 'Inserting Org_Unit_Type records...'
     records = []
     
-    record = Org_Unit_Type(name='University')
+    i = 0
+    
+    record = Org_Unit_Type(id=i, name='University')
+    i += 1
     records.append(record)
     
-    record = Org_Unit_Type(name='Faculty')
+    record = Org_Unit_Type(id=i, name='Faculty')
+    i += 1
     records.append(record)
     
-    record = Org_Unit_Type(name='School')
+    record = Org_Unit_Type(id=i, name='School')
+    i += 1
     records.append(record)
     
-    record = Org_Unit_Type(name='Division')
+    record = Org_Unit_Type(id=i, name='Division')
+    i += 1
     records.append(record)
     
-    record = Org_Unit_Type(name='Department')
+    record = Org_Unit_Type(id=i, name='Department')
+    i += 1
     records.append(record)
     
-    record = Org_Unit_Type(name='Centre')
+    record = Org_Unit_Type(id=i, name='Centre')
+    i += 1
     records.append(record)
     
-    record = Org_Unit_Type(name='Special')
+    record = Org_Unit_Type(id=i, name='Special')
+    i += 1
     records.append(record)
     
-    record = Org_Unit_Type(name='Institute')
+    record = Org_Unit_Type(id=i, name='Institute')
+    i += 1
     records.append(record)
     
-    record = Org_Unit_Type(name='Unit')
+    record = Org_Unit_Type(id=i, name='Unit')
+    i += 1
     records.append(record)
     
-    record = Org_Unit_Type(name='Committee')
+    record = Org_Unit_Type(id=i, name='Committee')
+    i += 1
     records.append(record)
     
     insert_records(records)
