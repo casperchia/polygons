@@ -11,7 +11,6 @@ class Rule(models.Model):
     max = models.PositiveIntegerField(null=True)
     enumeration_type = models.ForeignKey(Enumeration_Type,
                                          on_delete=models.PROTECT, null=True)
-    enumerated = models.BooleanField()
     parent = models.OneToOneField('self', on_delete=models.PROTECT, null=True)
     definition = models.TextField(null=True)
     
