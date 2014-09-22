@@ -8,3 +8,4 @@ from Program_Group_Member import Program_Group_Member
 from Rule_Type import Rule_Type
 from Rule import Rule
 from Stream import Stream
+from Stream_Group_Member import Stream_Group_Member
