@@ -16,3 +16,4 @@ from Subject import Subject
 from Subject_Group_Member import Subject_Group_Member
 from Subject_Prereq import Subject_Prereq
 from Semester import Semester
+from Course import Course
