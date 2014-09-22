@@ -14,3 +14,4 @@ from Stream_Rule import Stream_Rule
 from Stream_Group_Member import Stream_Group_Member
 from Subject import Subject
 from Subject_Group_Member import Subject_Group_Member
+from Subject_Prereq import Subject_Prereq
