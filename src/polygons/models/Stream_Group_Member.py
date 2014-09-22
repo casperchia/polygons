@@ -10,4 +10,4 @@ class Stream_Group_Member(models.Model):
     
     class Meta:
         app_label = 'polygons'
-        unique_together = [stream, acad_obj_group]
+        unique_together = ['stream', 'acad_obj_group']

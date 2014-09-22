@@ -10,4 +10,4 @@ class Subject_Group_Member(models.Model):
     
     class Meta:
         app_label = 'polygons'
-        unique_together = [subject, acad_obj_group]
+        unique_together = ['subject', 'acad_obj_group']

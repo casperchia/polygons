@@ -10,4 +10,4 @@ class Stream_Rule(models.Model):
     
     class Meta:
         app_label = 'polygons'
-        unique_together = [stream, rule]
+        unique_together = ['stream', 'rule']

@@ -10,4 +10,4 @@ class Program_Rule(models.Model):
     
     class Meta:
         app_label = 'polygons'
-        unique_together = [program, rule]
+        unique_together = ['program', 'rule']

@@ -10,4 +10,4 @@ class Course(models.Model):
     
     class Meta:
         app_label = 'polygons'
-        unique_together = [subject, semester]
+        unique_together = ['subject', 'semester']
