@@ -4,6 +4,6 @@ from Career import Career
 from Degree import Degree
 from Program import Program
 from Enumeration_Type import Enumeration_Type
-from Program_Rule import Program_Rule
+from Program_Group_Member import Program_Group_Member
 from Rule_Type import Rule_Type
 from Rule import Rule
