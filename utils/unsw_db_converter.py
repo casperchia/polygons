@@ -22,7 +22,8 @@ UNIQUE_DEGREES = {
     'degrees' : {}
 }
 FILTERED_RECORDS = {
-    'rules' : {}
+    'rules' : {},
+    'subjects' : {}
 }
 
 def die(message):
@@ -76,13 +77,18 @@ def do_nothing_filter(**kwargs):
 def subjects__filter(**kwargs):
     career = Career.objects.filter(abbreviation=kwargs['career']).exists()
     uoc = kwargs['uoc'] != NULL
-    return career and uoc
+    result = career and uoc
+
+    if not result:
+        FILTERED_RECORDS['subjects'][kwargs['id']] = True
+
+    return result
 
 def courses__filter(**kwargs):
     semester = kwargs['semester'] in ['201', '203']
     subject_index = kwargs['python_dump_rep']['subjects']['index'][kwargs['subject']]
     subject = kwargs['python_dump_rep']['subjects']['records'][subject_index]
-    subject = subjects__filter(**{'career':subject['career'],
+    subject = subjects__filter(**{'career':subject['career'],'id':subject['id'],
                                   'uoc':subject['uoc']})
     return semester and subject
 
@@ -135,6 +141,26 @@ def program_rules__filter(**kwargs):
 def stream_rules__filter(**kwargs):
     try:
         FILTERED_RECORDS['rules'][kwargs['rule']]
+        return False
+    except KeyError:
+        return True
+
+def subject_group_members__filter(**kwargs):
+    try:
+        FILTERED_RECORDS['subjects'][kwargs['subject']]
+        return False
+    except KeyError:
+        return True
+
+def subject_prereqs__filter(**kwargs):
+    try:
+        FILTERED_RECORDS['rules'][kwargs['rule']]
+        return False
+    except KeyError:
+        pass
+    
+    try:
+        FILTERED_RECORDS['subjects'][kwargs['subject']]
         return False
     except KeyError:
         return True
@@ -264,7 +290,7 @@ TABLES_TO_EDIT = {
         },
         'alter_columns' : {}, 
         'new_columns' : {},
-        'filter_func' : do_nothing_filter
+        'filter_func' : subject_group_members__filter
     },
     'subject_prereqs' : {
         'new_table_name' : 'polygons_subject_prereq',
@@ -278,7 +304,7 @@ TABLES_TO_EDIT = {
             'career' : subject_prereqs__career
         }, 
         'new_columns' : {},
-        'filter_func' : do_nothing_filter
+        'filter_func' : subject_prereqs__filter
     },
     'program_group_members' : {
         'new_table_name' : 'polygons_program_group_member',
