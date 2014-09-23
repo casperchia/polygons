@@ -26,6 +26,20 @@ def acad_obj_groups__enumerated(**kwargs):
     else:
         return 'f'
 
+def programs__degree(**kwargs):
+    degrees = kwargs['python_dump_rep']['program_degrees']
+    unique_degrees = {}
+    for degree in degrees:
+        try:
+            unique_degrees[degree['abbrev']]
+        except KeyError:
+            unique_degrees[degree['abbrev']] = degree
+
+        if degree['program'] == kwargs['id']:
+            return unique_degrees[degree['abbrev']]['id']
+
+    return r'\N';
+
 # Functions used to alter existing columns
 
 def acad_obj_groups__gtype(**kwargs):
@@ -48,11 +62,36 @@ def subjects__filter(**kwargs):
 def courses__filter(**kwargs):
     return int(kwargs['semester']) in [201, 203]
 
+def program_degrees__filter(**kwargs):
+    records = kwargs['python_dump_rep']['program_degrees']
+
+    unique_names = {}
+    unique_abbreviations = {}
+    for record in records:
+        if record['id'] == kwargs['id']:
+            break
+        unique_names[record['name']] = True
+        unique_abbreviations[record['abbrev']] = True
+
+    try:
+        unique_names[kwargs['name']]
+        return False
+    except KeyError:
+        pass
+
+    try:
+        unique_abbreviations[kwargs['abbrev']]
+        return False
+    except KeyError:
+        pass
+
+    return True
+
 # Configuration to convert the UNSW PostgreSQL dumped data into a dump that is
 # compatible with our application.
 TABLES_TO_EDIT = {
     'acad_object_groups' : {
-        'new_table_name' : 'acad_obj_group',
+        'new_table_name' : 'polygons_acad_obj_group',
         'delete_columns' : ['glogic', 'gdefby', 'negated'],
         'rename_columns' : {
             'gtype' : 'type'
@@ -66,7 +105,7 @@ TABLES_TO_EDIT = {
         'filter_func' : do_nothing_filter
     },
     'orgunits' : {
-        'new_table_name' : 'org_unit',
+        'new_table_name' : 'polygons_org_unit',
         'delete_columns' : ['name', 'unswid', 'phone', 'email', 'website',
                             'starting', 'ending'],
         'rename_columns' : {
@@ -78,7 +117,7 @@ TABLES_TO_EDIT = {
         'filter_func' : do_nothing_filter
     },
     'subjects' : {
-        'new_table_name' : 'subject',
+        'new_table_name' : 'polygons_subject',
         'delete_columns' : ['name', 'eftsload', 'syllabus', 'contacthpw',
                             'equivalent'],
         'rename_columns' : {
@@ -92,7 +131,7 @@ TABLES_TO_EDIT = {
         'filter_func' : subjects__filter
     },
     'courses' : {
-        'new_table_name' : 'course',
+        'new_table_name' : 'polygons_course',
         'delete_columns' : ['homepage'],
         'rename_columns' : {},
         'alter_columns' : {}, 
@@ -100,17 +139,17 @@ TABLES_TO_EDIT = {
         'filter_func' : courses__filter
     },
     'program_degrees' : {
-        'new_table_name' : 'degree',
+        'new_table_name' : 'polygons_degree',
         'delete_columns' : ['program', 'dtype'],
         'rename_columns' : {
             'abbrev' : 'abbreviation'
         },
         'alter_columns' : {}, 
         'new_columns' : {},
-        'filter_func' : do_nothing_filter
+        'filter_func' : program_degrees__filter
     },
     'orgunit_groups' : {
-        'new_table_name' : 'org_unit_group',
+        'new_table_name' : 'polygons_org_unit_group',
         'delete_columns' : [],
         'rename_columns' : {},
         'alter_columns' : {}, 
@@ -118,8 +157,8 @@ TABLES_TO_EDIT = {
         'filter_func' : do_nothing_filter
     },
     'programs' : {
-        'new_table_name' : 'program',
-        'delete_columns' : ['code', 'uoc', 'duration'],
+        'new_table_name' : 'polygons_program',
+        'delete_columns' : ['code', 'uoc', 'duration', 'description'],
         'rename_columns' : {
             'offeredby' : 'offered_by'
         },
@@ -127,7 +166,7 @@ TABLES_TO_EDIT = {
             'career' : programs__career
         }, 
         'new_columns' : {
-            'degree' : 
+            'degree' : programs__degree
         },
         'filter_func' : do_nothing_filter
     }
@@ -180,13 +219,13 @@ def alter_schema(table_name, column_names, delete_column_indices):
     return result%(table_name, column_names)
 
 def alter_record(line, table_name, delete_column_indices,
-                 original_column_names):
+                 original_column_names, python_dump_rep):
     table = TABLES_TO_EDIT[table_name]
     values = line.split(VALUE_DELIMITER)
     original_column_names = original_column_names.split(COLUMN_DELIMITER)
     new_values = []
 
-    original_data = {}
+    original_data = {'python_dump_rep':python_dump_rep}
     for column_name, value in zip(original_column_names, values):
         original_data[column_name] = value
 
@@ -212,9 +251,9 @@ def alter_record(line, table_name, delete_column_indices,
 
     return VALUE_DELIMITER.join(new_values)
 
-def should_write_record(line, table_name, column_names):
+def should_write_record(line, table_name, column_names, python_dump_rep):
     column_names = column_names.split(COLUMN_DELIMITER)
-    original_data = {}
+    original_data = {'python_dump_rep':python_dump_rep}
     table = TABLES_TO_EDIT[table_name]
 
     for column_name, value in zip(column_names, line.split(VALUE_DELIMITER)):
@@ -222,7 +261,7 @@ def should_write_record(line, table_name, column_names):
 
     return table['filter_func'](**original_data)
 
-def convert_db_dump(dump, out_file):
+def convert_db_dump(dump, python_rep, out_file):
     needs_edit = False
 
     for line in dump:
@@ -246,13 +285,39 @@ def convert_db_dump(dump, out_file):
         elif re.search(r'^\\\.$', line):
             needs_edit = False
         elif needs_edit:
-            to_write = should_write_record(line, table_name, column_names)
+            to_write = should_write_record(line, table_name, column_names,
+                python_rep)
             if to_write:
                 line = alter_record(line, table_name, delete_column_indices,
-                    column_names)
+                    column_names, python_rep)
 
         if to_write:
             out_file.write('%s\n'%line)
+
+def gen_python_rep(dump):
+    rep = {}
+    is_data = False
+    table_name = ''
+    column_names = ''
+
+    for line in dump:
+        line = line.strip()
+        match = re.search(r'^COPY ([a-z_]+) \(([a-z_ ,]+)\) FROM stdin;', line)
+        if match:
+            is_data = True
+            (table_name, column_names) = match.groups()
+            column_names = column_names.split(COLUMN_DELIMITER)
+            rep[table_name] = []            
+        elif re.search(r'^\\\.$', line):
+            is_data = False
+        elif is_data:
+            record = {}
+            for column_name, value in zip(column_names, 
+                                          line.split(VALUE_DELIMITER)):
+                record[column_name] = value
+            rep[table_name].append(record)
+
+    return rep
 
 def main():
     if len(sys.argv) != 2:
@@ -264,7 +329,8 @@ def main():
     except (IOError, OSError):
         die('Error: could not read from dump file "%s"!'%sys.argv[1])
 
-    convert_db_dump(dump, sys.stdout)
+    python_rep = gen_python_rep(dump)
+    convert_db_dump(dump, python_rep, sys.stdout)
 
 if __name__ == '__main__':
     main()
