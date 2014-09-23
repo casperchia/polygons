@@ -10,6 +10,7 @@ django.setup()
 
 from polygons.models.Acad_Obj_Group_Type import Acad_Obj_Group_Type
 from polygons.models.Career import Career
+from polygons.models.Rule_Type import Rule_Type
 
 VALUE_DELIMITER = '\t'
 COLUMN_DELIMITER = ', '
@@ -51,6 +52,12 @@ def subjects__career(**kwargs):
 def programs__career(**kwargs):
     return str(Career.objects.get(abbreviation=kwargs['career']).id)
 
+def rules__type(**kwargs):
+    return str(Rule_Type.objects.get(abbreviation=kwargs['type']).id)
+
+def subject_prereqs__career(**kwargs):
+    return str(Career.objects.get(abbreviation=kwargs['career']).id)
+
 # Functions used to determine whether a record should make it through
 
 def do_nothing_filter(**kwargs):
@@ -86,6 +93,9 @@ def program_degrees__filter(**kwargs):
         pass
 
     return True
+
+def rules__filter(**kwargs):
+    return Rule_Type.objects.filter(abbreviation=kwargs['type']).exists()
 
 # Configuration to convert the UNSW PostgreSQL dumped data into a dump that is
 # compatible with our application.
@@ -168,6 +178,48 @@ TABLES_TO_EDIT = {
         'new_columns' : {
             'degree' : programs__degree
         },
+        'filter_func' : do_nothing_filter
+    },
+    'rules' : {
+        'new_table_name' : 'polygons_rule',
+        'delete_columns' : [],
+        'rename_columns' : {
+            'ao_group' : 'acad_obj_group'
+        },
+        'alter_columns' : {
+            'type' : rules__type
+        }, 
+        'new_columns' : {},
+        'filter_func' : rules__filter
+    },
+    'streams' : {
+        'new_table_name' : 'polygons_stream',
+        'delete_columns' : ['offeredby', 'stype', 'description'],
+        'rename_columns' : {},
+        'alter_columns' : {}, 
+        'new_columns' : {},
+        'filter_func' : do_nothing_filter
+    },
+    'subject_group_members' : {
+        'new_table_name' : 'polygons_subject_group_member',
+        'delete_columns' : [],
+        'rename_columns' : {
+            'ao_group' : 'acad_obj_group'
+        },
+        'alter_columns' : {}, 
+        'new_columns' : {},
+        'filter_func' : do_nothing_filter
+    },
+    'subject_prereqs' : {
+        'new_table_name' : 'polygons_subject_prereq',
+        'delete_columns' : [],
+        'rename_columns' : {
+            'ao_group' : 'acad_obj_group'
+        },
+        'alter_columns' : {
+            'career' : subject_prereqs__career
+        }, 
+        'new_columns' : {},
         'filter_func' : do_nothing_filter
     }
 }
