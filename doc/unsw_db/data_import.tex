@@ -1,0 +1,54 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1cm]{geometry}
+\usepackage{color}
+
+\pagenumbering{gobble}
+
+\newenvironment{command}
+   { 
+      \begin{quote}\itshape
+      \color{blue}
+   }
+   { \end{quote} }
+
+\newenvironment{data}
+   { 
+      \begin{quote}\itshape
+      \color{red}
+   }
+   { \end{quote} }
+
+\begin{document}
+
+\section{Introduction}
+
+\begin{command} Note that text in this style denotes commands that need to be
+executed within a console/terminal. \end{command}
+
+\begin{data} Note that text in this style denotes data that should be entered or
+pasted into the instructed file. \end{data}
+
+Replace all mentions of "\$PARENT\_DIR" with the path where your clone of the
+repository will be kept. I.e. not the repo path itself, but it's parent
+directory path.
+
+Replace all mentions of "\$PROJECT\_ROOT" with the path of the repository, e.g.
+it should look something like "\$PARENT\_DIR/polygons/", assuming you haven't
+renamed the directory that the repository was cloned into.
+
+\section{Steps}
+
+\begin{enumerate}
+   \item Untar the UNSW database backup archive.
+   \item Create a clean "polygons" database if need be.
+   \item Ensure "polygons" database is up to date by run running the "manage.py
+         migrate" command then running the core\_data.py script.
+   \item Copy the utils/unsw\_db\_converter.py script into the src/ directory.
+   \item Run the converter script, passing in an argument which is the path to
+         the UNSW database dump file and redirect the output to an .sql file.
+   \item \begin{command} psql polygons -f pathToConvertedDump.sql \end{command}
+   \item Your polygons database should now be filled with the UNSW data.
+\end{enumerate}
+
+\end{document}
