@@ -221,6 +221,42 @@ TABLES_TO_EDIT = {
         }, 
         'new_columns' : {},
         'filter_func' : do_nothing_filter
+    },
+    'program_group_members' : {
+        'new_table_name' : 'polygons_program_group_member',
+        'delete_columns' : [],
+        'rename_columns' : {
+            'ao_group' : 'acad_obj_group'
+        },
+        'alter_columns' : {}, 
+        'new_columns' : {},
+        'filter_func' : do_nothing_filter
+    },
+    'program_rules' : {
+        'new_table_name' : 'polygons_program_rule',
+        'delete_columns' : [],
+        'rename_columns' : {},
+        'alter_columns' : {}, 
+        'new_columns' : {},
+        'filter_func' : do_nothing_filter
+    },
+    'stream_group_members' : {
+        'new_table_name' : 'polygons_stream_group_member',
+        'delete_columns' : [],
+        'rename_columns' : {
+            'ao_group' : 'acad_obj_group'
+        },
+        'alter_columns' : {}, 
+        'new_columns' : {},
+        'filter_func' : do_nothing_filter
+    },
+    'stream_rules' : {
+        'new_table_name' : 'polygons_stream_rule',
+        'delete_columns' : [],
+        'rename_columns' : {},
+        'alter_columns' : {}, 
+        'new_columns' : {},
+        'filter_func' : do_nothing_filter
     }
 }
 
