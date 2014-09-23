@@ -11,9 +11,11 @@ django.setup()
 from polygons.models.Acad_Obj_Group_Type import Acad_Obj_Group_Type
 from polygons.models.Career import Career
 from polygons.models.Rule_Type import Rule_Type
+from polygons.models.Semester import Semester
 
 VALUE_DELIMITER = '\t'
 COLUMN_DELIMITER = ', '
+NULL = r'\N'
 
 def die(message):
     sys.stderr.write('%s\n'%message)
@@ -39,7 +41,7 @@ def programs__degree(**kwargs):
         if degree['program'] == kwargs['id']:
             return unique_degrees[degree['abbrev']]['id']
 
-    return r'\N';
+    return NULL;
 
 # Functions used to alter existing columns
 
@@ -58,16 +60,24 @@ def rules__type(**kwargs):
 def subject_prereqs__career(**kwargs):
     return str(Career.objects.get(abbreviation=kwargs['career']).id)
 
+def courses__semester(**kwargs):
+    if kwargs['semester'] == '201':
+        return str(Semester.objects.get(abbreviation='S1').id)
+    elif kwargs['semester'] == '203':
+        return str(Semester.objects.get(abbreviation='S2').id)
+
 # Functions used to determine whether a record should make it through
 
 def do_nothing_filter(**kwargs):
     return True
 
 def subjects__filter(**kwargs):
-    return Career.objects.filter(abbreviation=kwargs['career']).exists()
+    career = Career.objects.filter(abbreviation=kwargs['career']).exists()
+    uoc = kwargs['uoc'] != NULL
+    return career and uoc
 
 def courses__filter(**kwargs):
-    return int(kwargs['semester']) in [201, 203]
+    return kwargs['semester'] in ['201', '203']
 
 def program_degrees__filter(**kwargs):
     records = kwargs['python_dump_rep']['program_degrees']
@@ -104,7 +114,8 @@ TABLES_TO_EDIT = {
         'new_table_name' : 'polygons_acad_obj_group',
         'delete_columns' : ['glogic', 'gdefby', 'negated'],
         'rename_columns' : {
-            'gtype' : 'type_id'
+            'gtype' : 'type_id',
+            'parent' : 'parent_id'
         },
         'alter_columns' : {
             'gtype' : acad_obj_groups__gtype 
@@ -149,7 +160,9 @@ TABLES_TO_EDIT = {
             'subject' : 'subject_id',
             'semester' : 'semester_id'
         },
-        'alter_columns' : {}, 
+        'alter_columns' : {
+            'semester' : courses__semester
+        }, 
         'new_columns' : {},
         'filter_func' : courses__filter
     },
