@@ -17,6 +17,14 @@ VALUE_DELIMITER = '\t'
 COLUMN_DELIMITER = ', '
 NULL = r'\N'
 
+UNIQUE_DEGREES = {
+    'programs' : {},
+    'degrees' : {}
+}
+FILTERED_RECORDS = {
+    'rules' : {}
+}
+
 def die(message):
     sys.stderr.write('%s\n'%message)
     sys.exit(1)
@@ -30,18 +38,12 @@ def acad_obj_groups__enumerated(**kwargs):
         return 'f'
 
 def programs__degree(**kwargs):
-    degrees = kwargs['python_dump_rep']['program_degrees']
-    unique_degrees = {}
-    for degree in degrees:
-        try:
-            unique_degrees[degree['abbrev']]
-        except KeyError:
-            unique_degrees[degree['abbrev']] = degree
+    try:
+        abbreviation = UNIQUE_DEGREES['programs'][kwargs['id']]
+    except KeyError:
+        return NULL
 
-        if degree['program'] == kwargs['id']:
-            return unique_degrees[degree['abbrev']]['id']
-
-    return NULL;
+    return UNIQUE_DEGREES['degrees'][abbreviation]
 
 # Functions used to alter existing columns
 
@@ -77,10 +79,17 @@ def subjects__filter(**kwargs):
     return career and uoc
 
 def courses__filter(**kwargs):
-    return kwargs['semester'] in ['201', '203']
+    semester = kwargs['semester'] in ['201', '203']
+    subject_index = kwargs['python_dump_rep']['subjects']['index'][kwargs['subject']]
+    subject = kwargs['python_dump_rep']['subjects']['records'][subject_index]
+    subject = subjects__filter(**{'career':subject['career'],
+                                  'uoc':subject['uoc']})
+    return semester and subject
 
 def program_degrees__filter(**kwargs):
-    records = kwargs['python_dump_rep']['program_degrees']
+    records = kwargs['python_dump_rep']['program_degrees']['records']
+
+    UNIQUE_DEGREES['programs'][kwargs['program']] = kwargs['abbrev']
 
     unique_names = {}
     unique_abbreviations = {}
@@ -102,10 +111,33 @@ def program_degrees__filter(**kwargs):
     except KeyError:
         pass
 
+    UNIQUE_DEGREES['degrees'][kwargs['abbrev']] = kwargs['id']
+
     return True
 
 def rules__filter(**kwargs):
-    return Rule_Type.objects.filter(abbreviation=kwargs['type']).exists()
+    rule_type = Rule_Type.objects.filter(abbreviation=kwargs['type']).exists()
+    acad_obj_group = kwargs['ao_group'] != NULL
+    result = rule_type and acad_obj_group
+
+    if not result:
+        FILTERED_RECORDS['rules'][kwargs['id']] = True
+
+    return result
+
+def program_rules__filter(**kwargs):
+    try:
+        FILTERED_RECORDS['rules'][kwargs['rule']]
+        return False
+    except KeyError:
+        return True
+
+def stream_rules__filter(**kwargs):
+    try:
+        FILTERED_RECORDS['rules'][kwargs['rule']]
+        return False
+    except KeyError:
+        return True
 
 # Configuration to convert the UNSW PostgreSQL dumped data into a dump that is
 # compatible with our application.
@@ -268,7 +300,7 @@ TABLES_TO_EDIT = {
         },
         'alter_columns' : {}, 
         'new_columns' : {},
-        'filter_func' : do_nothing_filter
+        'filter_func' : program_rules__filter
     },
     'stream_group_members' : {
         'new_table_name' : 'polygons_stream_group_member',
@@ -290,7 +322,7 @@ TABLES_TO_EDIT = {
         },
         'alter_columns' : {}, 
         'new_columns' : {},
-        'filter_func' : do_nothing_filter
+        'filter_func' : stream_rules__filter
     }
 }
 
@@ -422,6 +454,7 @@ def gen_python_rep(dump):
     table_name = ''
     column_names = ''
 
+    i = 0
     for line in dump:
         line = line.strip()
         match = re.search(r'^COPY ([a-z_]+) \(([a-z_ ,]+)\) FROM stdin;', line)
@@ -429,15 +462,25 @@ def gen_python_rep(dump):
             is_data = True
             (table_name, column_names) = match.groups()
             column_names = column_names.split(COLUMN_DELIMITER)
-            rep[table_name] = []            
+            rep[table_name] = {
+                'records' : [],
+                'index' : {}
+            }
+            i = 0
         elif re.search(r'^\\\.$', line):
             is_data = False
         elif is_data:
             record = {}
+            record_id = ''
             for column_name, value in zip(column_names, 
                                           line.split(VALUE_DELIMITER)):
                 record[column_name] = value
-            rep[table_name].append(record)
+                if column_name == 'id':
+                    record_id = value
+
+            rep[table_name]['records'].append(record)
+            rep[table_name]['index'][record_id] = i
+            i += 1
 
     return rep
 
