@@ -104,7 +104,7 @@ TABLES_TO_EDIT = {
         'new_table_name' : 'polygons_acad_obj_group',
         'delete_columns' : ['glogic', 'gdefby', 'negated'],
         'rename_columns' : {
-            'gtype' : 'type'
+            'gtype' : 'type_id'
         },
         'alter_columns' : {
             'gtype' : acad_obj_groups__gtype 
@@ -119,7 +119,7 @@ TABLES_TO_EDIT = {
         'delete_columns' : ['name', 'unswid', 'phone', 'email', 'website',
                             'starting', 'ending'],
         'rename_columns' : {
-            'utype' : 'type',
+            'utype' : 'type_id',
             'longname' : 'name'
         },
         'alter_columns' : {}, 
@@ -132,7 +132,9 @@ TABLES_TO_EDIT = {
                             'equivalent'],
         'rename_columns' : {
             'longname' : 'name',
-            'offeredby' : 'offered_by'
+            'offeredby' : 'offered_by_id',
+            'career' : 'career_id',
+            'excluded' : 'excluded_id'
         },
         'alter_columns' : {
             'career' : subjects__career
@@ -143,7 +145,10 @@ TABLES_TO_EDIT = {
     'courses' : {
         'new_table_name' : 'polygons_course',
         'delete_columns' : ['homepage'],
-        'rename_columns' : {},
+        'rename_columns' : {
+            'subject' : 'subject_id',
+            'semester' : 'semester_id'
+        },
         'alter_columns' : {}, 
         'new_columns' : {},
         'filter_func' : courses__filter
@@ -161,7 +166,10 @@ TABLES_TO_EDIT = {
     'orgunit_groups' : {
         'new_table_name' : 'polygons_org_unit_group',
         'delete_columns' : [],
-        'rename_columns' : {},
+        'rename_columns' : {
+            'owner' : 'owner_id',
+            'member' : 'member_id'
+        },
         'alter_columns' : {}, 
         'new_columns' : {},
         'filter_func' : do_nothing_filter
@@ -170,13 +178,14 @@ TABLES_TO_EDIT = {
         'new_table_name' : 'polygons_program',
         'delete_columns' : ['code', 'uoc', 'duration', 'description'],
         'rename_columns' : {
-            'offeredby' : 'offered_by'
+            'offeredby' : 'offered_by_id',
+            'career' : 'career_id'
         },
         'alter_columns' : {
             'career' : programs__career
         }, 
         'new_columns' : {
-            'degree' : programs__degree
+            'degree_id' : programs__degree
         },
         'filter_func' : do_nothing_filter
     },
@@ -184,7 +193,8 @@ TABLES_TO_EDIT = {
         'new_table_name' : 'polygons_rule',
         'delete_columns' : [],
         'rename_columns' : {
-            'ao_group' : 'acad_obj_group'
+            'type' : 'type_id',
+            'ao_group' : 'acad_obj_group_id'
         },
         'alter_columns' : {
             'type' : rules__type
@@ -204,7 +214,8 @@ TABLES_TO_EDIT = {
         'new_table_name' : 'polygons_subject_group_member',
         'delete_columns' : [],
         'rename_columns' : {
-            'ao_group' : 'acad_obj_group'
+            'subject' : 'subject_id',
+            'ao_group' : 'acad_obj_group_id'
         },
         'alter_columns' : {}, 
         'new_columns' : {},
@@ -214,7 +225,9 @@ TABLES_TO_EDIT = {
         'new_table_name' : 'polygons_subject_prereq',
         'delete_columns' : [],
         'rename_columns' : {
-            'ao_group' : 'acad_obj_group'
+            'subject' : 'subject_id',
+            'career' : 'career_id',
+            'rule' : 'rule_id'
         },
         'alter_columns' : {
             'career' : subject_prereqs__career
@@ -226,7 +239,8 @@ TABLES_TO_EDIT = {
         'new_table_name' : 'polygons_program_group_member',
         'delete_columns' : [],
         'rename_columns' : {
-            'ao_group' : 'acad_obj_group'
+            'program' : 'program_id',
+            'ao_group' : 'acad_obj_group_id'
         },
         'alter_columns' : {}, 
         'new_columns' : {},
@@ -235,7 +249,10 @@ TABLES_TO_EDIT = {
     'program_rules' : {
         'new_table_name' : 'polygons_program_rule',
         'delete_columns' : [],
-        'rename_columns' : {},
+        'rename_columns' : {
+            'program' : 'program_id',
+            'rule' : 'rule_id'
+        },
         'alter_columns' : {}, 
         'new_columns' : {},
         'filter_func' : do_nothing_filter
@@ -244,7 +261,8 @@ TABLES_TO_EDIT = {
         'new_table_name' : 'polygons_stream_group_member',
         'delete_columns' : [],
         'rename_columns' : {
-            'ao_group' : 'acad_obj_group'
+            'stream' : 'stream_id',
+            'ao_group' : 'acad_obj_group_id'
         },
         'alter_columns' : {}, 
         'new_columns' : {},
@@ -253,7 +271,10 @@ TABLES_TO_EDIT = {
     'stream_rules' : {
         'new_table_name' : 'polygons_stream_rule',
         'delete_columns' : [],
-        'rename_columns' : {},
+        'rename_columns' : {
+            'stream' : 'stream_id',
+            'rule' : 'rule_id'
+        },
         'alter_columns' : {}, 
         'new_columns' : {},
         'filter_func' : do_nothing_filter
