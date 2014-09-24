@@ -40,6 +40,23 @@ renamed the directory that the repository was cloned into.
 
 \section{Steps}
 
+\subsection{Pre-Converted Import (Recommended)}
+
+\begin{enumerate}
+   \item \begin{command} cd \$PROJECT\_ROOT/src \end{command}
+   \item \begin{command} cp ../misc/polygons.tar.bz2 . \end{command}
+   \item \begin{command} tar -xvf polygons.tar.bz2 \end{command}
+   \item \begin{command} dropdb polygons \end{command}
+   \item \begin{command} createdb -U postgres polygons \end{command}
+   \item \begin{command} ./manage.py migrate \end{command}
+   \item Note that the next command should produce some errors (this is expected
+         ), just make sure the error messages all have this message in them:
+         \begin{data} duplicate key value violates unique constraint \end{data}
+   \item \begin{command} psql polygons -f dump.sql >/dev/null \end{command}
+\end{enumerate}
+
+\subsection{Full Conversion Process (Not Recommended)}
+
 \begin{enumerate}
    \item \begin{command} cd \$PROJECT\_ROOT/src \end{command}
    \item \begin{command} cp ../misc/unsw\_db.tar.bz2 . \end{command}
