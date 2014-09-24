@@ -4,6 +4,7 @@
 *.pdf
 *.out
 *.toc
+*.py~
 
 !doc/unsw_db/rules.pdf
 !doc/unsw_db/schema.pdf

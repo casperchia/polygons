@@ -11,9 +11,15 @@
    <body>
     {% if degree_list %}
         <u1>
+        <table>
             {% for degree in degree_list %}
-                <p>{{degree.name}}</p>
+                <tr>
+                    <td>{{degree.pk}}</td>
+                    <td>{{degree.name}}</td>
+                    <td>{{degree.career.name}}</td>
+                </tr>
             {% endfor %}
+        </table>
         </u1>
     {% else %}
         <p> No degrees listed </p>
