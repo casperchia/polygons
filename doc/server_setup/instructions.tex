@@ -2,6 +2,7 @@
 
 \usepackage[margin=1cm]{geometry}
 \usepackage{color}
+\usepackage[T1]{fontenc}
 
 \pagenumbering{gobble}
 
@@ -52,7 +53,7 @@ renamed the directory that the repository was cloned into.
    \item \begin{command} sudo pip install django-lockout \end{command}
    \item \begin{command} sudo apt-get install apache2 \end{command}
    \item Copy the polygons.conf file into /etc/apache2/sites-available/
-   \item \begin{command} sudo apt-get install libapache2-mog-wsgi \end{command}
+   \item \begin{command} sudo apt-get install libapache2-mod-wsgi \end{command}
    \item Add the following line to /etc/apache2/envvars:
          \begin{data}
          export POLYGONS\_ROOT=\$PROJECT\_ROOT/src/
