@@ -3,5 +3,5 @@ from django.contrib import admin
 
 urlpatterns = patterns('polygons.views',
     url(r'^$', 'index'),
-    url(r'^degreeplanner/','degreeplanner'),
+    url(r'^degree_planner/$','degree_planner'),
 )
