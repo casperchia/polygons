@@ -47,7 +47,7 @@ DATABASES = {
         'NAME': 'polygons',
         'USER': 'postgres',
         'PASSWORD': '',
-        'HOST': 'localhost',
+        'HOST': '',
         'PORT': '',
     }
 }
