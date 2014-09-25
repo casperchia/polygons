@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1cm]{geometry}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+
+\pagenumbering{gobble}
+
+\newenvironment{command}
+   { 
+      \begin{quote}\itshape
+      \color{blue}
+   }
+   { \end{quote} }
+
+\newenvironment{data}
+   { 
+      \begin{quote}\itshape
+      \color{red}
+   }
+   { \end{quote} }
+
+\begin{document}
+
+\section{Introduction}
+
+\begin{command} Note that text in this style denotes commands that need to be
+executed within a console/terminal. \end{command}
+
+\begin{data} Note that text in this style denotes data that should be entered or
+pasted into the instructed file. \end{data}
+
+Replace all mentions of "\$PARENT\_DIR" with the path where your clone of the
+repository will be kept. I.e. not the repo path itself, but it's parent
+directory path.
+
+Replace all mentions of "\$PROJECT\_ROOT" with the path of the repository, e.g.
+it should look something like "\$PARENT\_DIR/polygons/", assuming you haven't
+renamed the directory that the repository was cloned into.
+
+\section{Steps}
+
+\subsection{Pre-Converted Import (Recommended)}
+
+\begin{enumerate}
+   \item \begin{command} cd \$PROJECT\_ROOT/src \end{command}
+   \item \begin{command} cp ../misc/polygons.tar.bz2 . \end{command}
+   \item \begin{command} tar -xvf polygons.tar.bz2 \end{command}
+   \item \begin{command} dropdb polygons \end{command}
+   \item \begin{command} createdb -U postgres polygons \end{command}
+   \item \begin{command} ./manage.py migrate \end{command}
+   \item Note that the next command should produce some errors (this is expected
+         ), just make sure the error messages all have this message in them:
+         \begin{data} duplicate key value violates unique constraint \end{data}
+   \item \begin{command} psql polygons -f dump.sql >/dev/null \end{command}
+\end{enumerate}
+
+\subsection{Full Conversion Process (Not Recommended)}
+
+\begin{enumerate}
+   \item \begin{command} cd \$PROJECT\_ROOT/src \end{command}
+   \item \begin{command} cp ../misc/unsw\_db.tar.bz2 . \end{command}
+   \item \begin{command} tar -xvf unsw\_db.tar.bz2 \end{command}
+   \item Skip the next 4 steps if your polygons database is already up to date.
+   \item \begin{command} dropdb polygons \end{command}
+   \item \begin{command} createdb -U postgres polygons \end{command}
+   \item \begin{command} ./manage.py migrate \end{command}
+   \item \begin{command} ./core\_data.py \end{command}
+   \item \begin{command} createdb unsw \end{command}
+   \item \begin{command} psql unsw -f dump.sql \end{command}
+   \item \begin{command} pg\_dump -a -t acad\_object\_groups -t courses -t
+                         program\_degrees -t orgunit\_groups -t orgunits -t
+                         program\_group\_members -t program\_rules -t programs
+                         -t rules -t stream\_group\_members -t stream\_rules -t
+                         streams -t subject\_group\_members -t subject\_prereqs
+                         -t subjects unsw \textgreater unsw\_data\_old.sql \end{command}
+   \item \begin{command} cp ../utils/unsw\_db\_converter.py . \end{command}
+   \item \begin{command} ./unsw\_db\_converter.py unsw\_data\_old.sql
+                         \textgreater unsw\_data\_new.sql\end{command}
+   \item \begin{command} psql polygons -f unsw\_data\_new.sql \end{command}
+\end{enumerate}
+
+\end{document}

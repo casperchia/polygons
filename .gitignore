@@ -5,5 +5,9 @@
 *.out
 *.toc
 
+!doc/unsw_db/rules.pdf
+!doc/unsw_db/schema.pdf
+!doc/unsw_db/ass3-spec.pdf
+
 src/.project
 src/.pydevproject
