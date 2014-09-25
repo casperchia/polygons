@@ -17,13 +17,20 @@ VALUE_DELIMITER = '\t'
 COLUMN_DELIMITER = ', '
 NULL = r'\N'
 
-UNIQUE_DEGREES = {
-    'programs' : {},
-    'degrees' : {}
-}
+UNIQUE_DEGREES = {}
 FILTERED_RECORDS = {
     'rules' : {},
-    'subjects' : {}
+    'subjects' : {},
+    'programs' : {}
+}
+UNIQUE_FIELDS = {
+    'programs' : {
+        'code' : {}
+    },
+    'program_degrees' : {
+        'abbrev' : {},
+        'name' : {}
+    }
 }
 
 def die(message):
@@ -40,11 +47,11 @@ def acad_obj_groups__enumerated(**kwargs):
 
 def programs__degree(**kwargs):
     try:
-        abbreviation = UNIQUE_DEGREES['programs'][kwargs['id']]
+        abbreviation = UNIQUE_DEGREES[kwargs['id']]
     except KeyError:
         return NULL
 
-    return UNIQUE_DEGREES['degrees'][abbreviation]
+    return UNIQUE_FIELDS['program_degrees']['abbrev'][abbreviation]
 
 # Functions used to alter existing columns
 
@@ -95,29 +102,19 @@ def courses__filter(**kwargs):
 def program_degrees__filter(**kwargs):
     records = kwargs['python_dump_rep']['program_degrees']['records']
 
-    UNIQUE_DEGREES['programs'][kwargs['program']] = kwargs['abbrev']
-
-    unique_names = {}
-    unique_abbreviations = {}
-    for record in records:
-        if record['id'] == kwargs['id']:
-            break
-        unique_names[record['name']] = True
-        unique_abbreviations[record['abbrev']] = True
+    UNIQUE_DEGREES[kwargs['program']] = kwargs['abbrev']
 
     try:
-        unique_names[kwargs['name']]
+        UNIQUE_FIELDS['program_degrees']['name'][kwargs['name']]
         return False
     except KeyError:
-        pass
-
+        UNIQUE_FIELDS['program_degrees']['name'][kwargs['name']] = True
+    
     try:
-        unique_abbreviations[kwargs['abbrev']]
+        UNIQUE_FIELDS['program_degrees']['abbrev'][kwargs['abbrev']]
         return False
     except KeyError:
-        pass
-
-    UNIQUE_DEGREES['degrees'][kwargs['abbrev']] = kwargs['id']
+        UNIQUE_FIELDS['program_degrees']['abbrev'][kwargs['abbrev']] = kwargs['id']
 
     return True
 
@@ -161,6 +158,23 @@ def subject_prereqs__filter(**kwargs):
     
     try:
         FILTERED_RECORDS['subjects'][kwargs['subject']]
+        return False
+    except KeyError:
+        return True
+
+def programs__filter(**kwargs):
+    try:
+        UNIQUE_FIELDS['programs']['code'][kwargs['code']]
+        FILTERED_RECORDS['programs'][kwargs['id']] = True
+        return False
+    except KeyError:
+        UNIQUE_FIELDS['programs']['code'][kwargs['code']] = True
+    
+    return True
+
+def program_group_members__filter(**kwargs):
+    try:
+        FILTERED_RECORDS['programs'][kwargs['program']]
         return False
     except KeyError:
         return True
@@ -247,7 +261,7 @@ TABLES_TO_EDIT = {
     },
     'programs' : {
         'new_table_name' : 'polygons_program',
-        'delete_columns' : ['code', 'uoc', 'duration', 'description'],
+        'delete_columns' : ['uoc', 'duration', 'description'],
         'rename_columns' : {
             'offeredby' : 'offered_by_id',
             'career' : 'career_id'
@@ -258,7 +272,7 @@ TABLES_TO_EDIT = {
         'new_columns' : {
             'degree_id' : programs__degree
         },
-        'filter_func' : do_nothing_filter
+        'filter_func' : programs__filter
     },
     'rules' : {
         'new_table_name' : 'polygons_rule',
@@ -315,7 +329,7 @@ TABLES_TO_EDIT = {
         },
         'alter_columns' : {}, 
         'new_columns' : {},
-        'filter_func' : do_nothing_filter
+        'filter_func' : program_group_members__filter
     },
     'program_rules' : {
         'new_table_name' : 'polygons_program_rule',
@@ -525,3 +539,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

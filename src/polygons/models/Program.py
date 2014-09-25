@@ -7,6 +7,7 @@ from Degree import Degree
 class Program(models.Model):
     
     name = models.TextField()
+    code = models.CharField(max_length=4, unique=True)
     offered_by = models.ForeignKey(Org_Unit, on_delete=models.PROTECT,
                                    null=True)
     career = models.ForeignKey(Career, on_delete=models.PROTECT)
