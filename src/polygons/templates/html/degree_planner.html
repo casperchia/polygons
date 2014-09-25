@@ -14,8 +14,11 @@
         <table>
             {% for degree in degree_list %}
                 <tr>
-                    <td>{{degree.pk}}</td>
-                    <td>{{degree.name}}</td>
+                    <td><{{degree.pk}}</td>
+                    <td>
+                        <li><a href="/degree_planner/program/{{degree.pk}}/">       
+                        {{degree.name}}</a></li>
+                    </td>
                     <td>{{degree.career.name}}</td>
                 </tr>
             {% endfor %}
