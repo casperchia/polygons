@@ -5,6 +5,7 @@
 *.out
 *.toc
 *.py~
+*.html~
 
 !doc/unsw_db/rules.pdf
 !doc/unsw_db/schema.pdf
