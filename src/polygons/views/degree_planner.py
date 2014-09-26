@@ -25,7 +25,8 @@ def degree_planner(request):
     # List of degree values
     d_ids = []
     for program in cse_programs :
-        d_ids.append(program.program)
+        if program.program.career.name == 'undergraduate' :
+            d_ids.append(program.program)
        
         
     

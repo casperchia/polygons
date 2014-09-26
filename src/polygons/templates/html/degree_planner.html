@@ -14,7 +14,7 @@
         <table>
             {% for degree in degree_list %}
                 <tr>
-                    <td><{{degree.pk}}</td>
+                    <td>{{degree.code}}</td>
                     <td>
                         <li><a href="/degree_planner/program_details/{{degree.pk}}/">       
                         {{degree.name}}</a></li>
