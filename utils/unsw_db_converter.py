@@ -17,6 +17,24 @@ VALUE_DELIMITER = '\t'
 COLUMN_DELIMITER = ', '
 NULL = r'\N'
 
+TABLE_ORDER = [
+    'acad_object_groups',
+    'rules',
+    'orgunits',
+    'subjects',
+    'program_degrees',
+    'programs',
+    'orgunit_groups',
+    'courses',
+    'program_group_members',
+    'program_rules',
+    'streams',
+    'stream_group_members',
+    'stream_rules',
+    'subject_group_members',
+    'subject_prereqs'
+]
+
 UNIQUE_DEGREES = {}
 FILTERED_RECORDS = {
     'rules' : {},
@@ -28,7 +46,6 @@ UNIQUE_FIELDS = {
         'code' : {}
     },
     'program_degrees' : {
-        'abbrev' : {},
         'name' : {}
     }
 }
@@ -47,11 +64,11 @@ def acad_obj_groups__enumerated(**kwargs):
 
 def programs__degree(**kwargs):
     try:
-        abbreviation = UNIQUE_DEGREES[kwargs['id']]
+        degree_name = UNIQUE_DEGREES[kwargs['id']]
     except KeyError:
         return NULL
 
-    return UNIQUE_FIELDS['program_degrees']['abbrev'][abbreviation]
+    return UNIQUE_FIELDS['program_degrees']['name'][degree_name]
 
 # Functions used to alter existing columns
 
@@ -100,21 +117,13 @@ def courses__filter(**kwargs):
     return semester and subject
 
 def program_degrees__filter(**kwargs):
-    records = kwargs['python_dump_rep']['program_degrees']['records']
-
-    UNIQUE_DEGREES[kwargs['program']] = kwargs['abbrev']
+    UNIQUE_DEGREES[kwargs['program']] = kwargs['name']
 
     try:
         UNIQUE_FIELDS['program_degrees']['name'][kwargs['name']]
         return False
     except KeyError:
-        UNIQUE_FIELDS['program_degrees']['name'][kwargs['name']] = True
-    
-    try:
-        UNIQUE_FIELDS['program_degrees']['abbrev'][kwargs['abbrev']]
-        return False
-    except KeyError:
-        UNIQUE_FIELDS['program_degrees']['abbrev'][kwargs['abbrev']] = kwargs['id']
+        UNIQUE_FIELDS['program_degrees']['name'][kwargs['name']] = kwargs['id']
 
     return True
 
@@ -480,7 +489,7 @@ def convert_db_dump(dump, python_rep, out_file):
             needs_edit = False
         elif needs_edit:
             to_write = should_write_record(line, table_name, column_names,
-                python_rep)
+                                           python_rep)
             if to_write:
                 line = alter_record(line, table_name, delete_column_indices,
                     column_names, python_rep)
@@ -524,6 +533,35 @@ def gen_python_rep(dump):
 
     return rep
 
+def reorder_dump(dump):
+    reordered_dump = []
+    preamble = []
+    in_table = False
+    ordered_tables = {}
+
+    for line in dump:
+        match = re.search(r'^COPY ([a-z_]+) \([a-z_ ,]+\) FROM stdin;', line)
+        if match:
+            table_name = match.groups()[0]
+            ordered_tables[table_name] = []
+            in_table = True
+        elif re.search(r'^SET ', line):
+            preamble.append(line)
+        elif re.search(r'^\\\.$', line):
+            if in_table:
+                ordered_tables[table_name].append(line)    
+            in_table = False
+
+        if in_table:
+            ordered_tables[table_name].append(line)
+
+    reordered_dump += preamble
+
+    for table_name in TABLE_ORDER:
+        reordered_dump += ordered_tables[table_name]
+    
+    return reordered_dump
+
 def main():
     if len(sys.argv) != 2:
         die('Usage: %s dumpFilePath'%sys.argv[0])
@@ -534,6 +572,7 @@ def main():
     except (IOError, OSError):
         die('Error: could not read from dump file "%s"!'%sys.argv[1])
 
+    dump = reorder_dump(dump)
     python_rep = gen_python_rep(dump)
     convert_db_dump(dump, python_rep, sys.stdout)
 
