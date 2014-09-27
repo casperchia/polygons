@@ -56,6 +56,7 @@ UNIQUE_FIELDS = {
         'name' : {}
     }
 }
+PROGRAM_RULES = {}
 
 def die(message):
     sys.stderr.write('%s\n'%message)
@@ -196,6 +197,16 @@ def programs__filter(**kwargs):
         UNIQUE_FIELDS['programs']['code'][kwargs['code']] = True
 
     if not HANDBOOK_CACHE['programs'][kwargs['id']]:
+        FILTERED_RECORDS['programs'][kwargs['id']] = True
+        return False
+
+    if not PROGRAM_RULES:
+        for program_rule in kwargs['python_rep']['program_rules']:
+            PROGRAM_RULES[program_rule['program']] = True
+
+    try:
+        PROGRAM_RULES[kwargs['id']]
+    except KeyError:
         FILTERED_RECORDS['programs'][kwargs['id']] = True
         return False
     
@@ -473,9 +484,9 @@ def alter_record(line, table_name, delete_column_indices, original_column_names)
 
     return VALUE_DELIMITER.join(new_values)
 
-def should_write_record(line, table_name, column_names):
+def should_write_record(line, table_name, column_names, python_rep):
     column_names = column_names.split(COLUMN_DELIMITER)
-    original_data = {}
+    original_data = {'python_rep':python_rep}
     table = TABLES_TO_EDIT[table_name]
 
     for column_name, value in zip(column_names, line.split(VALUE_DELIMITER)):
@@ -483,7 +494,7 @@ def should_write_record(line, table_name, column_names):
 
     return table['filter_func'](**original_data)
 
-def convert_db_dump(dump, out_file):
+def convert_db_dump(dump, out_file, python_rep):
     needs_edit = False
 
     for line in dump:
@@ -507,7 +518,8 @@ def convert_db_dump(dump, out_file):
         elif re.search(r'^\\\.$', line):
             needs_edit = False
         elif needs_edit:
-            to_write = should_write_record(line, table_name, column_names)
+            to_write = should_write_record(line, table_name, column_names,
+                                           python_rep)
             if to_write:
                 line = alter_record(line, table_name, delete_column_indices,
                     column_names)
@@ -630,7 +642,7 @@ def main():
     python_rep = gen_python_rep(dump)
     saturate_handbook_cache()
     dump = reorder_dump(dump)
-    convert_db_dump(dump, sys.stdout)
+    convert_db_dump(dump, sys.stdout, python_rep)
 
 if __name__ == '__main__':
     main()
