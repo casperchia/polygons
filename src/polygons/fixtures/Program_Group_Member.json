@@ -1,0 +1,34 @@
+[
+   {
+      "fields": {
+         "program": 529,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 109
+   },
+   {
+      "fields": {
+         "program": 747,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 110
+   },
+   {
+      "fields": {
+         "program": 554,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 111
+   },
+   {
+      "fields": {
+         "program": 6400,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 118
+   }
+]

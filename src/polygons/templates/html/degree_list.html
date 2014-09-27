@@ -9,11 +9,15 @@
       </title>
    </head>
    <body>
-      <h1>
-         Hello world!
-      </h1>
-      <p>
-         <a href="{% url 'polygons.views.degree_list' %}">Degree Planner</a>
-      </p>
+      <ul>
+         {% for program in programs %}
+         <li>
+         {{ program }} {{ program.id }}
+         </li>
+         {% endfor %}
+      </ul>
    </body>
 </html>
+
+
+

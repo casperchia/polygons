@@ -1,0 +1,11 @@
+[
+  {
+    "model": "polygons.Acad_Obj_Group",
+    "pk": 20382,
+    "fields": {
+      "name": "All CSE Programs",
+      "enumerated": 1,
+      "type": 1 
+    }
+  }
+]

@@ -1,0 +1,106 @@
+[
+  {
+    "model": "polygons.Degree",
+    "pk": 1524,
+    "fields": {
+      "name": "Bachelor of Science",
+      "abbreviation": "BSc"
+    }
+  },
+  {
+    "model": "polygons.Degree",
+    "pk": 1546,
+    "fields": {
+      "name": "Bachelor of Engineering",
+      "abbreviation": "BE"
+    }
+  },
+  {
+   "fields": {
+      "abbreviation": "GradDip",
+      "name": "Graduate Diploma"
+   },
+   "model": "polygons.degree",
+   "pk": 1523
+   },
+   {
+      "fields": {
+         "abbreviation": "GradCert",
+         "name": "Graduate Certificate"
+      },
+      "model": "polygons.degree",
+      "pk": 1532
+   },
+   {
+      "fields": {
+         "abbreviation": "Grad Dip ( Flying)",
+         "name": "Graduate Diploma in Flying"
+      },
+      "model": "polygons.degree",
+      "pk": 1540
+   },
+   {
+      "fields": {
+         "abbreviation": "BE",
+         "name": "Bachelor of Engineering"
+      },
+      "model": "polygons.degree",
+      "pk": 1546
+   },
+   {
+      "fields": {
+         "abbreviation": "NAWD - N/A",
+         "name": "Non-Award - Not Applicable"
+      },
+      "model": "polygons.degree",
+      "pk": 1553
+   },
+   {
+      "fields": {
+         "abbreviation": "BSW",
+         "name": "Bachelor of Social Work"
+      },
+      "model": "polygons.degree",
+      "pk": 1630
+   },
+   {
+      "fields": {
+         "abbreviation": "MEdAdmin",
+         "name": "Master of Educational Administration"
+      },
+      "model": "polygons.degree",
+      "pk": 1644
+   },
+   {
+      "fields": {
+         "abbreviation": "BCom(Co-op)",
+         "name": "Bachelor of Commerce (Co-op)"
+      },
+      "model": "polygons.degree",
+      "pk": 1822
+   },
+   {
+      "fields": {
+         "abbreviation": "MRMed",
+         "name": "Master of Reproductive Medicine"
+      },
+      "model": "polygons.degree",
+      "pk": 1843
+   },
+   {
+      "fields": {
+         "abbreviation": "GradCertDD",
+         "name": "Graduate Certificate in Drug Development"
+      },
+      "model": "polygons.degree",
+      "pk": 1865
+   },
+   {
+      "fields": {
+         "abbreviation": "LLM",
+         "name": "Master of Laws"
+      },
+      "model": "polygons.degree",
+      "pk": 2047
+   }
+]
