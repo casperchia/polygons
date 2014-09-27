@@ -13,5 +13,8 @@ class Program(models.Model):
     career = models.ForeignKey(Career, on_delete=models.PROTECT)
     degree = models.ForeignKey(Degree, on_delete=models.PROTECT, null=True)
     
+    def __unicode__(self):
+        return '%s (%s)'%(self.name, str(self.degree))
+    
     class Meta:
         app_label = 'polygons'
