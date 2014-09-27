@@ -1,0 +1,10 @@
+[
+  {
+    "model": "polygons.Org_Unit",
+    "pk": 89,
+    "fields": {
+      "name": "School of Computer Science and Engineering",
+      "type": 2
+    }
+  }
+]

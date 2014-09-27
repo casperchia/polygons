@@ -1,2 +1,2 @@
 from index import index
-from degree_planner import degree_planner
+from degree_list import degree_list

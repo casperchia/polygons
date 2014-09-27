@@ -17,10 +17,12 @@ from polygons.models.Program_Group_Member import Program_Group_Member
 #WHERE a.id = 20382
 #;
 
+CSE_PLANS_ID = 20382
 
-def degree_planner(request):
+
+def degree_list(request):
     # 89 is the Org_Unit id for Computer Science and Engineering
-    cse_programs = Program_Group_Member.objects.filter(acad_obj_group = '20382')
+    cse_programs = Program_Group_Member.objects.filter(acad_obj_group = CSE_PLANS_ID)
     
     # List of degree values
     d_ids = []

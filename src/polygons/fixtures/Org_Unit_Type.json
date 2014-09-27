@@ -1,0 +1,72 @@
+[
+  {
+    "model": "polygons.Org_Unit_Type",
+    "pk": 0,
+    "fields": {
+      "name": "University"
+    }
+  },
+  {
+    "model": "polygons.Org_Unit_Type",
+    "pk": 1,
+    "fields": {
+      "name": "Faculty"
+    }
+  },
+  {
+    "model": "polygons.Org_Unit_Type",
+    "pk": 2,
+    "fields": {
+      "name": "School"
+    }
+  },
+  {
+    "model": "polygons.Org_Unit_Type",
+    "pk": 3,
+    "fields": {
+      "name": "Division"
+    }
+  },
+  {
+    "model": "polygons.Org_Unit_Type",
+    "pk": 4,
+    "fields": {
+      "name": "Department"
+    }
+  },
+  {
+    "model": "polygons.Org_Unit_Type",
+    "pk": 5,
+    "fields": {
+      "name": "Centre"
+    }
+  },
+  {
+    "model": "polygons.Org_Unit_Type",
+    "pk": 6,
+    "fields": {
+      "name": "Special"
+    }
+  },
+  {
+    "model": "polygons.Org_Unit_Type",
+    "pk": 7,
+    "fields": {
+      "name": "Institute"
+    }
+  },
+  {
+    "model": "polygons.Org_Unit_Type",
+    "pk": 8,
+    "fields": {
+      "name": "Unit"
+    }
+  },
+  {
+    "model": "polygons.Org_Unit_Type",
+    "pk": 9,
+    "fields": {
+      "name": "Committee"
+    }
+  }
+]

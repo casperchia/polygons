@@ -1,0 +1,50 @@
+[
+  {
+    "model": "polygons.Degree",
+    "pk": 1502,
+    "fields": {
+      "name": "Bachelor of Arts",
+      "abbreviation": "BA"
+    }
+  },
+  {
+    "model": "polygons.Degree",
+    "pk": 1524,
+    "fields": {
+      "name": "Bachelor of Science",
+      "abbreviation": "BSc"
+    }
+  },
+  {
+    "model": "polygons.Degree",
+    "pk": 1538,
+    "fields": {
+      "name": "Bachelor of Commerce",
+      "abbreviation": "BCom"
+    }
+  },
+  {
+    "model": "polygons.Degree",
+    "pk": 1546,
+    "fields": {
+      "name": "Bachelor of Engineering",
+      "abbreviation": "BE"
+    }
+  },
+  {
+    "model": "polygons.Degree",
+    "pk": 1706,
+    "fields": {
+      "name": "Master of Biomedical Engineering",
+      "abbreviation": "MBiomedE"
+    }
+  },
+  {
+    "model": "polygons.Degree",
+    "pk": 2027,
+    "fields": {
+      "name": "Bachelor of Digital Media",
+      "abbreviation": "BDM"
+    }
+  }
+]
