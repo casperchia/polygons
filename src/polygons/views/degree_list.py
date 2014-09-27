@@ -34,5 +34,5 @@ def degree_list(request):
     
     #cse_degrees = Degree.objects.filter(pk__in=d_ids)
     context = {'degree_list': d_ids}
-    return render_to_response('html/degree_planner.html', context, 
+    return render_to_response('html/degree_list.html', context, 
         context_instance=RequestContext(request))

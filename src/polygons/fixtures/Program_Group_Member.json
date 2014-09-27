@@ -1,0 +1,138 @@
+[
+   {
+      "fields": {
+         "program": 631,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 538
+   },
+   {
+      "fields": {
+         "program": 529,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 539
+   },
+   {
+      "fields": {
+         "program": 747,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 540
+   },
+   {
+      "fields": {
+         "program": 700,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 541
+   },
+   {
+      "fields": {
+         "program": 704,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 542
+   },
+   {
+      "fields": {
+         "program": 814,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 543
+   },
+   {
+      "fields": {
+         "program": 597,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 544
+   },
+   {
+      "fields": {
+         "program": 658,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 545
+   },
+   {
+      "fields": {
+         "program": 821,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 546
+   },
+   {
+      "fields": {
+         "program": 822,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 547
+   },
+   {
+      "fields": {
+         "program": 823,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 548
+   },
+   {
+      "fields": {
+         "program": 824,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 549
+   },
+   {
+      "fields": {
+         "program": 833,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 550
+   },
+   {
+      "fields": {
+         "program": 554,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 551
+   },
+   {
+      "fields": {
+         "program": 835,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 552
+   },
+   {
+      "fields": {
+         "program": 836,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 553
+   },
+   {
+      "fields": {
+         "program": 6400,
+         "acad_obj_group": 20382
+      },
+      "model": "polygons.program_group_member",
+      "pk": 568
+   }
+]

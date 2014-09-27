@@ -8,7 +8,7 @@ class Test_details_test(TestCase):
     urls = 'comp4920.urls'
     fixtures = ['Acad_Obj_Group_Type.json', 'Acad_Obj_Group.json',
                 'Org_Unit_Type.json', 'Org_Unit.json', 'Career.json',
-                'Degree.json', 'Program.json']
+                'Degree.json', 'Program.json', 'Program_Group_Member.json']
     
     def test_status_code(self):
         url = reverse('polygons.views.degree_list')
