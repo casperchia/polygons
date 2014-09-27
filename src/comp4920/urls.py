@@ -4,5 +4,4 @@ from django.contrib import admin
 urlpatterns = patterns('polygons.views',
     url(r'^$', 'index'),
     url(r'^degree_planner/$','degree_planner'),
-    url(r'^degree_planner/program_details/(?P<program_id>\d+)/$','program_details'),
 )
