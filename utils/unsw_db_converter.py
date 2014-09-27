@@ -16,8 +16,33 @@ from polygons.models.Semester import Semester
 VALUE_DELIMITER = '\t'
 COLUMN_DELIMITER = ', '
 NULL = r'\N'
+CACHE_DELIMITER = ' '
+HANDBOOK_PROGRAMS_CACHE_FILE = 'handbook_programs.txt'
+HANDBOOK_SUBJECTS_CACHE_FILE = 'handbook_subjects.txt'
+
+TABLE_ORDER = [
+    'acad_object_groups',
+    'rules',
+    'orgunits',
+    'subjects',
+    'program_degrees',
+    'programs',
+    'orgunit_groups',
+    'courses',
+    'program_group_members',
+    'program_rules',
+    'streams',
+    'stream_group_members',
+    'stream_rules',
+    'subject_group_members',
+    'subject_prereqs'
+]
 
 UNIQUE_DEGREES = {}
+HANDBOOK_CACHE = {
+    'programs' : {},
+    'subjects' : {}
+}
 FILTERED_RECORDS = {
     'rules' : {},
     'subjects' : {},
@@ -28,7 +53,6 @@ UNIQUE_FIELDS = {
         'code' : {}
     },
     'program_degrees' : {
-        'abbrev' : {},
         'name' : {}
     }
 }
@@ -47,11 +71,11 @@ def acad_obj_groups__enumerated(**kwargs):
 
 def programs__degree(**kwargs):
     try:
-        abbreviation = UNIQUE_DEGREES[kwargs['id']]
+        degree_name = UNIQUE_DEGREES[kwargs['id']]
     except KeyError:
         return NULL
 
-    return UNIQUE_FIELDS['program_degrees']['abbrev'][abbreviation]
+    return UNIQUE_FIELDS['program_degrees']['name'][degree_name]
 
 # Functions used to alter existing columns
 
@@ -84,37 +108,32 @@ def do_nothing_filter(**kwargs):
 def subjects__filter(**kwargs):
     career = Career.objects.filter(abbreviation=kwargs['career']).exists()
     uoc = kwargs['uoc'] != NULL
-    result = career and uoc
+    valid = career and uoc
+    valid = valid and HANDBOOK_CACHE['subjects'][kwargs['id']]
 
-    if not result:
+    if not valid:
         FILTERED_RECORDS['subjects'][kwargs['id']] = True
-
-    return result
+    
+    return valid
 
 def courses__filter(**kwargs):
     semester = kwargs['semester'] in ['201', '203']
-    subject_index = kwargs['python_dump_rep']['subjects']['index'][kwargs['subject']]
-    subject = kwargs['python_dump_rep']['subjects']['records'][subject_index]
-    subject = subjects__filter(**{'career':subject['career'],'id':subject['id'],
-                                  'uoc':subject['uoc']})
+    try:
+        FILTERED_RECORDS['subjects'][kwargs['subject']]
+        subject = False
+    except KeyError:
+        subject = True
+
     return semester and subject
 
 def program_degrees__filter(**kwargs):
-    records = kwargs['python_dump_rep']['program_degrees']['records']
-
-    UNIQUE_DEGREES[kwargs['program']] = kwargs['abbrev']
+    UNIQUE_DEGREES[kwargs['program']] = kwargs['name']
 
     try:
         UNIQUE_FIELDS['program_degrees']['name'][kwargs['name']]
         return False
     except KeyError:
-        UNIQUE_FIELDS['program_degrees']['name'][kwargs['name']] = True
-    
-    try:
-        UNIQUE_FIELDS['program_degrees']['abbrev'][kwargs['abbrev']]
-        return False
-    except KeyError:
-        UNIQUE_FIELDS['program_degrees']['abbrev'][kwargs['abbrev']] = kwargs['id']
+        UNIQUE_FIELDS['program_degrees']['name'][kwargs['name']] = kwargs['id']
 
     return True
 
@@ -131,6 +150,12 @@ def rules__filter(**kwargs):
 def program_rules__filter(**kwargs):
     try:
         FILTERED_RECORDS['rules'][kwargs['rule']]
+        return False
+    except KeyError:
+        pass
+
+    try:
+        FILTERED_RECORDS['programs'][kwargs['program']]
         return False
     except KeyError:
         return True
@@ -169,6 +194,10 @@ def programs__filter(**kwargs):
         return False
     except KeyError:
         UNIQUE_FIELDS['programs']['code'][kwargs['code']] = True
+
+    if not HANDBOOK_CACHE['programs'][kwargs['id']]:
+        FILTERED_RECORDS['programs'][kwargs['id']] = True
+        return False
     
     return True
 
@@ -412,14 +441,13 @@ def alter_schema(table_name, column_names, delete_column_indices):
 
     return result%(table_name, column_names)
 
-def alter_record(line, table_name, delete_column_indices,
-                 original_column_names, python_dump_rep):
+def alter_record(line, table_name, delete_column_indices, original_column_names):
     table = TABLES_TO_EDIT[table_name]
     values = line.split(VALUE_DELIMITER)
     original_column_names = original_column_names.split(COLUMN_DELIMITER)
     new_values = []
 
-    original_data = {'python_dump_rep':python_dump_rep}
+    original_data = {}
     for column_name, value in zip(original_column_names, values):
         original_data[column_name] = value
 
@@ -445,9 +473,9 @@ def alter_record(line, table_name, delete_column_indices,
 
     return VALUE_DELIMITER.join(new_values)
 
-def should_write_record(line, table_name, column_names, python_dump_rep):
+def should_write_record(line, table_name, column_names):
     column_names = column_names.split(COLUMN_DELIMITER)
-    original_data = {'python_dump_rep':python_dump_rep}
+    original_data = {}
     table = TABLES_TO_EDIT[table_name]
 
     for column_name, value in zip(column_names, line.split(VALUE_DELIMITER)):
@@ -455,7 +483,7 @@ def should_write_record(line, table_name, column_names, python_dump_rep):
 
     return table['filter_func'](**original_data)
 
-def convert_db_dump(dump, python_rep, out_file):
+def convert_db_dump(dump, out_file):
     needs_edit = False
 
     for line in dump:
@@ -479,14 +507,42 @@ def convert_db_dump(dump, python_rep, out_file):
         elif re.search(r'^\\\.$', line):
             needs_edit = False
         elif needs_edit:
-            to_write = should_write_record(line, table_name, column_names,
-                python_rep)
+            to_write = should_write_record(line, table_name, column_names)
             if to_write:
                 line = alter_record(line, table_name, delete_column_indices,
-                    column_names, python_rep)
+                    column_names)
 
         if to_write:
             out_file.write('%s\n'%line)
+
+def reorder_dump(dump):
+    reordered_dump = []
+    preamble = []
+    in_table = False
+    ordered_tables = {}
+
+    for line in dump:
+        match = re.search(r'^COPY ([a-z_]+) \([a-z_ ,]+\) FROM stdin;', line)
+        if match:
+            table_name = match.groups()[0]
+            ordered_tables[table_name] = []
+            in_table = True
+        elif re.search(r'^SET ', line):
+            preamble.append(line)
+        elif re.search(r'^\\\.$', line):
+            if in_table:
+                ordered_tables[table_name].append(line)    
+            in_table = False
+
+        if in_table:
+            ordered_tables[table_name].append(line)
+
+    reordered_dump += preamble
+
+    for table_name in TABLE_ORDER:
+        reordered_dump += ordered_tables[table_name]
+    
+    return reordered_dump
 
 def gen_python_rep(dump):
     rep = {}
@@ -502,10 +558,7 @@ def gen_python_rep(dump):
             is_data = True
             (table_name, column_names) = match.groups()
             column_names = column_names.split(COLUMN_DELIMITER)
-            rep[table_name] = {
-                'records' : [],
-                'index' : {}
-            }
+            rep[table_name] = []
             i = 0
         elif re.search(r'^\\\.$', line):
             is_data = False
@@ -518,11 +571,51 @@ def gen_python_rep(dump):
                 if column_name == 'id':
                     record_id = value
 
-            rep[table_name]['records'].append(record)
-            rep[table_name]['index'][record_id] = i
+            rep[table_name].append(record)
             i += 1
 
     return rep
+
+def parallel_handbook_requests(records, cache_key, out_file, base_url):
+    for record in records[5290:]:
+        try:
+            career = Career.objects.get(abbreviation=record['career']).name
+        except Career.DoesNotExist:
+            continue
+        url = base_url%(career, record['code'])
+        result = 1
+        try:
+            urllib2.urlopen(url)
+        except urllib2.HTTPError, e:
+            if e.code == 404:
+                result = 0
+            else:
+                raise e
+
+        out_file.write('%s %d\n'%(record['id'], result))
+
+def saturate_handbook_cache():
+    try:
+        with open(HANDBOOK_PROGRAMS_CACHE_FILE, 'r') as f:
+            programs = f.readlines()
+    except IOError:
+        die('Could not open handbook programs cache file!')
+    
+    for program in programs:
+        program = program.strip()
+        (program_id,result) = program.split(CACHE_DELIMITER)
+        HANDBOOK_CACHE['programs'][program_id] = bool(int(result))
+
+    try:
+        with open(HANDBOOK_SUBJECTS_CACHE_FILE, 'r') as f:
+            subjects = f.readlines()
+    except IOError:
+        die('Could not open handbook subjects cache file!')
+    
+    for subject in subjects:
+        subject = subject.strip()
+        (subject_id,result) = subject.split(CACHE_DELIMITER)
+        HANDBOOK_CACHE['subjects'][subject_id] = bool(int(result))
 
 def main():
     if len(sys.argv) != 2:
@@ -535,7 +628,9 @@ def main():
         die('Error: could not read from dump file "%s"!'%sys.argv[1])
 
     python_rep = gen_python_rep(dump)
-    convert_db_dump(dump, python_rep, sys.stdout)
+    saturate_handbook_cache()
+    dump = reorder_dump(dump)
+    convert_db_dump(dump, sys.stdout)
 
 if __name__ == '__main__':
     main()
