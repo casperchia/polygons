@@ -6,5 +6,125 @@
       "name": "School of Computer Science and Engineering",
       "type": 2
     }
-  }
+  },  
+  {
+   "fields": {
+      "type": 1,
+      "name": "Faculty of Arts and Social Sciences"
+   },
+   "model": "polygons.org_unit",
+   "pk": 31
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Civil and Environmental Engineering"
+      },
+      "model": "polygons.org_unit",
+      "pk": 75
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Education"
+      },
+      "model": "polygons.org_unit",
+      "pk": 103
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Electrical Engineering & Telecommunications"
+      },
+      "model": "polygons.org_unit",
+      "pk": 106
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Law"
+      },
+      "model": "polygons.org_unit",
+      "pk": 165
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Materials Science & Engineering"
+      },
+      "model": "polygons.org_unit",
+      "pk": 176
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Mechanical and Manufacturing Engineering"
+      },
+      "model": "polygons.org_unit",
+      "pk": 180
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Mining Engineering"
+      },
+      "model": "polygons.org_unit",
+      "pk": 195
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Petroleum Engineering"
+      },
+      "model": "polygons.org_unit",
+      "pk": 213
+   },
+   {
+      "fields": {
+         "type": 5,
+         "name": "The Learning Centre"
+      },
+      "model": "polygons.org_unit",
+      "pk": 412
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Photovoltaic and Renewable Engineering"
+      },
+      "model": "polygons.org_unit",
+      "pk": 480
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Aviation"
+      },
+      "model": "polygons.org_unit",
+      "pk": 613
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Women's and Children's Health"
+      },
+      "model": "polygons.org_unit",
+      "pk": 1141
+   },
+   {
+      "fields": {
+         "type": 1,
+         "name": "Australian School of Business"
+      },
+      "model": "polygons.org_unit",
+      "pk": 1278
+   },
+   {
+      "fields": {
+         "type": 2,
+         "name": "School of Physiology and Pharmacology"
+      },
+      "model": "polygons.org_unit",
+      "pk": 1523
+   }
 ]

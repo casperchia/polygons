@@ -42,5 +42,203 @@
       "offered_by": 89,
       "code": "3645"
     }
-  }
+  },
+  {
+   "fields": {
+      "career": 2,
+      "code": "9200",
+      "name": "Law",
+      "degree": 2047,
+      "offered_by": 165
+   },
+   "model": "polygons.program",
+   "pk": 535
+   },
+   {
+      "fields": {
+         "career": 1,
+         "code": "3710",
+         "name": "Mechanical & Manufacturing Eng",
+         "degree": 1546,
+         "offered_by": 180
+      },
+      "model": "polygons.program",
+      "pk": 553
+   },
+   {
+      "fields": {
+         "career": 1,
+         "code": "3140",
+         "name": "Mining Engineering",
+         "degree": 1546,
+         "offered_by": 195
+      },
+      "model": "polygons.program",
+      "pk": 572
+   },
+   {
+      "fields": {
+         "career": 1,
+         "code": "3135",
+         "name": "Materials Science and Eng",
+         "degree": 1546,
+         "offered_by": 176
+      },
+      "model": "polygons.program",
+      "pk": 610
+   },
+   {
+      "fields": {
+         "career": 1,
+         "code": "3045",
+         "name": "Petroleum Engineering",
+         "degree": 1546,
+         "offered_by": 213
+      },
+      "model": "polygons.program",
+      "pk": 627
+   },
+   {
+      "fields": {
+         "career": 1,
+         "code": "3644",
+         "name": "Photonic Engineering",
+         "degree": 1546,
+         "offered_by": 106
+      },
+      "model": "polygons.program",
+      "pk": 777
+   },
+   {
+      "fields": {
+         "career": 1,
+         "code": "3624",
+         "name": "Engineering (Civil Eng w Arch)",
+         "degree": 1546,
+         "offered_by": 75
+      },
+      "model": "polygons.program",
+      "pk": 811
+   },
+   {
+      "fields": {
+         "career": 1,
+         "code": "3657",
+         "name": "Renewable Energy Engineering",
+         "degree": 1546,
+         "offered_by": 480
+      },
+      "model": "polygons.program",
+      "pk": 816
+   },
+   {
+      "fields": {
+         "career": 2,
+         "code": "5740",
+         "name": "Law",
+         "degree": 1523,
+         "offered_by": 165
+      },
+      "model": "polygons.program",
+      "pk": 908
+   },
+   {
+      "fields": {
+         "career": 2,
+         "code": "5536",
+         "name": "Graduate Diploma in Flying",
+         "degree": 1540,
+         "offered_by": 613
+      },
+      "model": "polygons.program",
+      "pk": 6280
+   },
+   {
+      "fields": {
+         "career": 1,
+         "code": "4031",
+         "name": "Social Work",
+         "degree": 1630,
+         "offered_by": 31
+      },
+      "model": "polygons.program",
+      "pk": 6295
+   },
+   {
+      "fields": {
+         "career": 2,
+         "code": "7370",
+         "name": "Drug Development",
+         "degree": 1865,
+         "offered_by": 1523
+      },
+      "model": "polygons.program",
+      "pk": 6389
+   },
+   {
+      "fields": {
+         "career": 1,
+         "code": "3554",
+         "name": "Bachelor of Commerce (Co-op)",
+         "degree": 1822,
+         "offered_by": 1278
+      },
+      "model": "polygons.program",
+      "pk": 6392
+   },
+   {
+      "fields": {
+         "career": 1,
+         "code": "6115",
+         "name": "UNSW Preparation Program 17-19",
+         "degree": 1553,
+         "offered_by": 412
+      },
+      "model": "polygons.program",
+      "pk": 6499
+   },
+   {
+      "fields": {
+         "career": 2,
+         "code": "5508",
+         "name": "Reproductive Medicine",
+         "degree": 1523,
+         "offered_by": 1141
+      },
+      "model": "polygons.program",
+      "pk": 6503
+   },
+   {
+      "fields": {
+         "career": 2,
+         "code": "7379",
+         "name": "Reproductive Medicine",
+         "degree": 1532,
+         "offered_by": 1141
+      },
+      "model": "polygons.program",
+      "pk": 6504
+   },
+   {
+      "fields": {
+         "career": 2,
+         "code": "9065",
+         "name": "Reproductive Medicine",
+         "degree": 1843,
+         "offered_by": 1141
+      },
+      "model": "polygons.program",
+      "pk": 6505
+   },
+   {
+      "fields": {
+         "career": 2,
+         "code": "8960",
+         "name": "Educational Leadership",
+         "degree": 1644,
+         "offered_by": 103
+      },
+      "model": "polygons.program",
+      "pk": 6516
+   }
 ]
