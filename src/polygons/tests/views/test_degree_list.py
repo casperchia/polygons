@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 
 from polygons.views.degree_list import CSE_PLANS_ID
 from polygons.models.Program_Group_Member import Program_Group_Member
+from polygons.models.Program import Program
         
 class Test_details_test(TestCase):
     urls = 'comp4920.urls'
@@ -46,3 +47,9 @@ class Test_details_test(TestCase):
         response = self.client.get(url)
         for program in programs:
             self.assertContains(response, str(program.id), status_code=200)
+            
+        non_cse_programs = Program.objects.all().exclude(id__in=[p.id for p in programs])
+        print 'Test that non-CSE degrees don\'t appear on the page.'
+        response = self.client.get(url)
+        for program in non_cse_programs:
+            self.assertNotContains(response, str(program), status_code=200)
