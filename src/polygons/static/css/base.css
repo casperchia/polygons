@@ -1,0 +1,36 @@
+body {
+	background-color: #EBEBEB;
+	margin-top: 0px;
+	line-height: 14pt;
+	font-size: 10pt;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica,sans-serif;
+	color: #666666;
+}
+
+.mainFrame{
+	width: 800px;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0px 0px 5px 2px #888;
+	background-color:#FFF;
+}
+
+.bannerFrame{
+	width: auto;
+	height: 150px;
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 80px;
+	font-weight: bolder;	
+	margin-left: auto;
+	margin-right: auto;
+	color: #0b5394;
+}
+
+.logo{
+	width: inherit;
+	height: 120px;
+	padding-top: 10px;
+	margin-left: 227px;
+	margin-right: auto;
+}
