@@ -12,28 +12,6 @@
   },
   {
     "model": "polygons.Program",
-    "pk": 836,
-    "fields": {
-      "name": "Science/Computer Science",
-      "career": 1,
-      "degree": 1524,
-      "offered_by": 89,
-      "code": "3983"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 835,
-    "fields": {
-      "name": "Computer Science/Digital Media",
-      "career": 1,
-      "degree": 2027,
-      "offered_by": 89,
-      "code": "3982"
-    }
-  },
-  {
-    "model": "polygons.Program",
     "pk": 554,
     "fields": {
       "name": "Computer Science",
@@ -41,116 +19,6 @@
       "degree": 1524,
       "offered_by": 89,
       "code": "3978"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 833,
-    "fields": {
-      "name": "Computer Science / Arts",
-      "career": 1,
-      "degree": 1502,
-      "offered_by": 89,
-      "code": "3968"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 824,
-    "fields": {
-      "name": "Bioinformatics/Biomed Eng",
-      "career": 1,
-      "degree": 1706,
-      "offered_by": 89,
-      "code": "3757"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 823,
-    "fields": {
-      "name": "Bioinformatics/Arts",
-      "career": 1,
-      "degree": 1502,
-      "offered_by": 89,
-      "code": "3756"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 822,
-    "fields": {
-      "name": "Bioinformatics/Science",
-      "career": 1,
-      "degree": 1546,
-      "offered_by": 89,
-      "code": "3755"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 821,
-    "fields": {
-      "name": "Software Eng/Biomed Eng",
-      "career": 1,
-      "degree": 1706,
-      "offered_by": 89,
-      "code": "3749"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 658,
-    "fields": {
-      "name": "Computer Eng/Biomed Eng",
-      "career": 1,
-      "degree": 1706,
-      "offered_by": 89,
-      "code": "3728"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 597,
-    "fields": {
-      "name": "Computer Engineering/Arts",
-      "career": 1,
-      "degree": 1502,
-      "offered_by": 89,
-      "code": "3722"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 814,
-    "fields": {
-      "name": "Software Engineering/Commerce",
-      "career": 1,
-      "degree": 1538,
-      "offered_by": 89,
-      "code": "3653"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 704,
-    "fields": {
-      "name": "Software Engineering/Arts",
-      "career": 1,
-      "degree": 1502,
-      "offered_by": 89,
-      "code": "3652"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 700,
-    "fields": {
-      "name": "Software Engineering/Science",
-      "career": 1,
-      "degree": 1546,
-      "offered_by": 89,
-      "code": "3651"
     }
   },
   {
@@ -173,17 +41,6 @@
       "degree": 1546,
       "offered_by": 89,
       "code": "3645"
-    }
-  },
-  {
-    "model": "polygons.Program",
-    "pk": 631,
-    "fields": {
-      "name": "Computer Engineering/Science",
-      "career": 1,
-      "degree": 1546,
-      "offered_by": 89,
-      "code": "3726"
     }
   }
 ]
