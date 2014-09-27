@@ -9,24 +9,13 @@
       </title>
    </head>
    <body>
-    {% if degree_list %}
-        <u1>
-        <table>
-            {% for degree in degree_list %}
-                <tr>
-                    <td>{{degree.code}}</td>
-                    <td>
-                        <li><a href="/degree_planner/program_details/{{degree.pk}}/">       
-                        {{degree.name}}</a></li>
-                    </td>
-                    <td>{{degree.career.name}}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        </u1>
-    {% else %}
-        <p> No degrees listed </p>
-    {% endif %}
+      <ul>
+         {% for program in programs %}
+         <li>
+         {{ program }} {{ program.id }}
+         </li>
+         {% endfor %}
+      </ul>
    </body>
 </html>
 
