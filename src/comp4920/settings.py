@@ -41,9 +41,12 @@ ROOT_URLCONF = 'comp4920.urls'
 
 WSGI_APPLICATION = 'comp4920.wsgi.application'
 
-if os.environ['APACHE_RUN_USER'] == 'matt':
-    DB_HOST = '/usr/local/postgresql/pgsql/data'
-else:
+try:
+    if os.environ['APACHE_RUN_USER'] == 'matt':
+        DB_HOST = '/usr/local/postgresql/pgsql/data'
+    else:
+        DB_HOST = ''
+except KeyError:
     DB_HOST = ''
 
 DATABASES = {
