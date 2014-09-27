@@ -1,8 +1,5 @@
-from django.conf.urls import patterns, include, url
-from django.contrib import admin
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('polygons.views',
     url(r'^$', 'index'),
-    url(r'^degree_planner/$','degree_planner'),
-    url(r'^degree_planner/program_details/(?P<program_id>\d+)/$','program_details'),
 )
