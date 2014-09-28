@@ -21,10 +21,16 @@ body {
 	height: 150px;
 	font-family: "Arial Black", Gadget, sans-serif;
 	font-size: 80px;
-	font-weight: bolder;	
+	font-weight: bolder;
 	margin-left: auto;
 	margin-right: auto;
 	color: #0b5394;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-top-color: #999;
+	border-right-color: #999;
+	border-bottom-color: #999;
+	border-left-color: #999;
 }
 
 .logo{
@@ -34,3 +40,23 @@ body {
 	margin-left: 227px;
 	margin-right: auto;
 }
+
+.contentFrame{
+	padding-left: 30px;
+	padding-right:30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-top-color: #999;
+	border-right-color: #999;
+	border-bottom-color: #999;
+	border-left-color: #999;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+}
+
