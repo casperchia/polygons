@@ -9,7 +9,7 @@ body {
 
 .mainFrame{
 	width: 1000px;
-	height: 100%;
+	height: auto;
 	margin-left: auto;
 	margin-right: auto;
 	box-shadow: 0px 0px 5px 2px #888;
@@ -18,34 +18,40 @@ body {
 
 .bannerFrame{
 	width: auto;
-	height: 150px;
-	font-family: "Arial Black", Gadget, sans-serif;
-	font-size: 80px;
-	font-weight: bolder;
+	height: auto;
 	margin-left: auto;
 	margin-right: auto;
-	color: #0b5394;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-top-color: #999;
-	border-right-color: #999;
-	border-bottom-color: #999;
-	border-left-color: #999;
 }
 
 .logo{
 	width: inherit;
 	height: 120px;
 	padding-top: 10px;
-	margin-left: 227px;
+	padding-bottom: 10px;
+	margin-left: 327px;
 	margin-right: auto;
 }
 
-.contentFrame{
-	padding-left: 0px;
-	padding-right:0px;
+.loginFrame{
+	width: auto;
+	float: right;
 	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-right: 10px;
+}
+
+.loginButton{
+	padding: 0 20px;
+	margin-left: 8px;
+	margin-right: 8px;
+	margin-top: 1px;
+	float: left;
+	text-align: center;
+	font-size: 16px;
+	border-radius: 20px;
+	text-decoration:none;
+}
+
+.lineSegment{
 	border-top-style: none;
 	border-right-style: none;
 	border-bottom-style: solid;
@@ -60,28 +66,54 @@ body {
 	border-left-width: 1px;
 }
 
-.leftPanel, .rightPanel{
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	width: 260px;
-	height: 500px;
-	border: solid;
+.contentFrame{
+	width: auto;
+	height: auto;
+	padding: 20px;
 }
 
-.centerPanel{
-	width: 400px;
-	height: 500px;
+.footerFrame{
+	font-size: 12px;
+	width: 1000px;
+	padding: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	border: solid;
+	text-align: center;
 }
 
-.leftPanel{
+
+.mainNavFrame{
+	width:auto;
+	font-family: 'Days One', sans-serif;
+}
+
+.mainNav{
+	width:auto;
+	height:20px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+}
+
+.mainNavButtons{
+	padding-top: 5px;
+	margin-left: 8px;
+	margin-right: 8px;
+	margin-top: 1px;
 	float: left;
+	text-align: center;
+	font-size: 20px;
+	border-radius: 0;
+	text-decoration:none;
+	color: #003e52;
+} .mainNavButtons:hover{
+	background-color: #EBEBEB;
 }
 
-.rightPanel{
-	float: right;
+.searchBox{
+	width: auto;
+	padding-left: 420px;
+}
+
+.smallButton{
+	font-size: 90%;
 }
