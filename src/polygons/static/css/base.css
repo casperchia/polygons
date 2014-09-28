@@ -8,7 +8,7 @@ body {
 }
 
 .mainFrame{
-	width: 800px;
+	width: 1000px;
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -42,8 +42,8 @@ body {
 }
 
 .contentFrame{
-	padding-left: 30px;
-	padding-right:30px;
+	padding-left: 0px;
+	padding-right:0px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-top-style: none;
@@ -60,3 +60,28 @@ body {
 	border-left-width: 1px;
 }
 
+.leftPanel, .rightPanel{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 260px;
+	height: 500px;
+	border: solid;
+}
+
+.centerPanel{
+	width: 400px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	border: solid;
+}
+
+.leftPanel{
+	float: left;
+}
+
+.rightPanel{
+	float: right;
+}
