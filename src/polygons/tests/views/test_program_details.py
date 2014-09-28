@@ -9,13 +9,14 @@ class Test_Program_Details(TestCase):
     urls = 'comp4920.urls'
     fixtures = ['Acad_Obj_Group_Type.json', 'Acad_Obj_Group.json',
                 'Org_Unit_Type.json', 'Org_Unit.json', 'Career.json',
-                'Degree.json', 'Program.json']
+                'Degree.json', 'Program.json', 'Program_Group_Member.json']
     
     def test_status_code(self):
         
         print 'Test that visiting the page produces a 200 status code.'
         program = Program.objects.get(name='Computer Science')
         url = reverse('polygons.views.program_details', args=[program.id])
+        import pdb; pdb.set_trace()
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         
@@ -61,7 +62,7 @@ class Test_Program_Details(TestCase):
         
         print ('Test that trying to view program details for a non-CSE program '
                'redirects back to the degree list page.')
-        program = Program.objects.get(name='Law')
+        program = Program.objects.get(code='5740')
         url = reverse('polygons.views.program_details', args=[program.id])
         response = self.client.get(url)
         expected_url = reverse('polygons.views.degree_list')
@@ -181,7 +182,7 @@ class Test_Program_Details(TestCase):
         
         print ('Test that trying to view program details for a non-CSE program '
                'displays an appropriate error message.')
-        program = Program.objects.get(name='Reproductive Medicine')
+        program = Program.objects.get(code='9065')
         url = reverse('polygons.views.program_details', args=[program.id])
         response = self.client.get(url, follow=True)
         self.assertContains(response, INVALID_DEGREE, status_code=200)
