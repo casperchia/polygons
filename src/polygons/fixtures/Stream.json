@@ -1,0 +1,10 @@
+[
+   {
+      "fields": {
+         "code": "SENGA1",
+         "name": "Software Engineering"
+      },
+      "model": "polygons.stream",
+      "pk": 1275
+   }
+]

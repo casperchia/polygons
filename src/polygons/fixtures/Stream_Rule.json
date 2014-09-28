@@ -1,0 +1,10 @@
+[
+   {
+      "fields": {
+         "rule": 12854,
+         "stream": 1275
+      },
+      "model": "polygons.stream_rule",
+      "pk": 1054
+   }
+]

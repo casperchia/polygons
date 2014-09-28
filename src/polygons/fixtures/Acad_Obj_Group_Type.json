@@ -15,7 +15,7 @@
   },
   {
     "model": "polygons.Acad_Obj_Group_Type",
-    "pk": 1,
+    "pk": 3,
     "fields": {
       "name": "stream"
     }

@@ -22,5 +22,29 @@
       },
       "model": "polygons.rule",
       "pk": 10750
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 1,
+      "max": null,
+      "acad_obj_group": 7832,
+      "type": 7,
+      "name": "Stream Requirement"
+   },
+   "model": "polygons.rule",
+   "pk": 11467
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 24,
+      "max": 24,
+      "acad_obj_group": 3714,
+      "type": 6,
+      "name": "Level 4 Core Courses"
+   },
+   "model": "polygons.rule",
+   "pk": 12854
    }
 ]

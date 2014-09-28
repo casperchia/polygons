@@ -29,5 +29,49 @@
       },
       "model": "polygons.acad_obj_group",
       "pk": 6936
+   },
+   {
+   "fields": {
+      "enumerated": true,
+      "type": 3,
+      "name": "Stream Group for rule Stream Requirements",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 7832
+   },
+   {
+   "fields": {
+      "enumerated": true,
+      "type": 2,
+      "name": "SENGA1-CC-L4",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 3714
+   },
+   {
+   "fields": {
+      "enumerated": false,
+      "type": 2,
+      "name": "Exclusion group",
+      "parent": null,
+      "definition": "BIOM5909,BIOM5960"
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 111675
+   },
+   {
+   "fields": {
+      "enumerated": false,
+      "type": 2,
+      "name": "Exclusion group",
+      "parent": null,
+      "definition": "BINF4920,COMP2920,COMP4920"
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 111677
    }
 ]

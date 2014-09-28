@@ -34,5 +34,29 @@
       },
       "model": "polygons.subject",
       "pk": 2212
+   },
+   {
+   "fields": {
+      "code": "SENG4910",
+      "name": "Thesis Part A",
+      "career": 1,
+      "offered_by": 89,
+      "uoc": 6,
+      "excluded": 111675
+   },
+   "model": "polygons.subject",
+   "pk": 3940
+   },
+   {
+      "fields": {
+         "code": "SENG4921",
+         "name": "Professional Issues and Ethics",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111677
+      },
+      "model": "polygons.subject",
+      "pk": 3942
    }
 ]

@@ -12,7 +12,8 @@ class Test_Program_Details(TestCase):
                 'Org_Unit_Type.json', 'Org_Unit.json', 'Career.json',
                 'Degree.json', 'Program.json', 'Program_Group_Member.json',
                 'Subject.json', 'Rule_Type.json', 'Rule.json',
-                'Program_Rule.json', 'Subject_Group_Member.json']
+                'Program_Rule.json', 'Subject_Group_Member.json',
+                'Stream.json', 'Stream_Group_Member.json', 'Stream_Rule.json']
     
     def test_status_code(self):
         
@@ -132,8 +133,7 @@ class Test_Program_Details(TestCase):
         print 'Testing that the page contains the program text representation.'
         self.assertContains(response, str(program), status_code=200)
         
-        subject_ids = [1862,1864,2212,3007,3931,1865,1866,1867,1868,3028,3036,
-                       10498,10499,1874,1884,1885,10500,3940,3941,3942]
+        subject_ids = [3942,3940]
         for subject in Subject.objects.filter(id__in=subject_ids):
             self.assertContains(response, str(subject), status_code=200)
             self.assertContains(response, subject.id, status_code=200)
