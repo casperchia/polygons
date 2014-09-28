@@ -1,0 +1,18 @@
+[
+   {
+   "fields": {
+      "program": 529,
+      "rule": 10749
+   },
+   "model": "polygons.program_rule",
+   "pk": 267
+   },
+   {
+      "fields": {
+         "program": 529,
+         "rule": 10750
+      },
+      "model": "polygons.program_rule",
+      "pk": 268
+   }
+]

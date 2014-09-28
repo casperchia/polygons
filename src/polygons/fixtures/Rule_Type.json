@@ -1,0 +1,58 @@
+[
+   {
+      "fields": {
+         "abbreviation": "PE",
+         "name": "Program Elective"
+      },
+      "model": "polygons.rule_type",
+      "pk": 1
+   },
+   {
+      "fields": {
+         "abbreviation": "RQ",
+         "name": "Prerequisite"
+      },
+      "model": "polygons.rule_type",
+      "pk": 2
+   },
+   {
+      "fields": {
+         "abbreviation": "RC",
+         "name": "Recommended"
+      },
+      "model": "polygons.rule_type",
+      "pk": 3
+   },
+   {
+      "fields": {
+         "abbreviation": "GE",
+         "name": "General Education"
+      },
+      "model": "polygons.rule_type",
+      "pk": 4
+   },
+   {
+      "fields": {
+         "abbreviation": "FE",
+         "name": "Free Elective"
+      },
+      "model": "polygons.rule_type",
+      "pk": 5
+   },
+   {
+      "fields": {
+         "abbreviation": "CC",
+         "name": "Core Course"
+      },
+      "model": "polygons.rule_type",
+      "pk": 6
+   },
+   {
+      "fields": {
+         "abbreviation": "DS",
+         "name": "Stream"
+      },
+      "model": "polygons.rule_type",
+      "pk": 7
+   }
+]

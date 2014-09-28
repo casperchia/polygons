@@ -11,7 +11,8 @@ class Test_Program_Details(TestCase):
     fixtures = ['Acad_Obj_Group_Type.json', 'Acad_Obj_Group.json',
                 'Org_Unit_Type.json', 'Org_Unit.json', 'Career.json',
                 'Degree.json', 'Program.json', 'Program_Group_Member.json',
-                'Subject.json']
+                'Subject.json', 'Rule_Type.json', 'Rule.json',
+                'Program_Rule.json', 'Subject_Group_Member.json']
     
     def test_status_code(self):
         
@@ -45,7 +46,7 @@ class Test_Program_Details(TestCase):
         
         print ('Test that trying to view program details for a non-CSE program '
                'redirects back to the degree list page.')
-        program = Program.objects.get(name='Mining Engineering')
+        program = Program.objects.get(name='Engineering (Civil Eng w Arch)')
         url = reverse('polygons.views.program_details', args=[program.id])
         response = self.client.get(url)
         expected_url = reverse('polygons.views.degree_list')
@@ -54,7 +55,7 @@ class Test_Program_Details(TestCase):
         
         print ('Test that trying to view program details for a non-CSE program '
                'redirects back to the degree list page.')
-        program = Program.objects.get(name='Petroleum Engineering')
+        program = Program.objects.get(name='Social Work')
         url = reverse('polygons.views.program_details', args=[program.id])
         response = self.client.get(url)
         expected_url = reverse('polygons.views.degree_list')
@@ -63,7 +64,7 @@ class Test_Program_Details(TestCase):
         
         print ('Test that trying to view program details for a non-CSE program '
                'redirects back to the degree list page.')
-        program = Program.objects.get(code='5740')
+        program = Program.objects.get(name='Music')
         url = reverse('polygons.views.program_details', args=[program.id])
         response = self.client.get(url)
         expected_url = reverse('polygons.views.degree_list')
@@ -110,8 +111,7 @@ class Test_Program_Details(TestCase):
         
         print ('Testing that the page contains all the core subjects for the '
                'program.')
-        subject_ids = [1862,1864,2212,1880,1882,1891,2179,2180,1892,1915,1921,
-                       1922,1923,1867,1868,1881,2178,2180,3017,3019]
+        subject_ids = [2212,1882,1880]
         for subject in Subject.objects.filter(id__in=subject_ids):
             self.assertContains(response, str(subject), status_code=200)
             self.assertContains(response, subject.id, status_code=200)
@@ -197,14 +197,14 @@ class Test_Program_Details(TestCase):
         
         print ('Test that trying to view program details for a non-CSE program '
                'displays an appropriate error message.')
-        program = Program.objects.get(name='Drug Development')
+        program = Program.objects.get(name='Music')
         url = reverse('polygons.views.program_details', args=[program.id])
         response = self.client.get(url, follow=True)
         self.assertContains(response, INVALID_DEGREE, status_code=200)
         
         print ('Test that trying to view program details for a non-CSE program '
                'displays an appropriate error message.')
-        program = Program.objects.get(code='9065')
+        program = Program.objects.get(name='Engineering (Civil Eng w Arch)')
         url = reverse('polygons.views.program_details', args=[program.id])
         response = self.client.get(url, follow=True)
         self.assertContains(response, INVALID_DEGREE, status_code=200)

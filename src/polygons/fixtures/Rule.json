@@ -1,0 +1,26 @@
+[
+   {
+      "fields": {
+         "description": null,
+         "min": 36,
+         "max": 36,
+         "acad_obj_group": 6926,
+         "type": 6,
+         "name": "Level 1 core"
+      },
+      "model": "polygons.rule",
+      "pk": 10749
+   },
+   {
+      "fields": {
+         "description": null,
+         "min": 30,
+         "max": 30,
+         "acad_obj_group": 6936,
+         "type": 6,
+         "name": "Level 3 core"
+      },
+      "model": "polygons.rule",
+      "pk": 10750
+   }
+]

@@ -1,0 +1,26 @@
+[
+   {
+      "fields": {
+         "acad_obj_group": 6926,
+         "subject": 2212
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 14961
+   },
+   {
+      "fields": {
+         "acad_obj_group": 6936,
+         "subject": 1880
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 14999
+   },
+   {
+      "fields": {
+         "acad_obj_group": 6936,
+         "subject": 1882
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 15000
+   }
+]
