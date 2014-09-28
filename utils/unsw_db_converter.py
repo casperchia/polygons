@@ -209,6 +209,10 @@ def programs__filter(**kwargs):
     except KeyError:
         FILTERED_RECORDS['programs'][kwargs['id']] = True
         return False
+
+    if kwargs['uoc'] == NULL:
+        FILTERED_RECORDS['programs'][kwargs['id']] = True
+        return False 
     
     return True
 
@@ -301,7 +305,7 @@ TABLES_TO_EDIT = {
     },
     'programs' : {
         'new_table_name' : 'polygons_program',
-        'delete_columns' : ['uoc', 'duration', 'description'],
+        'delete_columns' : ['duration', 'description'],
         'rename_columns' : {
             'offeredby' : 'offered_by_id',
             'career' : 'career_id'
