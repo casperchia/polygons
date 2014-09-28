@@ -5,7 +5,7 @@ from polygons.views.degree_list import CSE_PLANS_ID
 from polygons.models.Program_Group_Member import Program_Group_Member
 from polygons.models.Program import Program
         
-class Test_details_test(TestCase):
+class Test_Degree_List(TestCase):
     urls = 'comp4920.urls'
     fixtures = ['Acad_Obj_Group_Type.json', 'Acad_Obj_Group.json',
                 'Org_Unit_Type.json', 'Org_Unit.json', 'Career.json',
