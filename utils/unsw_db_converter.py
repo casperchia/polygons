@@ -243,11 +243,12 @@ TABLES_TO_EDIT = {
     },
     'orgunits' : {
         'new_table_name' : 'polygons_org_unit',
-        'delete_columns' : ['name', 'unswid', 'phone', 'email', 'website',
-                            'starting', 'ending'],
+        'delete_columns' : ['name', 'phone', 'email', 'website', 'starting',
+                            'ending'],
         'rename_columns' : {
             'utype' : 'type_id',
-            'longname' : 'name'
+            'longname' : 'name',
+            'unswid' : 'code'
         },
         'alter_columns' : {}, 
         'new_columns' : {},
