@@ -6,8 +6,23 @@ from polygons.models.Subject import Subject
 from polygons.models.Acad_Obj_Group import Acad_Obj_Group
 from polygons.models.Subject_Group_Member import Subject_Group_Member
 from polygons.models.Org_Unit_Group import Org_Unit_Group
+from polygons.models.Org_Unit import Org_Unit
 
 import re
+
+def get_faculty(org_unit):
+    org_units = [org_unit]
+    
+    while org_units:
+        curr_org_unit = org_units.pop(0)
+        
+        if curr_org_unit.type == 'Faculty':
+            return curr_org_unit
+        
+        ids = Org_Unit_Group.objects.filter(member=org_unit).values_list('owner', flat=True)
+        org_units += Org_Unit.objects.filter(id__in=ids)
+            
+    return None
 
 def _expand_clean_subject_pattern(pattern, faculty):
     pattern = re.sub(r'[{}]', '', pattern)
@@ -21,16 +36,21 @@ def _expand_clean_subject_pattern(pattern, faculty):
     '''
 
 def _expand_subject_pattern(pattern, faculty):
-    
     match = re.search(r'([^/]+)/F=(!?)([a-zA-Z]+)', pattern)
     if match:
-        (clean_pattern, negation, unswid) = match.groups()
+        (clean_pattern, negation, org_unit_code) = match.groups()
         subjects = _expand_clean_subject_pattern(clean_pattern, faculty)
+        constraint_faculty = get_faculty(Org_Unit.objects.get(code=org_unit_code))
+        subject_ids = []
         if negation:
-            pass
+            for subject in subjects:
+                if get_faculty(subject.offered_by) != constraint_faculty:
+                    subject_ids.append(subject.id)
         else:
-            pass
-        # TODO: Filter out subjects according to negation and unswid
+            for subject in subjects:
+                if get_faculty(subject.offered_by) == constraint_faculty:
+                    subject_ids.append(subject.id)
+        subjects = Subject.objects.filter(id__in=subject_ids)
     elif re.search(r'^!', pattern):
         negated_subjects = _expand_clean_subject_pattern(pattern[1:], faculty)
         subjects = Subject.objects.all().exclude(id__in=negated_subjects.values_list('id', flat=True))
@@ -66,19 +86,6 @@ def expand_subject_rule(rule, faculty):
                                                 faculty)
     
     return subjects
-
-def get_faculty(org_unit):
-    result = None
-    
-    if org_unit.type == 'Faculty':
-        result = org_unit
-    else:
-        for oug in Org_Unit_Group.objects.select_related('owner').filter(member=org_unit):
-            result = get_faculty(oug.owner)
-            if result:
-                break
-        
-    return result
 
 def get_core_subjects(program):
     faculty = get_faculty(program.offered_by)
