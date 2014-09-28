@@ -15,6 +15,8 @@ class Subject(models.Model):
     excluded = models.ForeignKey(Acad_Obj_Group, on_delete=models.PROTECT,
                                  null=True)
     
+    def __unicode__(self):
+        return '%s (%s)'%(self.code, self.name)
     
     class Meta:
         app_label = 'polygons'
