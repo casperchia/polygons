@@ -16,7 +16,6 @@ class Test_Program_Details(TestCase):
         print 'Test that visiting the page produces a 200 status code.'
         program = Program.objects.get(name='Computer Science')
         url = reverse('polygons.views.program_details', args=[program.id])
-        import pdb; pdb.set_trace()
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         
