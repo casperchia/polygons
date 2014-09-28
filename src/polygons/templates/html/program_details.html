@@ -4,13 +4,15 @@
          {{ program }}
       </div>
       <div>
-         {{ program.handbook_link }}
+         <a href="{{ program.handbook_link }}">
+            Handbook Link
+         </a>
       </div>
       <div>
          <ul>
             {% for subject in core_subjects %}
             <li>
-               {{ subject }} { subject.id }}
+               {{ subject }} {{ subject.id }}
             </li>
             {% endfor %}
          </ul>
