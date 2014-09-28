@@ -12,6 +12,7 @@ class Program(models.Model):
                                    null=True)
     career = models.ForeignKey(Career, on_delete=models.PROTECT)
     degree = models.ForeignKey(Degree, on_delete=models.PROTECT, null=True)
+    uoc = models.PositiveIntegerField()
     
     def __unicode__(self):
         return '%s (%s)'%(self.name, str(self.degree))
