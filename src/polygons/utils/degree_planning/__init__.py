@@ -7,8 +7,46 @@ from polygons.models.Acad_Obj_Group import Acad_Obj_Group
 from polygons.models.Subject_Group_Member import Subject_Group_Member
 from polygons.models.Org_Unit_Group import Org_Unit_Group
 
-def expand_subject_pattern(pattern, faculty):
-    pass
+import re
+
+def _expand_clean_subject_pattern(pattern, faculty):
+    pattern = re.sub(r'[{}]', '', pattern)
+    pattern = re.sub(r'#', '.', pattern)
+        
+    '''
+    * Handle !, at the beginning of a normal pattern, or before a faculty constraint
+    * all, ALL, FREE#### = any course that is not a gen-ed
+    * GENG#### = any gen-ed course not in home faculty
+    * REGEX IT!
+    '''
+
+def _expand_subject_pattern(pattern, faculty):
+    
+    match = re.search(r'([^/]+)/F=(!?)([a-zA-Z]+)', pattern)
+    if match:
+        (clean_pattern, negation, unswid) = match.groups()
+        subjects = _expand_clean_subject_pattern(clean_pattern, faculty)
+        if negation:
+            pass
+        else:
+            pass
+        # TODO: Filter out subjects according to negation and unswid
+    elif re.search(r'^!', pattern):
+        negated_subjects = _expand_clean_subject_pattern(pattern[1:], faculty)
+        subjects = Subject.objects.all().exclude(id__in=negated_subjects.values_list('id', flat=True))
+    else:
+        subjects = _expand_clean_subject_pattern(pattern, faculty)
+        
+    return subjects
+
+def expand_subject_patterns(patterns, faculty):
+    subjects = Subject.objects.none()
+    patterns = re.sub(r';', ',', patterns)
+    
+    for pattern in patterns.split(','):
+        subjects += _expand_subject_pattern(pattern, faculty)
+    
+    return subjects
 
 def expand_subject_rule(rule, faculty):
     subjects = Subject.objects.none()
@@ -24,8 +62,8 @@ def expand_subject_rule(rule, faculty):
             subject_ids = Subject_Group_Member.objects.filter(acad_obj_group=acad_obj_group).values_list('subject', flat=True)
             subjects += Subject.objects.filter(id__in=subject_ids)
         else:
-            subjects += expand_subject_pattern(acad_obj_group.definition,
-                                               faculty)
+            subjects += expand_subject_patterns(acad_obj_group.definition,
+                                                faculty)
     
     return subjects
 
