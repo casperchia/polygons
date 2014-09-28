@@ -9,6 +9,15 @@
          </a>
       </div>
       <div>
+         <form method="POST" action="#">
+            {% csrf_token %}
+            <input type="submit" value="Create Plan">
+         </form>
+      </div>
+      <div>
+         <h2>
+            Core Courses
+         </h2>
          <ul>
             {% for subject in core_subjects %}
             <li>
