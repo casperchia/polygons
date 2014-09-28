@@ -9,9 +9,9 @@ from polygons.messages import INVALID_DEGREE
 class Test_Program_Details(TestCase):
     urls = 'comp4920.urls'
     fixtures = ['Acad_Obj_Group_Type.json', 'Acad_Obj_Group.json',
-                'Org_Unit_Type.json', 'Org_Unit.json', 'Org_Unit_Group.json',
-                'Career.json', 'Degree.json', 'Program.json',
-                'Program_Group_Member.json', 'Subject.json']
+                'Org_Unit_Type.json', 'Org_Unit.json', 'Career.json',
+                'Degree.json', 'Program.json', 'Program_Group_Member.json',
+                'Subject.json']
     
     def test_status_code(self):
         
@@ -96,8 +96,6 @@ class Test_Program_Details(TestCase):
         self.assertTemplateNotUsed(response, 'html/home.html')
         
     def test_content(self):
-        
-        import pdb; pdb.set_trace()
         
         print 'Visiting the program details page for Computer Engineering.'
         program = Program.objects.get(name='Computer Engineering')
