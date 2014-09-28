@@ -16,9 +16,12 @@ def program_details(request, program_id):
         messages.error(request, INVALID_DEGREE)
         return HttpResponseRedirect(reverse('polygons.views.degree_list'))
     
+    subjects = get_core_subjects(program)
+    subjects = subjects.order_by('code')
+    
     return render_to_response('html/program_details.html', 
                               {
                                 'program' : program,
-                                'core_subjects' : get_core_subjects(program)
+                                'core_subjects' : subjects
                               }, 
                               context_instance=RequestContext(request))

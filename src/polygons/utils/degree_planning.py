@@ -1,3 +1,5 @@
+from django.db.models import Q
+
 from polygons.models.Program_Rule import Program_Rule
 from polygons.models.Stream_Group_Member import Stream_Group_Member
 from polygons.models.Stream_Rule import Stream_Rule
@@ -9,6 +11,7 @@ from polygons.models.Org_Unit_Group import Org_Unit_Group
 from polygons.models.Org_Unit import Org_Unit
 
 import re
+from itertools import chain
 
 def get_faculty(org_unit):
     org_units = [org_unit]
@@ -16,10 +19,11 @@ def get_faculty(org_unit):
     while org_units:
         curr_org_unit = org_units.pop(0)
         
-        if curr_org_unit.type == 'Faculty':
+        if curr_org_unit.type.name == 'Faculty':
             return curr_org_unit
         
-        ids = Org_Unit_Group.objects.filter(member=org_unit).values_list('owner', flat=True)
+        ids = Org_Unit_Group.objects.filter(~Q(owner=curr_org_unit),
+                                            member=curr_org_unit).values_list('owner', flat=True)
         org_units += Org_Unit.objects.filter(id__in=ids)
             
     return None
@@ -61,26 +65,26 @@ def _expand_subject_pattern(pattern, faculty):
             for subject in subjects:
                 if get_faculty(subject.offered_by) == constraint_faculty:
                     subject_ids.append(subject.id)
-        subjects = Subject.objects.filter(id__in=subject_ids)
+        return subject_ids
     elif re.search(r'^!', pattern):
         negated_subjects = _expand_clean_subject_pattern(pattern[1:], faculty)
         subjects = Subject.objects.all().exclude(id__in=negated_subjects.values_list('id', flat=True))
     else:
         subjects = _expand_clean_subject_pattern(pattern, faculty)
         
-    return subjects
+    return subjects.values_list('id', flat=True)
 
-def expand_subject_patterns(patterns, faculty):
-    subjects = Subject.objects.none()
+def _expand_subject_patterns(patterns, faculty):
+    subjects = []
     patterns = re.sub(r';', ',', patterns)
     
     for pattern in patterns.split(','):
-        subjects += _expand_subject_pattern(pattern, faculty)
+        subjects = list(chain(subjects, _expand_subject_pattern(pattern, faculty)))
     
     return subjects
 
 def expand_subject_rule(rule, faculty):
-    subjects = Subject.objects.none()
+    subject_ids = []
     
     acad_obj_groups = [Acad_Obj_Group.objects.get(id=rule.acad_obj_group.id)]
     curr_acad_obj_group = acad_obj_groups[0]
@@ -90,17 +94,18 @@ def expand_subject_rule(rule, faculty):
     
     for acad_obj_group in acad_obj_groups:
         if acad_obj_group.enumerated:
-            subject_ids = Subject_Group_Member.objects.filter(acad_obj_group=acad_obj_group).values_list('subject', flat=True)
-            subjects += Subject.objects.filter(id__in=subject_ids)
+            member_ids = Subject_Group_Member.objects.filter(acad_obj_group=acad_obj_group).values_list('subject', flat=True)
+            subject_ids = list(chain(subject_ids, member_ids))
         else:
-            subjects += expand_subject_patterns(acad_obj_group.definition,
-                                                faculty)
+            subject_ids = list(chain(subject_ids,
+                                     _expand_subject_patterns(acad_obj_group.definition,
+                                                              faculty)))
     
-    return subjects
+    return subject_ids
 
 def get_core_subjects(program):
     faculty = get_faculty(program.offered_by)
-    subjects = Subject.objects.none()
+    subject_ids = []
     
     program_rules = Program_Rule.objects.filter(program=program).values_list('rule', flat=True)
     core_subject_rules = Rule.objects.filter(id__in=program_rules, type__abbreviation='CC')
@@ -112,9 +117,11 @@ def get_core_subjects(program):
         for stream in [sm.stream for sm in stream_members]:
             stream_rules = Stream_Rule.objects.filter(stream=stream).values_list('rule', flat=True)
         
-        core_subject_rules += Rule.objects.filter(id__in=stream_rules, type__abbreviation='CC')
+        core_subject_rules = list(chain(core_subject_rules, 
+                                        Rule.objects.filter(id__in=stream_rules,
+                                                            type__abbreviation='CC')))
         
     for rule in core_subject_rules:
-        subjects += expand_subject_rule(rule, faculty)
+        subject_ids = list(chain(subject_ids, expand_subject_rule(rule, faculty)))
     
-    return subjects
+    return Subject.objects.filter(id__in=subject_ids)
