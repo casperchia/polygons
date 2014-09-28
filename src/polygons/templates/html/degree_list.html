@@ -3,7 +3,9 @@
       <ul>
          {% for program in programs %}
          <li>
-         {{ program }} {{ program.id }}
+            <a href="{% url 'polygons.views.program_details' program.id %}">
+               {{ program }}
+            </a>
          </li>
          {% endfor %}
       </ul>
