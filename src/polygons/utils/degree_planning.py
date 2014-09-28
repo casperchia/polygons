@@ -27,13 +27,24 @@ def get_faculty(org_unit):
 def _expand_clean_subject_pattern(pattern, faculty):
     pattern = re.sub(r'[{}]', '', pattern)
     pattern = re.sub(r'#', '.', pattern)
+       
+    if pattern in ('all', 'ALL'):
+        subjects = Subject.objects.all().exclude(code__regex=r'^GEN')
+    elif re.search(r'^FREE', pattern):
+        pattern = re.sub(r'^FREE', '....', pattern)
+        subjects = Subject.objects.filter(code__regex=pattern)
+        subjects = subjects.exclude(code__regex=r'^GEN')
+    elif pattern == 'GENG####':
+        subjects = Subject.objects.filter(code__regex=r'^GEN')
+        subject_ids = []
+        for subject in subjects:
+            if get_faculty(subject.offered_by) != faculty:
+                subject_ids.append(subject.id)
+        subjects = Subject.objects.filter(id__in=subject_ids)
+    else:
+        subjects = Subject.objects.filter(code__regex=pattern)
         
-    '''
-    * Handle !, at the beginning of a normal pattern, or before a faculty constraint
-    * all, ALL, FREE#### = any course that is not a gen-ed
-    * GENG#### = any gen-ed course not in home faculty
-    * REGEX IT!
-    '''
+    return subjects
 
 def _expand_subject_pattern(pattern, faculty):
     match = re.search(r'([^/]+)/F=(!?)([a-zA-Z]+)', pattern)
