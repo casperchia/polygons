@@ -1,0 +1,734 @@
+[
+   {
+      "fields": {
+         "code": "BABS1201",
+         "name": "Molecules, Cells and Genes",
+         "career": 1,
+         "offered_by": 17,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1437
+   },
+   {
+      "fields": {
+         "code": "BINF1001",
+         "name": "Bioinformatics 1",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1580
+   },
+   {
+      "fields": {
+         "code": "BINF3010",
+         "name": "Bioinformatics Methods and Applications",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1582
+   },
+   {
+      "fields": {
+         "code": "BINF3020",
+         "name": "Computational Bioinformatics",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1583
+   },
+   {
+      "fields": {
+         "code": "BIOC2201",
+         "name": "Principles of Molecular Biology (Advanced)",
+         "career": 1,
+         "offered_by": 17,
+         "uoc": 6,
+         "excluded": 111421
+      },
+      "model": "polygons.subject",
+      "pk": 1589
+   },
+   {
+      "fields": {
+         "code": "COMP1917",
+         "name": "Computing 1",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 117757
+      },
+      "model": "polygons.subject",
+      "pk": 1862
+   },
+   {
+      "fields": {
+         "code": "COMP1927",
+         "name": "Computing 2",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 118941
+      },
+      "model": "polygons.subject",
+      "pk": 1864
+   },
+   {
+      "fields": {
+         "code": "COMP2041",
+         "name": "Software Construction: Techniques and Tools",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111443
+      },
+      "model": "polygons.subject",
+      "pk": 1865
+   },
+   {
+      "fields": {
+         "code": "COMP2111",
+         "name": "System Modelling and Design",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111444
+      },
+      "model": "polygons.subject",
+      "pk": 1866
+   },
+   {
+      "fields": {
+         "code": "COMP2121",
+         "name": "Microprocessors and Interfacing",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111445
+      },
+      "model": "polygons.subject",
+      "pk": 1867
+   },
+   {
+      "fields": {
+         "code": "COMP2911",
+         "name": "Engineering Design in Computing",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111446
+      },
+      "model": "polygons.subject",
+      "pk": 1868
+   },
+   {
+      "fields": {
+         "code": "COMP3121",
+         "name": "Algorithms and Programming Techniques",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111447
+      },
+      "model": "polygons.subject",
+      "pk": 1872
+   },
+   {
+      "fields": {
+         "code": "COMP3141",
+         "name": "Software System Design and Implementation",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1874
+   },
+   {
+      "fields": {
+         "code": "COMP3211",
+         "name": "Computer Architecture",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1880
+   },
+   {
+      "fields": {
+         "code": "COMP3222",
+         "name": "Digital Circuits and Systems",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111449
+      },
+      "model": "polygons.subject",
+      "pk": 1881
+   },
+   {
+      "fields": {
+         "code": "COMP3231",
+         "name": "Operating Systems",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1882
+   },
+   {
+      "fields": {
+         "code": "COMP3311",
+         "name": "Database Systems",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111450
+      },
+      "model": "polygons.subject",
+      "pk": 1884
+   },
+   {
+      "fields": {
+         "code": "COMP3331",
+         "name": "Computer Networks and Applications",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111452
+      },
+      "model": "polygons.subject",
+      "pk": 1885
+   },
+   {
+      "fields": {
+         "code": "COMP3601",
+         "name": "Design Project A",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1891
+   },
+   {
+      "fields": {
+         "code": "COMP3711",
+         "name": "Software Project Management",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111773
+      },
+      "model": "polygons.subject",
+      "pk": 1892
+   },
+   {
+      "fields": {
+         "code": "COMP4601",
+         "name": "Design Project B",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1915
+   },
+   {
+      "fields": {
+         "code": "COMP4920",
+         "name": "Professional Issues and Ethics",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 3,
+         "excluded": 111461
+      },
+      "model": "polygons.subject",
+      "pk": 1921
+   },
+   {
+      "fields": {
+         "code": "COMP4930",
+         "name": "Thesis Part A",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1922
+   },
+   {
+      "fields": {
+         "code": "COMP4931",
+         "name": "Thesis Part B",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1923
+   },
+   {
+      "fields": {
+         "code": "ELEC1111",
+         "name": "Electrical and Telecommunications Engineering",
+         "career": 1,
+         "offered_by": 106,
+         "uoc": 6,
+         "excluded": 117769
+      },
+      "model": "polygons.subject",
+      "pk": 2178
+   },
+   {
+      "fields": {
+         "code": "ELEC2133",
+         "name": "Analogue Electronics",
+         "career": 1,
+         "offered_by": 106,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 2179
+   },
+   {
+      "fields": {
+         "code": "ELEC2134",
+         "name": "Circuits and Signals",
+         "career": 1,
+         "offered_by": 106,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 2180
+   },
+   {
+      "fields": {
+         "code": "ENGG1000",
+         "name": "Introduction to Engineering Design and Innovation",
+         "career": 1,
+         "offered_by": 112,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 2212
+   },
+   {
+      "fields": {
+         "code": "MATH1081",
+         "name": "Discrete Mathematics",
+         "career": 1,
+         "offered_by": 177,
+         "uoc": 6,
+         "excluded": 117919
+      },
+      "model": "polygons.subject",
+      "pk": 3007
+   },
+   {
+      "fields": {
+         "code": "MATH2069",
+         "name": "Mathematics 2A",
+         "career": 1,
+         "offered_by": 177,
+         "uoc": 6,
+         "excluded": 111557
+      },
+      "model": "polygons.subject",
+      "pk": 3017
+   },
+   {
+      "fields": {
+         "code": "MATH2099",
+         "name": "Mathematics 2B",
+         "career": 1,
+         "offered_by": 177,
+         "uoc": 6,
+         "excluded": 111559
+      },
+      "model": "polygons.subject",
+      "pk": 3019
+   },
+   {
+      "fields": {
+         "code": "MATH2400",
+         "name": "Finite Mathematics",
+         "career": 1,
+         "offered_by": 177,
+         "uoc": 3,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 3028
+   },
+   {
+      "fields": {
+         "code": "MATH2859",
+         "name": "Probability, Statistics and Information",
+         "career": 1,
+         "offered_by": 177,
+         "uoc": 3,
+         "excluded": 111574
+      },
+      "model": "polygons.subject",
+      "pk": 3036
+   },
+   {
+      "fields": {
+         "code": "SENG1031",
+         "name": "Software Engineering Workshop 1",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111668
+      },
+      "model": "polygons.subject",
+      "pk": 3931
+   },
+   {
+      "fields": {
+         "code": "SENG4910",
+         "name": "Thesis Part A",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111675
+      },
+      "model": "polygons.subject",
+      "pk": 3940
+   },
+   {
+      "fields": {
+         "code": "SENG4911",
+         "name": "Thesis Part B",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 12,
+         "excluded": 111676
+      },
+      "model": "polygons.subject",
+      "pk": 3941
+   },
+   {
+      "fields": {
+         "code": "SENG4921",
+         "name": "Professional Issues and Ethics",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111677
+      },
+      "model": "polygons.subject",
+      "pk": 3942
+   },
+   {
+      "fields": {
+         "code": "BABS3121",
+         "name": "Molecular Biology of Nucleic Acids",
+         "career": 1,
+         "offered_by": 17,
+         "uoc": 6,
+         "excluded": 111406
+      },
+      "model": "polygons.subject",
+      "pk": 7808
+   },
+   {
+      "fields": {
+         "code": "SENG2011",
+         "name": "Software Engineering Workshop 2A",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111670
+      },
+      "model": "polygons.subject",
+      "pk": 10498
+   },
+   {
+      "fields": {
+         "code": "SENG2021",
+         "name": "Software Engineering Workshop 2B",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111672
+      },
+      "model": "polygons.subject",
+      "pk": 10499
+   },
+   {
+      "fields": {
+         "code": "SENG3011",
+         "name": "Software Engineering Workshop 3",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111674
+      },
+      "model": "polygons.subject",
+      "pk": 10500
+   },
+   {
+   "fields": {
+      "code": "BIOC4109",
+      "name": "Genetics Honours (PT)",
+      "career": 1,
+      "offered_by": 17,
+      "uoc": 12,
+      "excluded": null
+   },
+   "model": "polygons.subject",
+   "pk": 1601
+   },
+   {
+      "fields": {
+         "code": "CHEM3998",
+         "name": "Special Project in Chemistry 2",
+         "career": 1,
+         "offered_by": 71,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1810
+   },
+   {
+      "fields": {
+         "code": "PSYC4053",
+         "name": "Psychology 4A",
+         "career": 1,
+         "offered_by": 229,
+         "uoc": 24,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 3593
+   },
+   {
+      "fields": {
+         "code": "ACCT5998",
+         "name": "Project Seminar",
+         "career": 2,
+         "offered_by": 4,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 4553
+   },
+   {
+      "fields": {
+         "code": "SOLA9915",
+         "name": "Project Report",
+         "career": 2,
+         "offered_by": 480,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 6439
+   },
+   {
+      "fields": {
+         "code": "PHYS3610",
+         "name": "Computational Physics",
+         "career": 1,
+         "offered_by": 217,
+         "uoc": 3,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 7356
+   },
+   {
+      "fields": {
+         "code": "ARTS3638",
+         "name": "Learning Japanese through Manga and Anime",
+         "career": 1,
+         "offered_by": 197,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 7700
+   },
+   {
+      "fields": {
+         "code": "FINS5581",
+         "name": "Empirical Methodology in Corporate Finance",
+         "career": 2,
+         "offered_by": 49,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 10297
+   },
+   {
+      "fields": {
+         "code": "OPTM7444",
+         "name": "Business Skills in Optometry",
+         "career": 2,
+         "offered_by": 208,
+         "uoc": 12,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 10323
+   },
+   {
+      "fields": {
+         "code": "IEST7500",
+         "name": "Fundamentals in Engineering for Environmental Management",
+         "career": 2,
+         "offered_by": 117,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 10327
+   },
+   {
+      "fields": {
+         "code": "GEOS3071",
+         "name": "Life on a Dynamic Earth",
+         "career": 1,
+         "offered_by": 53,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 10328
+   },
+   {
+      "fields": {
+         "code": "CVEN4308",
+         "name": "Structural Dynamics",
+         "career": 1,
+         "offered_by": 75,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 10329
+   },
+   {
+      "fields": {
+         "code": "SOMA2752",
+         "name": "CGI Pre-visualisation and Layout for Media Production",
+         "career": 1,
+         "offered_by": 1146,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 10335
+   },
+   {
+      "fields": {
+         "code": "FINS2101",
+         "name": "Industrial Training Experience 1 (Co-op)",
+         "career": 1,
+         "offered_by": 49,
+         "uoc": 12,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 10337
+   },
+   {
+      "fields": {
+         "code": "ZBUS2207",
+         "name": "Governing Australia: Managing in the Public Sector",
+         "career": 1,
+         "offered_by": 1208,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 10338
+   },
+   {
+      "fields": {
+         "code": "SAED3492",
+         "name": "Design and Technology: Curriculum and Pedagogy",
+         "career": 1,
+         "offered_by": 30,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 10339
+   },
+   {
+      "fields": {
+         "code": "ACCT2101",
+         "name": "Industrial Training Experience 1 (Co-op)",
+         "career": 1,
+         "offered_by": 4,
+         "uoc": 12,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 10341
+   },
+   {
+      "fields": {
+         "code": "ARTS4616",
+         "name": "Theatre & Performance Studies Honours",
+         "career": 1,
+         "offered_by": 113,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 11739
+   },
+   {
+      "fields": {
+         "code": "ARTS4837",
+         "name": "Linguistics Honours",
+         "career": 1,
+         "offered_by": null,
+         "uoc": 24,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 11790
+   },
+   {
+      "fields": {
+         "code": "MUSC4012",
+         "name": "Music Honours",
+         "career": 1,
+         "offered_by": 113,
+         "uoc": 24,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 11834
+   }
+]
