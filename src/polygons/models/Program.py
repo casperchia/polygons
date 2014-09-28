@@ -19,7 +19,7 @@ class Program(models.Model):
     
     @property
     def handbook_link(self):
-        return 'http://www.handbook.unsw.edu.au/%s/programs/2015/%s.html'%(
+        return 'http://www.handbook.unsw.edu.au/%s/programs/2013/%s.html'%(
                     self.career.name, self.code)
     
     class Meta:
