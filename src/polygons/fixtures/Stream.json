@@ -6,5 +6,13 @@
       },
       "model": "polygons.stream",
       "pk": 1275
+   },
+   {
+   "fields": {
+      "code": "COMPE1",
+      "name": "Electronic Commerce"
+   },
+   "model": "polygons.stream",
+   "pk": 309
    }
 ]

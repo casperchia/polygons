@@ -46,5 +46,53 @@
    },
    "model": "polygons.rule",
    "pk": 12854
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 1,
+      "max": null,
+      "acad_obj_group": 4063,
+      "type": 7,
+      "name": "Stream Reqts"
+   },
+   "model": "polygons.rule",
+   "pk": 10379
+   },
+   {
+      "fields": {
+         "description": null,
+         "min": 18,
+         "max": 18,
+         "acad_obj_group": 4067,
+         "type": 6,
+         "name": "Level 2 core"
+      },
+      "model": "polygons.rule",
+      "pk": 10386
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 6,
+      "max": 6,
+      "acad_obj_group": 2454,
+      "type": 6,
+      "name": "DB core"
+   },
+   "model": "polygons.rule",
+   "pk": 12477
+   },
+   {
+      "fields": {
+         "description": null,
+         "min": 18,
+         "max": null,
+         "acad_obj_group": 2456,
+         "type": 1,
+         "name": "DB elect"
+      },
+      "model": "polygons.rule",
+      "pk": 12478
    }
 ]

@@ -22,5 +22,21 @@
    },
    "model": "polygons.program_rule",
    "pk": 684
+   },
+   {
+   "fields": {
+      "program": 554,
+      "rule": 10379
+   },
+   "model": "polygons.program_rule",
+   "pk": 40
+   },
+   {
+      "fields": {
+         "program": 554,
+         "rule": 10386
+      },
+      "model": "polygons.program_rule",
+      "pk": 45
    }
 ]

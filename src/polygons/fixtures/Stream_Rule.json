@@ -6,5 +6,21 @@
       },
       "model": "polygons.stream_rule",
       "pk": 1054
+   },
+   {
+   "fields": {
+      "rule": 12477,
+      "stream": 309
+   },
+   "model": "polygons.stream_rule",
+   "pk": 693
+   },
+   {
+      "fields": {
+         "rule": 12478,
+         "stream": 309
+      },
+      "model": "polygons.stream_rule",
+      "pk": 694
    }
 ]
