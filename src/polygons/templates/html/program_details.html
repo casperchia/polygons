@@ -1,0 +1,29 @@
+{% extends "html/base.html" %}
+      {% block body %}
+      <div>
+         {{ program }}
+      </div>
+      <div>
+         <a href="{{ program.handbook_link }}" target="_blank">
+            Handbook Link
+         </a>
+      </div>
+      <div>
+         <form method="POST" action="#">
+            {% csrf_token %}
+            <input type="submit" value="Create Plan">
+         </form>
+      </div>
+      <div>
+         <h2>
+            Core Courses
+         </h2>
+         <ul>
+            {% for subject in core_subjects %}
+            <li>
+               {{ subject }} {{ subject.id }}
+            </li>
+            {% endfor %}
+         </ul>
+      </div>
+      {% endblock %}

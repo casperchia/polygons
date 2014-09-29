@@ -1,0 +1,42 @@
+[
+   {
+      "fields": {
+         "rule": 12854,
+         "stream": 1275
+      },
+      "model": "polygons.stream_rule",
+      "pk": 1054
+   },
+   {
+   "fields": {
+      "rule": 12477,
+      "stream": 309
+   },
+   "model": "polygons.stream_rule",
+   "pk": 693
+   },
+   {
+      "fields": {
+         "rule": 12478,
+         "stream": 309
+      },
+      "model": "polygons.stream_rule",
+      "pk": 694
+   },
+   {
+   "fields": {
+      "rule": 12837,
+      "stream": 172
+   },
+   "model": "polygons.stream_rule",
+   "pk": 1038
+   },
+   {
+   "fields": {
+      "rule": 12836,
+      "stream": 172
+   },
+   "model": "polygons.stream_rule",
+   "pk": 1037
+   }
+]

@@ -1,0 +1,26 @@
+[
+   {
+   "fields": {
+      "acad_obj_group": 7832,
+      "stream": 1275
+   },
+   "model": "polygons.stream_group_member",
+   "pk": 3595
+   },
+   {
+   "fields": {
+      "acad_obj_group": 4063,
+      "stream": 309
+   },
+   "model": "polygons.stream_group_member",
+   "pk": 682
+   },
+   {
+   "fields": {
+      "acad_obj_group": 7810,
+      "stream": 172
+   },
+   "model": "polygons.stream_group_member",
+   "pk": 3385
+   }
+]

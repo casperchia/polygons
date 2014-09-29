@@ -1,0 +1,90 @@
+[
+   {
+      "fields": {
+         "acad_obj_group": 6926,
+         "subject": 2212
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 14961
+   },
+   {
+      "fields": {
+         "acad_obj_group": 6936,
+         "subject": 1880
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 14999
+   },
+   {
+      "fields": {
+         "acad_obj_group": 6936,
+         "subject": 1882
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 15000
+   },
+   {
+   "fields": {
+      "acad_obj_group": 3714,
+      "subject": 3940
+   },
+   "model": "polygons.subject_group_member",
+   "pk": 5230
+   },
+   {
+      "fields": {
+         "acad_obj_group": 3714,
+         "subject": 3942
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 5232
+   },
+   {
+   "fields": {
+      "acad_obj_group": 2456,
+      "subject": 1935
+   },
+   "model": "polygons.subject_group_member",
+   "pk": 2147
+   },
+   {
+      "fields": {
+         "acad_obj_group": 2454,
+         "subject": 1884
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 18791
+   },
+   {
+   "fields": {
+      "acad_obj_group": 4067,
+      "subject": 1865
+   },
+   "model": "polygons.subject_group_member",
+   "pk": 5762
+   },
+   {
+      "fields": {
+         "acad_obj_group": 4067,
+         "subject": 1867
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 5763
+   },
+   {
+   "fields": {
+      "acad_obj_group": 7849,
+      "subject": 1583
+   },
+   "model": "polygons.subject_group_member",
+   "pk": 19494
+   },
+   {
+      "fields": {
+         "acad_obj_group": 7850,
+         "subject": 1922
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 19497
+   }
+]

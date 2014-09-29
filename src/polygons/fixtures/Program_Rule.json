@@ -1,0 +1,50 @@
+[
+   {
+   "fields": {
+      "program": 529,
+      "rule": 10749
+   },
+   "model": "polygons.program_rule",
+   "pk": 267
+   },
+   {
+      "fields": {
+         "program": 529,
+         "rule": 10750
+      },
+      "model": "polygons.program_rule",
+      "pk": 268
+   },
+   {
+   "fields": {
+      "program": 6400,
+      "rule": 11467
+   },
+   "model": "polygons.program_rule",
+   "pk": 684
+   },
+   {
+   "fields": {
+      "program": 554,
+      "rule": 10379
+   },
+   "model": "polygons.program_rule",
+   "pk": 40
+   },
+   {
+      "fields": {
+         "program": 554,
+         "rule": 10386
+      },
+      "model": "polygons.program_rule",
+      "pk": 45
+   },
+   {
+   "fields": {
+      "program": 747,
+      "rule": 10359
+   },
+   "model": "polygons.program_rule",
+   "pk": 34
+   }
+]

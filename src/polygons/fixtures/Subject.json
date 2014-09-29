@@ -1,0 +1,134 @@
+[
+   {
+      "fields": {
+         "code": "COMP3211",
+         "name": "Computer Architecture",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1880
+   },
+   {
+      "fields": {
+         "code": "COMP3231",
+         "name": "Operating Systems",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1882
+   },
+   {
+      "fields": {
+         "code": "ENGG1000",
+         "name": "Introduction to Engineering Design and Innovation",
+         "career": 1,
+         "offered_by": 112,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 2212
+   },
+   {
+   "fields": {
+      "code": "SENG4910",
+      "name": "Thesis Part A",
+      "career": 1,
+      "offered_by": 89,
+      "uoc": 6,
+      "excluded": 111675
+   },
+   "model": "polygons.subject",
+   "pk": 3940
+   },
+   {
+      "fields": {
+         "code": "SENG4921",
+         "name": "Professional Issues and Ethics",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111677
+      },
+      "model": "polygons.subject",
+      "pk": 3942
+   },
+   {
+   "fields": {
+      "code": "COMP3311",
+      "name": "Database Systems",
+      "career": 1,
+      "offered_by": 89,
+      "uoc": 6,
+      "excluded": 111450
+   },
+   "model": "polygons.subject",
+   "pk": 1884
+   },
+   {
+      "fields": {
+         "code": "COMP9321",
+         "name": "Web Applications Engineering",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 117239
+      },
+      "model": "polygons.subject",
+      "pk": 1935
+   },
+   {
+   "fields": {
+      "code": "COMP2041",
+      "name": "Software Construction: Techniques and Tools",
+      "career": 1,
+      "offered_by": 89,
+      "uoc": 6,
+      "excluded": 111443
+   },
+   "model": "polygons.subject",
+   "pk": 1865
+   },
+   {
+      "fields": {
+         "code": "COMP2121",
+         "name": "Microprocessors and Interfacing",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": 111445
+      },
+      "model": "polygons.subject",
+      "pk": 1867
+   },
+   {
+   "fields": {
+      "code": "BINF3020",
+      "name": "Computational Bioinformatics",
+      "career": 1,
+      "offered_by": 89,
+      "uoc": 6,
+      "excluded": null
+   },
+   "model": "polygons.subject",
+   "pk": 1583
+   },
+   {
+      "fields": {
+         "code": "COMP4930",
+         "name": "Thesis Part A",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1922
+   }
+]

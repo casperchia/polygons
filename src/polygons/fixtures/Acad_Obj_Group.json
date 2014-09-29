@@ -7,5 +7,192 @@
       "enumerated": 1,
       "type": 1 
     }
-  }
+  },
+  {
+   "fields": {
+      "enumerated": true,
+      "type": 2,
+      "name": "3645-A-CC-L1",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 6926
+   },
+   {
+      "fields": {
+         "enumerated": true,
+         "type": 2,
+         "name": "3645-A-CC-L3",
+         "parent": null,
+         "definition": null
+      },
+      "model": "polygons.acad_obj_group",
+      "pk": 6936
+   },
+   {
+   "fields": {
+      "enumerated": true,
+      "type": 3,
+      "name": "Stream Group for rule Stream Requirements",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 7832
+   },
+   {
+   "fields": {
+      "enumerated": true,
+      "type": 2,
+      "name": "SENGA1-CC-L4",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 3714
+   },
+   {
+   "fields": {
+      "enumerated": false,
+      "type": 2,
+      "name": "Exclusion group",
+      "parent": null,
+      "definition": "BIOM5909,BIOM5960"
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 111675
+   },
+   {
+   "fields": {
+      "enumerated": false,
+      "type": 2,
+      "name": "Exclusion group",
+      "parent": null,
+      "definition": "BINF4920,COMP2920,COMP4920"
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 111677
+   },
+   {
+   "fields": {
+      "enumerated": true,
+      "type": 2,
+      "name": "COMPE1-CC-ElectronicCommerceCore",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 2454
+   },
+   {
+      "fields": {
+         "enumerated": true,
+         "type": 2,
+         "name": "COMPE1-PE-ElectronicCommerceElectives",
+         "parent": null,
+         "definition": null
+      },
+      "model": "polygons.acad_obj_group",
+      "pk": 2456
+   },
+   {
+   "fields": {
+      "enumerated": false,
+      "type": 2,
+      "name": "Exclusion group",
+      "parent": null,
+      "definition": "COMP9311,INFS5992,INFS4810,INFS4831,INFS4833,INFS4854,INFS5831,INFS3608,INFS5926"
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 111450
+   },
+   {
+   "fields": {
+      "enumerated": false,
+      "type": 2,
+      "name": "Exclusion group",
+      "parent": null,
+      "definition": "COMP9316,COMP9031"
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 117239
+   },
+   {
+   "fields": {
+      "enumerated": false,
+      "type": 2,
+      "name": "Exclusion group",
+      "parent": null,
+      "definition": "COMP9041"
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 111443
+   },
+   {
+   "fields": {
+      "enumerated": false,
+      "type": 2,
+      "name": "Exclusion group",
+      "parent": null,
+      "definition": "COMP2821,ELEC2041,COMP3221,COMP9032,COMP9221,COMP9282"
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 111445
+   },
+   {
+   "fields": {
+      "enumerated": true,
+      "type": 3,
+      "name": "Stream Group for Stream Rule - 3978",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 4063
+   },
+   {
+   "fields": {
+      "enumerated": true,
+      "type": 2,
+      "name": "3978-A-CC-L2",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 4067
+   },
+   {
+   "fields": {
+      "enumerated": true,
+      "type": 3,
+      "name": "Stream Group for rule Stream Requirements",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 7810
+   },
+   {
+   "fields": {
+      "enumerated": true,
+      "type": 2,
+      "name": "BINFA1-CC-L3",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 7849
+   },
+   {
+   "fields": {
+      "enumerated": true,
+      "type": 2,
+      "name": "BINFA1-CC-L4",
+      "parent": null,
+      "definition": null
+   },
+   "model": "polygons.acad_obj_group",
+   "pk": 7850
+   }
 ]

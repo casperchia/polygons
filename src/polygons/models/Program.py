@@ -17,5 +17,10 @@ class Program(models.Model):
     def __unicode__(self):
         return '%s (%s)'%(self.name, str(self.degree))
     
+    @property
+    def handbook_link(self):
+        return 'http://www.handbook.unsw.edu.au/%s/programs/2013/%s.html'%(
+                    self.career.name, self.code)
+    
     class Meta:
         app_label = 'polygons'

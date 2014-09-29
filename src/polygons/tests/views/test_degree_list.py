@@ -1,8 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from polygons.views.degree_list import CSE_PLANS_ID
-from polygons.models.Program_Group_Member import Program_Group_Member
+from polygons.utils.views import get_cse_programs
 from polygons.models.Program import Program
         
 class Test_Degree_List(TestCase):
@@ -39,7 +38,7 @@ class Test_Degree_List(TestCase):
         
         print 'Test that all CSE degree text representations exist on the page.'
         response = self.client.get(url)
-        programs = [pgm.program for pgm in Program_Group_Member.objects.filter(acad_obj_group=CSE_PLANS_ID).select_related('program')]
+        programs = get_cse_programs()
         for program in programs:
             self.assertContains(response, str(program), status_code=200)
             

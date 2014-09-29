@@ -1,0 +1,1 @@
+INVALID_DEGREE = 'You have specified an invalid degree.'

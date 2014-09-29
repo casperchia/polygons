@@ -1,0 +1,134 @@
+[
+   {
+      "fields": {
+         "description": null,
+         "min": 36,
+         "max": 36,
+         "acad_obj_group": 6926,
+         "type": 6,
+         "name": "Level 1 core"
+      },
+      "model": "polygons.rule",
+      "pk": 10749
+   },
+   {
+      "fields": {
+         "description": null,
+         "min": 30,
+         "max": 30,
+         "acad_obj_group": 6936,
+         "type": 6,
+         "name": "Level 3 core"
+      },
+      "model": "polygons.rule",
+      "pk": 10750
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 1,
+      "max": null,
+      "acad_obj_group": 7832,
+      "type": 7,
+      "name": "Stream Requirement"
+   },
+   "model": "polygons.rule",
+   "pk": 11467
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 24,
+      "max": 24,
+      "acad_obj_group": 3714,
+      "type": 6,
+      "name": "Level 4 Core Courses"
+   },
+   "model": "polygons.rule",
+   "pk": 12854
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 1,
+      "max": null,
+      "acad_obj_group": 4063,
+      "type": 7,
+      "name": "Stream Reqts"
+   },
+   "model": "polygons.rule",
+   "pk": 10379
+   },
+   {
+      "fields": {
+         "description": null,
+         "min": 18,
+         "max": 18,
+         "acad_obj_group": 4067,
+         "type": 6,
+         "name": "Level 2 core"
+      },
+      "model": "polygons.rule",
+      "pk": 10386
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 6,
+      "max": 6,
+      "acad_obj_group": 2454,
+      "type": 6,
+      "name": "DB core"
+   },
+   "model": "polygons.rule",
+   "pk": 12477
+   },
+   {
+      "fields": {
+         "description": null,
+         "min": 18,
+         "max": null,
+         "acad_obj_group": 2456,
+         "type": 1,
+         "name": "DB elect"
+      },
+      "model": "polygons.rule",
+      "pk": 12478
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 1,
+      "max": null,
+      "acad_obj_group": 7810,
+      "type": 7,
+      "name": "Stream Requirement"
+   },
+   "model": "polygons.rule",
+   "pk": 10359
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 36,
+      "max": 36,
+      "acad_obj_group": 7849,
+      "type": 6,
+      "name": "Level 3 Core Courses"
+   },
+   "model": "polygons.rule",
+   "pk": 12837
+   },
+   {
+   "fields": {
+      "description": null,
+      "min": 12,
+      "max": 12,
+      "acad_obj_group": 7850,
+      "type": 6,
+      "name": "Level 4 Core Courses"
+   },
+   "model": "polygons.rule",
+   "pk": 12836
+   }
+]

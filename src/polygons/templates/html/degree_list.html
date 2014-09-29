@@ -1,23 +1,12 @@
-{% load staticfiles %}
-<!doctype html>
-<html>
-   <head>
-      <meta charset="utf-8">
-            <link href="{% static "css/base.css" %}" rel="stylesheet" type="text/css">
-      <title>
-         Test
-      </title>
-   </head>
-   <body>
+{% extends "html/base.html" %}
+      {% block body %}
       <ul>
          {% for program in programs %}
          <li>
-         {{ program }} {{ program.id }}
+            <a href="{% url 'polygons.views.program_details' program.id %}">
+               {{ program }}
+            </a>
          </li>
          {% endfor %}
       </ul>
-   </body>
-</html>
-
-
-
+      {% endblock %}
