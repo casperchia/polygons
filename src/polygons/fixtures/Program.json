@@ -1,0 +1,266 @@
+[
+  {
+   "fields": {
+      "code": "3645",
+      "name": "Computer Engineering",
+      "degree": 1546,
+      "career": 1,
+      "offered_by": 89,
+      "uoc": 192
+   },
+   "model": "polygons.program",
+   "pk": 529
+   },
+   {
+      "fields": {
+         "code": "3978",
+         "name": "Computer Science",
+         "degree": 1524,
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 144
+      },
+      "model": "polygons.program",
+      "pk": 554
+   },
+   {
+      "fields": {
+         "code": "3647",
+         "name": "Bioinformatics",
+         "degree": 1546,
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 747
+   },
+   {
+      "fields": {
+         "code": "3648",
+         "name": "Software Engineering",
+         "degree": 1546,
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 6400
+   },
+   {
+   "fields": {
+      "code": "9200",
+      "name": "Law",
+      "degree": 2047,
+      "career": 2,
+      "offered_by": 165,
+      "uoc": 48
+   },
+   "model": "polygons.program",
+   "pk": 535
+   },
+   {
+      "fields": {
+         "code": "3710",
+         "name": "Mechanical & Manufacturing Eng",
+         "degree": 1546,
+         "career": 1,
+         "offered_by": 180,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 553
+   },
+   {
+      "fields": {
+         "code": "3140",
+         "name": "Mining Engineering",
+         "degree": 1546,
+         "career": 1,
+         "offered_by": 195,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 572
+   },
+   {
+      "fields": {
+         "code": "3135",
+         "name": "Materials Science and Eng",
+         "degree": 1546,
+         "career": 1,
+         "offered_by": 176,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 610
+   },
+   {
+      "fields": {
+         "code": "3045",
+         "name": "Petroleum Engineering",
+         "degree": 1546,
+         "career": 1,
+         "offered_by": 213,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 627
+   },
+   {
+      "fields": {
+         "code": "3644",
+         "name": "Photonic Engineering",
+         "degree": 1546,
+         "career": 1,
+         "offered_by": 106,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 777
+   },
+   {
+      "fields": {
+         "code": "3624",
+         "name": "Engineering (Civil Eng w Arch)",
+         "degree": 1546,
+         "career": 1,
+         "offered_by": 75,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 811
+   },
+   {
+      "fields": {
+         "code": "3657",
+         "name": "Renewable Energy Engineering",
+         "degree": 1546,
+         "career": 1,
+         "offered_by": 480,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 816
+   },
+   {
+      "fields": {
+         "code": "5740",
+         "name": "Law",
+         "degree": 1523,
+         "career": 2,
+         "offered_by": 165,
+         "uoc": 36
+      },
+      "model": "polygons.program",
+      "pk": 908
+   },
+   {
+      "fields": {
+         "code": "5536",
+         "name": "Graduate Diploma in Flying",
+         "degree": 1540,
+         "career": 2,
+         "offered_by": 613,
+         "uoc": 48
+      },
+      "model": "polygons.program",
+      "pk": 6280
+   },
+   {
+      "fields": {
+         "code": "4031",
+         "name": "Social Work",
+         "degree": 1630,
+         "career": 1,
+         "offered_by": 31,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 6295
+   },
+   {
+      "fields": {
+         "code": "7370",
+         "name": "Drug Development",
+         "degree": 1865,
+         "career": 2,
+         "offered_by": 1523,
+         "uoc": 24
+      },
+      "model": "polygons.program",
+      "pk": 6389
+   },
+   {
+      "fields": {
+         "code": "3554",
+         "name": "Bachelor of Commerce (Co-op)",
+         "degree": 1822,
+         "career": 1,
+         "offered_by": 1278,
+         "uoc": 192
+      },
+      "model": "polygons.program",
+      "pk": 6392
+   },
+   {
+      "fields": {
+         "code": "6115",
+         "name": "UNSW Preparation Program 17-19",
+         "degree": 1553,
+         "career": 1,
+         "offered_by": 412,
+         "uoc": 36
+      },
+      "model": "polygons.program",
+      "pk": 6499
+   },
+   {
+      "fields": {
+         "code": "5508",
+         "name": "Reproductive Medicine",
+         "degree": 1523,
+         "career": 2,
+         "offered_by": 1141,
+         "uoc": 36
+      },
+      "model": "polygons.program",
+      "pk": 6503
+   },
+   {
+      "fields": {
+         "code": "7379",
+         "name": "Reproductive Medicine",
+         "degree": 1532,
+         "career": 2,
+         "offered_by": 1141,
+         "uoc": 24
+      },
+      "model": "polygons.program",
+      "pk": 6504
+   },
+   {
+      "fields": {
+         "code": "9065",
+         "name": "Reproductive Medicine",
+         "degree": 1843,
+         "career": 2,
+         "offered_by": 1141,
+         "uoc": 48
+      },
+      "model": "polygons.program",
+      "pk": 6505
+   },
+   {
+      "fields": {
+         "code": "8960",
+         "name": "Educational Leadership",
+         "degree": 1644,
+         "career": 2,
+         "offered_by": 103,
+         "uoc": 48
+      },
+      "model": "polygons.program",
+      "pk": 6516
+   }
+]
