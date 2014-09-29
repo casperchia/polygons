@@ -175,8 +175,7 @@ class Test_Program_Details(TestCase):
         print 'Testing that the page contains the program text representation.'
         self.assertContains(response, str(program), status_code=200)
         
-        subject_ids = [1437,1580,1862,1864,1589,1865,1868,2212,3007,1922,1923,
-                       1582,1583,1872,1884,1921,7808]
+        subject_ids = [1922,1583]
         for subject in Subject.objects.filter(id__in=subject_ids):
             self.assertContains(response, str(subject), status_code=200)
             self.assertContains(response, subject.id, status_code=200)

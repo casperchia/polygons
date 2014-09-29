@@ -22,5 +22,21 @@
       },
       "model": "polygons.stream_rule",
       "pk": 694
+   },
+   {
+   "fields": {
+      "rule": 12837,
+      "stream": 172
+   },
+   "model": "polygons.stream_rule",
+   "pk": 1038
+   },
+   {
+   "fields": {
+      "rule": 12836,
+      "stream": 172
+   },
+   "model": "polygons.stream_rule",
+   "pk": 1037
    }
 ]

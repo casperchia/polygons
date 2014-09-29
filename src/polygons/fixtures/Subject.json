@@ -106,5 +106,29 @@
       },
       "model": "polygons.subject",
       "pk": 1867
+   },
+   {
+   "fields": {
+      "code": "BINF3020",
+      "name": "Computational Bioinformatics",
+      "career": 1,
+      "offered_by": 89,
+      "uoc": 6,
+      "excluded": null
+   },
+   "model": "polygons.subject",
+   "pk": 1583
+   },
+   {
+      "fields": {
+         "code": "COMP4930",
+         "name": "Thesis Part A",
+         "career": 1,
+         "offered_by": 89,
+         "uoc": 6,
+         "excluded": null
+      },
+      "model": "polygons.subject",
+      "pk": 1922
    }
 ]

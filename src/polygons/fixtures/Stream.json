@@ -14,5 +14,13 @@
    },
    "model": "polygons.stream",
    "pk": 309
+   },
+   {
+   "fields": {
+      "code": "BINFA1",
+      "name": "Bioinformatics"
+   },
+   "model": "polygons.stream",
+   "pk": 172
    }
 ]

@@ -82,5 +82,13 @@
       },
       "model": "polygons.program",
       "pk": 6530
+   },
+   {
+   "fields": {
+      "program": 747,
+      "rule": 10359
+   },
+   "model": "polygons.program_rule",
+   "pk": 34
    }
 ]

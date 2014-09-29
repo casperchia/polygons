@@ -14,5 +14,13 @@
    },
    "model": "polygons.stream_group_member",
    "pk": 682
+   },
+   {
+   "fields": {
+      "acad_obj_group": 7810,
+      "stream": 172
+   },
+   "model": "polygons.stream_group_member",
+   "pk": 3385
    }
 ]

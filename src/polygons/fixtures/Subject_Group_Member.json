@@ -70,5 +70,21 @@
       },
       "model": "polygons.subject_group_member",
       "pk": 5763
+   },
+   {
+   "fields": {
+      "acad_obj_group": 7849,
+      "subject": 1583
+   },
+   "model": "polygons.subject_group_member",
+   "pk": 19494
+   },
+   {
+      "fields": {
+         "acad_obj_group": 7850,
+         "subject": 1922
+      },
+      "model": "polygons.subject_group_member",
+      "pk": 19497
    }
 ]
