@@ -8,8 +8,10 @@ def create_plan(request):
         form = PageForm()
         if form.is_valid():
             new_plan = form.save()
+    else:
+        form = PageForm()
     return render_to_response('html/planner.html',
-                              { 'new_plan' : new_plan,
+                              { 'form' : form,
                               },
                               context_instance=RequestContext(request))
     

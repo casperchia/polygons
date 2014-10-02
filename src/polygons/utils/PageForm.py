@@ -1,5 +1,9 @@
 from django import forms
 
-class PageForm(forms.Form):
-    create_at = forms.DateField()
+from polygons.models.Plan import Plan
+
+class PageForm(forms.ModelForm):
+    class Meta:    
+        model = Plan
+        exclude = ('user', 'datetime')
 
