@@ -1,4 +1,4 @@
-body {
+body { 
 	background-color: #EBEBEB;
 	margin-top: 0px;
 	line-height: 14pt;
@@ -116,4 +116,43 @@ body {
 
 .smallButton{
 	font-size: 90%;
+}
+
+.leftColumn{
+	width: 320px;
+	height: auto;
+	float: left;
+}
+
+.rightColumn{
+	width: 640px;
+	height: auto;
+	float: left;
+}
+
+.yearFrame{
+	width: auto;
+	height: auto;
+}
+
+.semesterFrame{
+	width: 320px;
+	height: auto;
+	float: left;
+}
+
+table, th, td, tr{
+	width: 90%;
+	border: 1px solid #666;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica,sans-serif;
+}
+
+th{
+	background-color:#06F;
+	color: #EBEBEB;
+}
+
+tr{
+	height: 50px;
+	text-align: center;
 }
