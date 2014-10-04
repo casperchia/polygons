@@ -1,0 +1,37 @@
+#!/bin/bash
+
+DB_DUMP_ARCHIVE_FILE=unsw_db_converted.tar.bz2
+DB_DUMP_ARCHIVE_PATH=../misc/"$DB_DUMP_ARCHIVE_FILE"
+DB_DUMP_FILE=dump.sql
+DB_NAME=polygons
+
+psql -l >/dev/null 2>&1
+if [[ $? -ne 0 ]]; then
+   echo "You must first ensure your PostgreSQL server is running!" >&2
+   exit 1;
+fi;
+
+echo "Copying dump archive file..."
+cp "$DB_DUMP_ARCHIVE_PATH" .
+
+echo "Untarring archive file..."
+tar -xvf "$DB_DUMP_ARCHIVE_FILE" >/dev/null
+
+echo "Deleting old polygons database (if it exists)..."
+if [[ $(psql -l | egrep "$DB_NAME" | wc -l) -ne 0 ]]; then
+   dropdb -U postgres "$DB_NAME"
+fi;
+
+echo "Creating new polygons database..."
+createdb -U postgres "$DB_NAME"
+
+echo "Using migrations to define database..."
+./manage.py migrate >/dev/null
+
+echo "Inserting core data..."
+./core_data.py >/dev/null
+
+echo "Inserting UNSW data..."
+psql -U postgres "$DB_NAME" -f "$DB_DUMP_FILE" >/dev/null
+
+rm -f "$DB_DUMP_ARCHIVE_FILE" "$DB_DUMP_FILE"
