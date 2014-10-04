@@ -9,6 +9,8 @@ from polygons.models.Acad_Obj_Group import Acad_Obj_Group
 from polygons.models.Subject_Group_Member import Subject_Group_Member
 from polygons.models.Org_Unit_Group import Org_Unit_Group
 from polygons.models.Org_Unit import Org_Unit
+from polygons.models.Course import Course
+from polygons.models.Subject_Prereq import Subject_Prereq
 
 import re
 from itertools import chain
@@ -123,5 +125,54 @@ def get_core_subjects(program):
         
     for rule in core_subject_rules:
         subject_ids = list(chain(subject_ids, expand_subject_rule(rule, faculty)))
+    
+    return Subject.objects.filter(id__in=subject_ids)
+
+def get_program_subjects(program, semester,
+                         existing_subjects=Subject.objects.none()):
+    faculty = get_faculty(program.offered_by)
+    subject_ids = []
+    
+    program_rules = Program_Rule.objects.filter(program=program).values_list('rule', flat=True)
+    subject_rules = Rule.objects.filter(~Q(type__abbreviation='DS'), id__in=program_rules)
+    ds_rules = Rule.objects.filter(id__in=program_rules, type__abbreviation='DS')
+    
+    for ds_rule in ds_rules:
+        stream_members = Stream_Group_Member.objects.select_related('stream').filter(acad_obj_group=ds_rule.acad_obj_group)
+        
+        for stream in [sm.stream for sm in stream_members]:
+            stream_rules = Stream_Rule.objects.filter(stream=stream).values_list('rule', flat=True)
+        
+        subject_rules = list(chain(subject_rules, 
+                                   Rule.objects.filter(id__in=stream_rules)))
+        
+    for rule in subject_rules:
+        subject_ids = list(chain(subject_ids, expand_subject_rule(rule, faculty)))
+        
+    subjects = Subject.objects.filter(id__in=subject_ids)
+    
+    # Subjects already in the plan
+    subjects = subjects.exclude(id__in=existing_subjects.values_list('id', flat=True))
+    # Subjects not offered in the specified semester
+    subjects = subjects.exclude(id__in=Course.objects.filter(~Q(semester=semester)).values_list('subject',
+                                                                                                flat=True))
+    # Subjects excluded by subjects already in the plan
+    for existing_subject in existing_subjects:
+        exclusion_rule = Rule.objects.get(acad_obj_group=existing_subject.excluded)
+        excluded_ids = expand_subject_rule(exclusion_rule, faculty)
+        subjects = subjects.exclude(id__in=excluded_ids)
+    # Subjects whose prereqs have not been met
+    subject_ids = []
+    for subject in subjects:
+        meets_prereqs = True
+        prereq_rules = Subject_Prereq.objects.select_related('rule').filter(subject=subject,
+                                                                            career=program.career)
+        for prereq_rule in [pr.rule for pr in prereq_rules]:
+            prereq_ids = expand_subject_rule(prereq_rule, faculty)
+            if existing_subjects.filter(id__in=prereq_ids).count() < len(prereq_ids):
+                meets_prereqs = False
+                break
+        if meets_prereqs:
+            subject_ids.append(subject.id)
     
     return Subject.objects.filter(id__in=subject_ids)
