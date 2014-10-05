@@ -11,6 +11,8 @@ from polygons.models.Org_Unit_Group import Org_Unit_Group
 from polygons.models.Org_Unit import Org_Unit
 from polygons.models.Course import Course
 from polygons.models.Subject_Prereq import Subject_Prereq
+from polygons.models.Subject_Pattern import Subject_Pattern
+from polygons.models.Subject_Pattern_Cache import Subject_Pattern_Cache
 
 import re
 from itertools import chain
@@ -31,24 +33,16 @@ def get_faculty(org_unit):
     return None
 
 def _expand_clean_subject_pattern(pattern, faculty):
-    pattern = re.sub(r'[{}]', '', pattern)
-    pattern = re.sub(r'#', '.', pattern)
-       
-    if pattern in ('all', 'ALL'):
-        subjects = Subject.objects.all().exclude(code__regex=r'^GEN')
-    elif re.search(r'^FREE', pattern):
-        pattern = re.sub(r'^FREE', '....', pattern)
-        subjects = Subject.objects.filter(code__regex=pattern)
-        subjects = subjects.exclude(code__regex=r'^GEN')
-    elif pattern == 'GENG####':
-        subjects = Subject.objects.filter(code__regex=r'^GEN')
+    subject_pattern = Subject_Pattern.objects.get(pattern=pattern)
+    ids = Subject_Pattern_Cache.objects.filter(subject_pattern=subject_pattern).values_list('subject', flat=True)
+    subjects = Subject.objects.filter(id__in=ids)
+    
+    if pattern == 'GENG####':
         subject_ids = []
         for subject in subjects:
             if get_faculty(subject.offered_by) != faculty:
                 subject_ids.append(subject.id)
         subjects = Subject.objects.filter(id__in=subject_ids)
-    else:
-        subjects = Subject.objects.filter(code__regex=pattern)
         
     return subjects
 
