@@ -45,11 +45,14 @@ renamed the directory that the repository was cloned into.
 \begin{enumerate}
    \item \begin{command} cd \$PROJECT\_ROOT/src \end{command}
    \item \begin{command} cp ../misc/unsw\_db\_converted.tar.bz2 . \end{command}
+   \item \begin{command} cp ../misc/pattern\_cache.tar.bz2 . \end{command}
    \item \begin{command} tar -xvf unsw\_db\_converted.tar.bz2 \end{command}
    \item \begin{command} dropdb -U postgres polygons \end{command}
    \item \begin{command} createdb -U postgres polygons \end{command}
    \item \begin{command} ./manage.py migrate \end{command}
    \item \begin{command} ./core\_data.py \end{command}
+   \item \begin{command} psql -U postgres polygons -f dump.sql >/dev/null \end{command}
+   \item \begin{command} tar -xvf pattern\_cache.tar.bz2 \end{command}
    \item \begin{command} psql -U postgres polygons -f dump.sql >/dev/null \end{command}
 \end{enumerate}
 
@@ -58,6 +61,7 @@ renamed the directory that the repository was cloned into.
 \begin{enumerate}
    \item \begin{command} cd \$PROJECT\_ROOT/src \end{command}
    \item \begin{command} cp ../misc/unsw\_db.tar.bz2 . \end{command}
+   \item \begin{command} cp ../misc/pattern\_cache.bz2 . \end{command}
    \item \begin{command} tar -xvf unsw\_db.tar.bz2 \end{command}
    \item Skip the next 4 steps if your polygons database is already up to date.
    \item \begin{command} dropdb -U postgres polygons \end{command}
@@ -76,6 +80,8 @@ renamed the directory that the repository was cloned into.
    \item \begin{command} ./unsw\_db\_converter.py unsw\_data\_old.sql
                          \textgreater unsw\_data\_new.sql\end{command}
    \item \begin{command} psql -U postgres polygons -f unsw\_data\_new.sql \end{command}
+   \item \begin{command} tar -xvf pattern\_cache.tar.bz2 \end{command}
+   \item \begin{command} psql -U postgres polygons -f dump.sql \end{command}
 \end{enumerate}
 
 \end{document}
