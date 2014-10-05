@@ -20,10 +20,11 @@ from polygons.models.Org_Unit_Group import Org_Unit_Group
 from polygons.models.Org_Unit import Org_Unit
 from polygons.models.Course import Course
 from polygons.models.Subject_Prereq import Subject_Prereq
+from polygons.models.Subject_Pattern import Subject_Pattern
+from polygons.models.Subject_Pattern_Cache import Subject_Pattern_Cache
 
 import re
 from itertools import chain
-import pickle
 
 CACHE = {}
 
@@ -116,8 +117,14 @@ def main():
                                                         type=acad_obj_group_type):
         _expand_subject_patterns(acad_obj_group.definition)
 
-    with open('~/Desktop/patterns.cache', 'w') as f:
-        f.write(pickle.dumps(CACHE))
+    for pattern, ids in CACHE.iteritems():
+        subject_pattern = Subject_Pattern(pattern=pattern)
+        subject_pattern.save()
+        for subject_id in ids:
+            subject = Subject.objects.get(id=subject_id)
+            subject_pattern_cache = Subject_Pattern_Cache(subject_pattern=subject_pattern,
+                                                          subject=subject)
+            subject_pattern_cache.save()
 
 if __name__ == '__main__':
     main()
