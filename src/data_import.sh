@@ -1,7 +1,9 @@
 #!/bin/bash
 
 DB_DUMP_ARCHIVE_FILE=unsw_db_converted.tar.bz2
+PATTERN_DUMP_ARCHIVE_FILE=pattern_cache.tar.bz2
 DB_DUMP_ARCHIVE_PATH=../misc/"$DB_DUMP_ARCHIVE_FILE"
+PATTERN_DUMP_ARCHIVE_PATH=../misc/"$PATTERN_DUMP_ARCHIVE_FILE"
 DB_DUMP_FILE=dump.sql
 DB_NAME=polygons
 
@@ -11,8 +13,9 @@ if [[ $? -ne 0 ]]; then
    exit 1;
 fi;
 
-echo "Copying dump archive file..."
+echo "Copying dump archive files..."
 cp "$DB_DUMP_ARCHIVE_PATH" .
+cp "$PATTERN_DUMP_ARCHIVE_PATH" .
 
 echo "Untarring archive file..."
 tar -xvf "$DB_DUMP_ARCHIVE_FILE" >/dev/null
@@ -34,4 +37,10 @@ echo "Inserting core data..."
 echo "Inserting UNSW data..."
 psql -U postgres "$DB_NAME" -f "$DB_DUMP_FILE" >/dev/null
 
-rm -f "$DB_DUMP_ARCHIVE_FILE" "$DB_DUMP_FILE"
+echo "Untarring archive file..."
+tar -xvf "$PATTERN_DUMP_ARCHIVE_FILE" >/dev/null
+
+echo "Inserting pattern cache data..."
+psql -U postgres "$DB_NAME" -f "$DB_DUMP_FILE" >/dev/null
+
+rm -f "$DB_DUMP_ARCHIVE_FILE" "$PATTERN_DUMP_ARCHIVE_FILE" "$DB_DUMP_FILE"
