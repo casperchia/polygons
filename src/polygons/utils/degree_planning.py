@@ -17,7 +17,6 @@ from polygons.models.Program_Group_Member import Program_Group_Member
 from polygons.models.Program import Program
 
 import re
-from itertools import chain
 
 def get_faculty(org_unit):
     org_units = [org_unit]
@@ -104,7 +103,7 @@ def _expand_subject_patterns(patterns, faculty):
     patterns = re.sub(r';', ',', patterns)
     
     for pattern in patterns.split(','):
-        subjects = list(chain(subjects, _expand_subject_pattern(pattern, faculty)))
+        subjects += _expand_subject_pattern(pattern, faculty)
     
     return subjects
 
@@ -113,7 +112,7 @@ def _expand_program_patterns(patterns):
     patterns = re.sub(r';', ',', patterns)
     
     for pattern in patterns.split(','):
-        programs = list(chain(programs, _expand_program_pattern(pattern)))
+        programs = programs, _expand_program_pattern(pattern)
     
     return programs
 
@@ -130,11 +129,10 @@ def expand_subject_rule(rule, faculty):
     for acad_obj_group in _gen_acad_obj_groups(rule):
         if acad_obj_group.enumerated:
             member_ids = Subject_Group_Member.objects.filter(acad_obj_group=acad_obj_group).values_list('subject', flat=True)
-            subject_ids = list(chain(subject_ids, member_ids))
+            subject_ids += member_ids
         else:
-            subject_ids = list(chain(subject_ids,
-                                     _expand_subject_patterns(acad_obj_group.definition,
-                                                              faculty)))
+            subject_ids += _expand_subject_patterns(acad_obj_group.definition,
+                                                              faculty)
     
     return subject_ids
 
@@ -144,10 +142,9 @@ def expand_program_rule(rule):
     for acad_obj_group in _gen_acad_obj_groups(rule):
         if acad_obj_group.enumerated:
             member_ids = Program_Group_Member.objects.filter(acad_obj_group=acad_obj_group).values_list('program', flat=True)
-            program_ids = list(chain(program_ids, member_ids))
+            program_ids += member_ids
         else:
-            program_ids = list(chain(program_ids,
-                                     _expand_program_patterns(acad_obj_group.definition)))
+            program_ids += _expand_program_patterns(acad_obj_group.definition)
     
     return program_ids
 
@@ -156,7 +153,7 @@ def get_core_subjects(program):
     subject_ids = []
     
     program_rules = Program_Rule.objects.filter(program=program).values_list('rule', flat=True)
-    core_subject_rules = Rule.objects.filter(id__in=program_rules, type__abbreviation='CC')
+    core_subject_rules = list(Rule.objects.filter(id__in=program_rules, type__abbreviation='CC'))
     ds_rules = Rule.objects.filter(id__in=program_rules, type__abbreviation='DS')
             
     for ds_rule in ds_rules:
@@ -165,12 +162,11 @@ def get_core_subjects(program):
         for stream in [sm.stream for sm in stream_members]:
             stream_rules = Stream_Rule.objects.filter(stream=stream).values_list('rule', flat=True)
         
-        core_subject_rules = list(chain(core_subject_rules, 
-                                        Rule.objects.filter(id__in=stream_rules,
-                                                            type__abbreviation='CC')))
+        core_subject_rules += Rule.objects.filter(id__in=stream_rules,
+                                                  type__abbreviation='CC')
         
     for rule in core_subject_rules:
-        subject_ids = list(chain(subject_ids, expand_subject_rule(rule, faculty)))
+        subject_ids += expand_subject_rule(rule, faculty)
     
     return Subject.objects.filter(id__in=subject_ids)
 
@@ -180,7 +176,7 @@ def get_program_subjects(program, semester,
     subject_ids = []
     
     program_rules = Program_Rule.objects.filter(program=program).values_list('rule', flat=True)
-    subject_rules = Rule.objects.filter(~Q(type__abbreviation='DS'), id__in=program_rules)
+    subject_rules = list(Rule.objects.filter(~Q(type__abbreviation='DS'), id__in=program_rules))
     ds_rules = Rule.objects.filter(id__in=program_rules, type__abbreviation='DS')
     
     for ds_rule in ds_rules:
@@ -189,11 +185,10 @@ def get_program_subjects(program, semester,
         for stream in [sm.stream for sm in stream_members]:
             stream_rules = Stream_Rule.objects.filter(stream=stream).values_list('rule', flat=True)
         
-        subject_rules = list(chain(subject_rules, 
-                                   Rule.objects.filter(id__in=stream_rules)))
+        subject_rules += Rule.objects.filter(id__in=stream_rules)
         
     for rule in subject_rules:
-        subject_ids = list(chain(subject_ids, expand_subject_rule(rule, faculty)))
+        subject_ids += expand_subject_rule(rule, faculty)
         
     subjects = Subject.objects.filter(id__in=subject_ids)
     
