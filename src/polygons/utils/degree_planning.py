@@ -13,6 +13,8 @@ from polygons.models.Course import Course
 from polygons.models.Subject_Prereq import Subject_Prereq
 from polygons.models.Subject_Pattern import Subject_Pattern
 from polygons.models.Subject_Pattern_Cache import Subject_Pattern_Cache
+from polygons.models.Program_Group_Member import Program_Group_Member
+from polygons.models.Program import Program
 
 import re
 from itertools import chain
@@ -46,6 +48,9 @@ def _expand_clean_subject_pattern(pattern, faculty):
         
     return subjects
 
+def _expand_clean_program_pattern(pattern):
+    return Program.objects.filter(code__regex=pattern)
+
 def _expand_subject_pattern(pattern, faculty):
     match = re.search(r'([^/]+)/F=(!?)([a-zA-Z]+)', pattern)
     if match:
@@ -70,6 +75,30 @@ def _expand_subject_pattern(pattern, faculty):
         
     return subjects.values_list('id', flat=True)
 
+def _expand_program_pattern(pattern):
+    match = re.search(r'([^/]+)/F=(!?)([a-zA-Z]+)', pattern)
+    if match:
+        (clean_pattern, negation, org_unit_code) = match.groups()
+        programs = _expand_clean_program_pattern(clean_pattern)
+        constraint_faculty = get_faculty(Org_Unit.objects.get(code=org_unit_code))
+        program_ids = []
+        if negation:
+            for program in programs:
+                if get_faculty(program.offered_by) != constraint_faculty:
+                    program_ids.append(program.id)
+        else:
+            for program in programs:
+                if get_faculty(program.offered_by) == constraint_faculty:
+                    program_ids.append(program.id)
+        return program_ids
+    elif re.search(r'^!', pattern):
+        negated_programs = _expand_clean_program_pattern(pattern[1:])
+        programs = Program.objects.all().exclude(id__in=negated_programs.values_list('id', flat=True))
+    else:
+        programs = _expand_clean_program_pattern(pattern)
+        
+    return programs.values_list('id', flat=True)
+
 def _expand_subject_patterns(patterns, faculty):
     subjects = []
     patterns = re.sub(r';', ',', patterns)
@@ -79,16 +108,26 @@ def _expand_subject_patterns(patterns, faculty):
     
     return subjects
 
+def _expand_program_patterns(patterns):
+    programs = []
+    patterns = re.sub(r';', ',', patterns)
+    
+    for pattern in patterns.split(','):
+        programs = list(chain(programs, _expand_program_pattern(pattern)))
+    
+    return programs
+
+def _gen_acad_obj_groups(rule):
+    curr_acad_obj_group =  Acad_Obj_Group.objects.get(id=rule.acad_obj_group.id)
+    yield curr_acad_obj_group
+    while curr_acad_obj_group.parent != None:
+        curr_acad_obj_group = curr_acad_obj_group.parent
+        yield curr_acad_obj_group
+
 def expand_subject_rule(rule, faculty):
     subject_ids = []
     
-    acad_obj_groups = [Acad_Obj_Group.objects.get(id=rule.acad_obj_group.id)]
-    curr_acad_obj_group = acad_obj_groups[0]
-    while curr_acad_obj_group.parent != None:
-        curr_acad_obj_group = curr_acad_obj_group.parent
-        acad_obj_groups.append(curr_acad_obj_group)
-    
-    for acad_obj_group in acad_obj_groups:
+    for acad_obj_group in _gen_acad_obj_groups(rule):
         if acad_obj_group.enumerated:
             member_ids = Subject_Group_Member.objects.filter(acad_obj_group=acad_obj_group).values_list('subject', flat=True)
             subject_ids = list(chain(subject_ids, member_ids))
@@ -98,6 +137,19 @@ def expand_subject_rule(rule, faculty):
                                                               faculty)))
     
     return subject_ids
+
+def expand_program_rule(rule):
+    program_ids = []
+    
+    for acad_obj_group in _gen_acad_obj_groups(rule):
+        if acad_obj_group.enumerated:
+            member_ids = Program_Group_Member.objects.filter(acad_obj_group=acad_obj_group).values_list('program', flat=True)
+            program_ids = list(chain(program_ids, member_ids))
+        else:
+            program_ids = list(chain(program_ids,
+                                     _expand_program_patterns(acad_obj_group.definition)))
+    
+    return program_ids
 
 def get_core_subjects(program):
     faculty = get_faculty(program.offered_by)
@@ -162,10 +214,16 @@ def get_program_subjects(program, semester,
         prereq_rules = Subject_Prereq.objects.select_related('rule').filter(subject=subject,
                                                                             career=program.career)
         for prereq_rule in [pr.rule for pr in prereq_rules]:
-            prereq_ids = expand_subject_rule(prereq_rule, faculty)
-            if existing_subjects.filter(id__in=prereq_ids).count() < len(prereq_ids):
-                meets_prereqs = False
-                break
+            if prereq_rule.acad_obj_group.type.name == 'program':
+                prereq_ids = expand_program_rule(prereq_rule)
+                if program.id not in prereq_ids:
+                    meets_prereqs = False
+                    break
+            elif prereq_rule.acad_obj_group.type.name == 'subject':
+                prereq_ids = expand_subject_rule(prereq_rule, faculty)
+                if existing_subjects.filter(id__in=prereq_ids).count() < len(prereq_ids):
+                    meets_prereqs = False
+                    break
         if meets_prereqs:
             subject_ids.append(subject.id)
     
