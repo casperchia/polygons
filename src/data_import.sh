@@ -43,4 +43,7 @@ tar -xvf "$PATTERN_DUMP_ARCHIVE_FILE" >/dev/null
 echo "Inserting pattern cache data..."
 psql -U postgres "$DB_NAME" -f "$DB_DUMP_FILE" >/dev/null
 
+echo "Inserting custom DB functions..."
+psql -U postgres polygons -f ../misc/custom_db_functions.sql >/dev/null
+
 rm -f "$DB_DUMP_ARCHIVE_FILE" "$PATTERN_DUMP_ARCHIVE_FILE" "$DB_DUMP_FILE"
