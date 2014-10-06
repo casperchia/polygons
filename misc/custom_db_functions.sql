@@ -1,4 +1,3 @@
-drop function if exists get_faculty(integer);
 create function get_faculty(_org_unit_id integer)
  returns integer
 AS $$
@@ -27,7 +26,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists expand_clean_subject_pattern(text, integer);
 create function expand_clean_subject_pattern(_pattern text, _faculty_id integer)
 returns setof integer
 AS $$
@@ -67,7 +65,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists expand_clean_program_pattern(text);
 create function expand_clean_program_pattern(_pattern text)
 returns setof integer
 AS $$
@@ -86,7 +83,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists expand_subject_pattern(text, integer);
 create function expand_subject_pattern(_pattern text, _faculty_id integer)
 returns setof integer
 AS $$
@@ -158,7 +154,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists expand_program_pattern(text);
 create function expand_program_pattern(_pattern text)
 returns setof integer
 AS $$
@@ -230,7 +225,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists expand_subject_patterns(text, integer);
 create function expand_subject_patterns(_patterns text, _faculty_id integer)
 returns setof integer
 AS $$
@@ -255,7 +249,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists expand_program_patterns(text);
 create function expand_program_patterns(_patterns text)
 returns setof integer
 AS $$
@@ -280,7 +273,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists expand_subject_rule(integer, integer);
 create function expand_subject_rule(_acad_obj_group_id integer,
                                     _faculty_id integer)
 returns setof integer
@@ -323,7 +315,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists expand_program_rule(integer);
 create function expand_program_rule(_acad_obj_group_id integer)
 returns setof integer
 AS $$
@@ -365,7 +356,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists generate_program_subjects(integer, integer);
 create function generate_program_subjects(_program_id integer,
                                           _faculty_id integer)
 returns setof integer
@@ -419,7 +409,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists get_exclusion_subjects(integer array, integer);
 create function get_exclusion_subjects(_existing_subjects integer array,
                                        _faculty_id integer)
 returns setof integer
@@ -448,7 +437,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists get_core_subjects(integer);
 create function get_core_subjects(_program_id integer)
 returns setof integer
 AS $$
@@ -510,7 +498,6 @@ begin
 end;
 $$ language plpgsql;
 
-drop function if exists get_program_subjects(integer, integer, integer array);
 create function get_program_subjects(_program_id integer, _semester_id integer,
                                      _existing_subjects integer array)
 returns setof integer
