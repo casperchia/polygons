@@ -12,6 +12,8 @@
          <form method="POST" action="{% url 'polygons.views.planner' %}">
             {% csrf_token %}
             <input type="submit" value="Create Plan">
+            <input type="hidden" value="{{ program.pk }}" name="prgrm_pk">
+            
          </form>
       </div>
       <div>
