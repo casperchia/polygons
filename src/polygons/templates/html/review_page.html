@@ -1,8 +1,12 @@
 {% extends "html/base.html" %}
     {% block body %}
     <ul>
+    Review Page description to go here...
         {% for subject in subjects %}
-            {{ subject.code }}
+            <li>
+                <a href="#">{{ subject.code }}
+                </a>
+            </li>
         {% endfor %}
     </ul>
     {% endblock %}
