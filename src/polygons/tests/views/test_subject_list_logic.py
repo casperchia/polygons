@@ -19,7 +19,7 @@ class Test_Subject_List_Logic (Base_Test):
     def test_get_program_subjects(self):
         print 'Testing get_program_subjects returns a result set'
         program = Program.objects.get(name='Computer Science')
-        semester = Semester.objects.filter(name='Semester 1')
+        semester = Semester.objects.get(pk=1)
         
         
         existing = get_core_subjects(program)
