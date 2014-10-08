@@ -1,0 +1,8 @@
+{% extends "html/base.html" %}
+    {% block body %}
+    <ul>
+        {% for subject in subjects %}
+            {{ subject.code }}
+        {% endfor %}
+    </ul>
+    {% endblock %}
