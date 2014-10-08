@@ -1,70 +1,78 @@
 {% extends "html/base.html" %}
-	{% block body %}
-		<h2>Degree Planner - {{ program }}</h2>
-		<div class="leftColumn">
-		<div>
-                   <form method="POST" action="#">
-                       {%csrf_token %}
-                       <input type="submit" value="Save">
-                   </form>
-                </div>
-                <div>  
-                    <table>
-			<tr><th>Selected Courses: </th></tr>
-			{% for subject in subjects %}
-			<!-- <tr><td>COMP1917</td></tr>							
-			<tr><td>COMP1927</td></tr>							
-			<tr><td>COMP2911</td></tr>							
-			<tr><td>COMP2041</td></tr>							
-			<tr><td>COMP2911</td></tr>							
-			<tr><td>COMP2041</td></tr>	-->
-			    <tr><td>{{subject.code}}</td></tr>
-		    {% endfor %}    						
-			<tr><td>Add Course +</td></tr>							
-		    </table>
-		</div>
-		<div class="rightColumn">
-			<div class="yearFrame">
-				<div class="semesterFrame">
-					<table>
-					   <tr><th>Semseter 1, 2014: </th></tr>
-					   <tr><td>COMP1917</td></tr>							
-					   <tr><td>COMP1927</td></tr>							
-					   <tr><td>COMP2911</td></tr>							
-					   <tr><td>Add Course +</td></tr>							
-					</table>
-				</div>
-				<div class="semesterFrame">
-					<table>
-					   <tr><th>Semseter 2, 2014: </th></tr>
-				
-					   <tr><td>Add Course +</td></tr>							
-					</table>
-				</div>
-			</div>
-				
-			<div style="clear: both; height: 100px;"></div>
+    {% block body %}
+        <h2>Degree Planner - {{ program }}</h2>
+        <div>
+            <form method="POST" action="#">
+                {%csrf_token %}
+                <input type="submit" value="Save">
+            </form>
+        </div>        
 
-			<div class="yearFrame">
-				<div class="semesterFrame">
-					<table>
-						<tr><th>Semseter 1, 2015: </th></tr>
-						<tr><td>COMP1917</td></tr>							
-						<tr><td>COMP1927</td></tr>							
-						<tr><td>COMP2911</td></tr>							
-						<tr><td>Add Course +</td></tr>							
-					</table>
-				</div>
-				<div class="semesterFrame">
-					<table>
-						<tr><th>Semseter 2, 2015: </th></tr>
-						<tr><td>COMP1917</td></tr>							
-						<tr><td>COMP1927</td></tr>							
-						<tr><td>COMP2911</td></tr>							
-						<tr><td>Add Course +</td></tr>							
-					</table>
-				</div>
-			</div>
-	   </div>
-	   <div style="clear: both;"></div>     
-	{% endblock %}
+        <div class="leftColumn">
+            <div>  
+                <table>
+                    <tr><th>Selected Courses: </th></tr>
+                    {% for subject in subjects %}
+                        <tr><td>{{subject.code}}</td></tr>
+                    {% endfor %}                            
+                    <tr><td>Add Course +</td></tr>                          
+                </table>
+            </div>
+        </div>
+        
+        <div class="rightColumn">
+            <div class="yearFrame">
+                <div class="semesterFrame">
+                    <table>
+                       <tr><th>Semseter 1, 2014: </th></tr>
+                       <tr><td>COMP1917</td></tr>                           
+                       <tr><td>COMP1927</td></tr>                           
+                       <tr><td>COMP2911</td></tr>                           
+                       <tr><td>MATH1131</td></tr>                           
+                       <tr><td>Add Course +</td></tr>                           
+                    </table>
+                </div>
+                <div class="semesterFrame">
+                    <table>
+                       <tr><th>Semseter 2, 2014: </th></tr>
+                
+                       <tr><td>Add Course +</td></tr>                           
+                    </table>
+                </div>
+            </div>
+                
+            <div style="clear: both; height: 50px;"></div>
+
+            <div class="yearFrame">
+                <div class="semesterFrame">
+                    <table>
+                        <tr><th>Semseter 1, 2015: </th></tr>
+                        <tr><td>COMP1917</td></tr>                          
+                        <tr><td>COMP1927</td></tr>                          
+                        <tr><td>COMP2911</td></tr>                          
+                        <tr><td>Add Course +</td></tr>                          
+                    </table>
+                </div>
+                <div class="semesterFrame">
+                    <table>
+                        <tr><th>Semseter 2, 2015: </th></tr>
+                        <tr><td>COMP1927</td></tr>                          
+                        <tr><td>COMP2911</td></tr>                          
+                        <tr><td>Add Course +</td></tr>                          
+                    </table>
+                </div>
+            </div>
+
+            <div style="clear: both; height: 50px;"></div>
+
+            <div class="yearFrame">
+                <div class="semesterFrame">
+                    <table>
+                        <tr><th>Add Semester +</th></tr>
+                    </table>
+                </div>
+
+            </div>
+       </div>
+       <div style="clear: both;"></div>     
+    {% endblock %}
