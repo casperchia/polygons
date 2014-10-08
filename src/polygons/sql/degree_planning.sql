@@ -19,8 +19,8 @@ begin
 	elsif (_name = 'Faculty') then
 		return _org_unit_id;
 	else
-		select owner into _parent
-		from polygons_org_unit_group where member = _org_unit_id;
+		select owner_id into _parent
+		from polygons_org_unit_group where member_id = _org_unit_id;
 		return get_faculty(_parent);
 	end if;
 end;
