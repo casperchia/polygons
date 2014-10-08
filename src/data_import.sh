@@ -8,7 +8,7 @@ DB_DUMP_FILE=dump.sql
 DB_NAME=polygons
 CUSTOM_SQL_PATH=polygons/sql/
 
-psql -l >/dev/null 2>&1
+psql -U postgres -l >/dev/null 2>&1
 if [[ $? -ne 0 ]]; then
    echo "You must first ensure your PostgreSQL server is running!" >&2
    exit 1;
@@ -22,7 +22,7 @@ echo "Untarring archive file..."
 tar -xvf "$DB_DUMP_ARCHIVE_FILE" >/dev/null
 
 echo "Deleting old polygons database (if it exists)..."
-if [[ $(psql -l | egrep "$DB_NAME" | wc -l) -ne 0 ]]; then
+if [[ $(psql -U postgres -l | egrep "$DB_NAME" | wc -l) -ne 0 ]]; then
    dropdb -U postgres "$DB_NAME"
 fi;
 
