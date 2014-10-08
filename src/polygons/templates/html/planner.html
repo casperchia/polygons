@@ -11,12 +11,15 @@
                 <div>  
                     <table>
 			<tr><th>Selected Courses: </th></tr>
-			<tr><td>COMP1917</td></tr>							
+			{% for subject in subjects %}
+			<!-- <tr><td>COMP1917</td></tr>							
 			<tr><td>COMP1927</td></tr>							
 			<tr><td>COMP2911</td></tr>							
 			<tr><td>COMP2041</td></tr>							
 			<tr><td>COMP2911</td></tr>							
-			<tr><td>COMP2041</td></tr>							
+			<tr><td>COMP2041</td></tr>	-->
+			    <tr><td>{{subject.code}}</td></tr>
+		    {% endfor %}    						
 			<tr><td>Add Course +</td></tr>							
 		    </table>
 		</div>
