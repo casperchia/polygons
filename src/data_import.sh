@@ -6,6 +6,7 @@ DB_DUMP_ARCHIVE_PATH=../misc/"$DB_DUMP_ARCHIVE_FILE"
 PATTERN_DUMP_ARCHIVE_PATH=../misc/"$PATTERN_DUMP_ARCHIVE_FILE"
 DB_DUMP_FILE=dump.sql
 DB_NAME=polygons
+CUSTOM_SQL_PATH=polygons/sql/
 
 psql -l >/dev/null 2>&1
 if [[ $? -ne 0 ]]; then
@@ -44,6 +45,8 @@ echo "Inserting pattern cache data..."
 psql -U postgres "$DB_NAME" -f "$DB_DUMP_FILE" >/dev/null
 
 echo "Inserting custom DB functions..."
-psql -U postgres polygons -f ../misc/custom_db_functions.sql >/dev/null
+for filePath in $(find "$CUSTOM_SQL_PATH" -type f); do
+   psql -U postgres polygons -f "$filePath" >/dev/null
+done;
 
 rm -f "$DB_DUMP_ARCHIVE_FILE" "$PATTERN_DUMP_ARCHIVE_FILE" "$DB_DUMP_FILE"
