@@ -20,3 +20,5 @@ from Course import Course
 from Org_Unit_Group import Org_Unit_Group
 from Subject_Pattern import Subject_Pattern
 from Subject_Pattern_Cache import Subject_Pattern_Cache
+from Program_Plan import Program_Plan
+from Semester_Plan import Semester_Plan

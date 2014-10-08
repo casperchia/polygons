@@ -1,7 +1,7 @@
 {% extends "html/base.html" %}
       {% block body %}
       <div>
-         {{ program }}
+         <h2>{{ program }}</h2>
       </div>
       <div>
          <a href="{{ program.handbook_link }}" target="_blank">
@@ -9,9 +9,11 @@
          </a>
       </div>
       <div>
-         <form method="POST" action="#">
+         <form method="POST" action="{% url 'polygons.views.planner' %}">
             {% csrf_token %}
             <input type="submit" value="Create Plan">
+            <input type="hidden" value="{{ program.pk }}" name="prgrm_pk">
+            
          </form>
       </div>
       <div>
