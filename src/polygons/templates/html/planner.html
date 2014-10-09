@@ -4,7 +4,7 @@
         <div>
             <form method="POST" action="#">
                 {%csrf_token %}
-                <input type="submit" value="Save">
+                <input type="submit" value="Save"><br><br>
             </form>
         </div>        
 
@@ -14,8 +14,8 @@
                     <tr><th>Selected Courses: </th></tr>
                     {% for subject in subjects %}
                         <tr><td>{{subject.code}}</td></tr>
-                    {% endfor %}                            
-                    <tr><td>Add Course +</td></tr>                          
+                    {% endfor %}                                                                             
+                    <tr><td>Add Course +</td></tr>   
                 </table>
             </div>
         </div>
@@ -34,9 +34,12 @@
                 </div>
                 <div class="semesterFrame">
                     <table>
-                       <tr><th>Semseter 2, 2014: </th></tr>
-                
-                       <tr><td>Add Course +</td></tr>                           
+                        <tr><th>Semseter 2, 2014: </th></tr>
+                        <tr><td>MATH1231</td></tr>                                                  
+                        <tr><td>MATH1101</td></tr>                 
+                        <tr><td>COMP2041</td></tr>                                                  
+                        <tr><td>COMP2911</td></tr> 
+                        <tr><td>Add Course +</td></tr>                           
                     </table>
                 </div>
             </div>
