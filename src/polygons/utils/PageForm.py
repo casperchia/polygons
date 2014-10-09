@@ -1,4 +1,7 @@
 from django import forms
 
-class PageForm(forms.Form):
-    id = forms.IntegerField(widget=forms.HiddenInput, required=True)
+from polygons.models.Program_Plan import Program_Plan
+
+class PageForm(forms.ModelForm):
+    class Meta:
+        model = Program_Plan
