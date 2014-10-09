@@ -2,6 +2,16 @@
     {% block body %}
     <ul>
     Review Page description to go here...
+        <table border="0" cellspacing="1" cellpadding="0">
+           <!-- <tr><th>Header</th></tr> -->
+            <tr>
+                {% for char in alphabet %}
+                    {% if char not in "QXY" %}                    
+                        <td> <li> <a href="{% url 'polygons.views.review_page' char %}">{{char}}</a></li> </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </table>
         {% for subject in subjects %}
             <li>
                 <a href="#">{{ subject.code }}
