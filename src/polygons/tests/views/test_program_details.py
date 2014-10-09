@@ -1,12 +1,12 @@
-from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 
 from polygons.models.Program import Program
 from polygons.models.Subject import Subject
 from polygons.messages import INVALID_DEGREE
+from polygons.tests import Base_Test
         
-class Test_Program_Details(TestCase):
+class Test_Program_Details(Base_Test):
     urls = 'comp4920.urls'
     fixtures = ['Acad_Obj_Group_Type.json', 'Acad_Obj_Group.json',
                 'Org_Unit_Type.json', 'Org_Unit.json', 'Career.json',
