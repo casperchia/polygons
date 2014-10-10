@@ -2,11 +2,8 @@
     {% block body %}
         <h2>Degree Planner - {{ program_plan.program }}</h2>
         <div>
-            <form method="POST" action="#">
-                {%csrf_token %}
-                <input type="submit" value="Save"><br><br>
-            </form>
-        </div>        
+            <input type="button" value ="Save" onClick= "alert('You can continue the plan later on via '+ window.location.href)">
+       </div>        
 
         <div class="leftColumn">
             <div>  
