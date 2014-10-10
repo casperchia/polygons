@@ -30,7 +30,7 @@ class Test_create_plan(TestCase):
 
         print 'Test that the correct templates are used to render the page.'
         response = self.client.get(url)
-        self.assertTemplateUsed(response, 'html/planner.html')
+        self.assertTemplateUsed(response, 'html/program_plan.html')
         self.assertTemplateNotUsed(response, 'html/home.html')
 
    # def test_valid_form(self):

@@ -20,8 +20,8 @@ def program_details(request, program_id):
     if request.method == 'POST':
         form = Create_Plan_Form(request.POST)
         if form.is_valid():
-            program_plan = form.save()
-            return HttpResponseRedirect(reverse('polygons.views.progam_plan',
+            program_plan = form.save(program)
+            return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                                 args=[program_plan.id]))
     else:
         form = Create_Plan_Form()

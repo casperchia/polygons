@@ -9,11 +9,9 @@
          </a>
       </div>
       <div>
-         <form method="POST" action="{% url 'polygons.views.planner' %}">
+         <form method="POST" action="{% url 'polygons.views.program_details' program.id %}">
             {% csrf_token %}
             <input type="submit" value="Create Plan">
-            <input type="hidden" value="{{ program.pk }}" name="prgrm_pk">
-            
          </form>
       </div>
       <div>

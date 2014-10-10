@@ -14,7 +14,7 @@ def program_plan(request, program_plan_id):
         messages.error(request, INVALID_PROGRAM_PLAN)
         return HttpResponseRedirect(reverse('polygons.views.index'))
     
-    return render_to_response('html/planner.html',
+    return render_to_response('html/program_plan.html',
                              {
                                 'program_plan' : program_plan
                              },  
