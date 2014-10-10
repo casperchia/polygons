@@ -7,7 +7,7 @@
             <tr>
                 {% for char in alphabet %}
                     {% if char not in "QXY" %}                    
-                        <td> <li> <a href="{% url 'polygons.views.review_page' char %}">{{char}}</a></li> </td>
+                        <td width ="4%"> <li> <a href="{% url 'polygons.views.review_page' char %}">{{char}}</a></li> </td>
                     {% endif %}
                 {% endfor %}
             
