@@ -148,11 +148,14 @@ table, th, td, tr{
 }
 
 th{
-	background-color:#06F;
+	background-color:#0075C9;
 	color: #EBEBEB;
 }
 
 tr{
 	height: 40px;
 	text-align: center;
+}tr:hover{
+	background-color:#DBDBDB;
 }
+

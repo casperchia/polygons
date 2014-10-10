@@ -1,0 +1,18 @@
+[
+  {
+   "fields": {
+      "abbreviation": "S1",
+      "name": "Semester 1"
+   },
+   "model": "polygons.semester",
+   "pk": 1
+   },
+   {
+      "fields": {
+         "abbreviation": "S2",
+        "name": "Semester 2"
+      },
+      "model": "polygons.semester",
+      "pk": 2
+   }
+]
