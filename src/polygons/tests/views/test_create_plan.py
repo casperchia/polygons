@@ -11,7 +11,7 @@ class Test_create_plan(TestCase):
   #              'Degree.json', 'Program.json', 'Program_Group_Member.json']
 
     def test_status_code(self):
-        url = reverse('polygons.views.create_plan')
+        url = reverse('polygons.views.create_program_plan')
 
         print 'Test that visiting the page produces a 200 status code.'
         response = self.client.get(url)
@@ -26,11 +26,11 @@ class Test_create_plan(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_template(self):
-        url = reverse('polygons.views.create_plan')
+        url = reverse('polygons.views.create_program_plan')
 
         print 'Test that the correct templates are used to render the page.'
         response = self.client.get(url)
-        self.assertTemplateUsed(response, 'html/planner.html')
+        self.assertTemplateUsed(response, 'html/program_plan.html')
         self.assertTemplateNotUsed(response, 'html/home.html')
 
    # def test_valid_form(self):
