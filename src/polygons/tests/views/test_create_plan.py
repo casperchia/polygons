@@ -12,10 +12,15 @@ class Test_create_plan(TestCase):
                 'Subject.json', 'Rule_Type.json', 'Rule.json',
                 'Program_Rule.json', 'Subject_Group_Member.json',
                 'Stream.json', 'Stream_Group_Member.json', 'Stream_Rule.json',
-                'Semester.json']  
+                'Semester.json', 'Program_Plan.json']  
 
     def test_status_code(self):
-        url = reverse('polygons.views.program_plan')
+        
+        url = reverse('polygons.views.program_details',args=[554])
+        response = self.client.post(url)
+        plan_count = Program_Plan.objects.count()
+        plan = Program_Plan.objects.get(pk=100)
+        url = reverse('polygons.views.program_plan', args=[plan.id])
 
         print 'Test that visiting the page produces a 200 status code.'
         response = self.client.get(url)
@@ -30,7 +35,8 @@ class Test_create_plan(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_template(self):
-        url = reverse('polygons.views.program_plan')
+        plan = Program_Plan.objects.get(pk=100)
+        url = reverse('polygons.views.program_plan', args=[plan.id])
 
         print 'Test that the correct templates are used to render the page.'
         response = self.client.get(url)
@@ -38,6 +44,7 @@ class Test_create_plan(TestCase):
         self.assertTemplateNotUsed(response, 'html/home.html')
 
     def test_database(self):
+        print 'Test that the database is storing a new program plan'
         plan_count = Program_Plan.objects.count()
         url = reverse('polygons.views.program_details',args=[554])
         response = self.client.post(url)
