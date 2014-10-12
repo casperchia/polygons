@@ -24,6 +24,7 @@ TABLE_ORDER = [
     'acad_object_groups',
     'rules',
     'orgunits',
+    'subject_areas',
     'subjects',
     'program_degrees',
     'programs',
@@ -57,6 +58,7 @@ UNIQUE_FIELDS = {
     }
 }
 PROGRAM_RULES = {}
+SUBJECT_AREAS = {}
 
 def die(message):
     sys.stderr.write('%s\n'%message)
@@ -77,6 +79,10 @@ def programs__degree(**kwargs):
         return NULL
 
     return UNIQUE_FIELDS['program_degrees']['name'][degree_name]
+
+def subjects__subject_area(**kwargs):
+    subject_area_code = re.sub(r'[0-9]+$', '', kwargs['code'])
+    return SUBJECT_AREAS[subject_area_code]
 
 # Functions used to alter existing columns
 
@@ -223,6 +229,10 @@ def program_group_members__filter(**kwargs):
     except KeyError:
         return True
 
+def subject_areas__filter(**kwargs):
+    SUBJECT_AREAS[kwargs['code']] = kwargs['id']
+    return True
+
 # Configuration to convert the UNSW PostgreSQL dumped data into a dump that is
 # compatible with our application.
 TABLES_TO_EDIT = {
@@ -254,6 +264,14 @@ TABLES_TO_EDIT = {
         'new_columns' : {},
         'filter_func' : do_nothing_filter
     },
+    'subject_areas' : {
+        'new_table_name' : 'polygons_subject_area',
+        'delete_columns' : [],
+        'rename_columns' : {},
+        'alter_columns' : {}, 
+        'new_columns' : {},
+        'filter_func' : subject_areas__filter
+    },
     'subjects' : {
         'new_table_name' : 'polygons_subject',
         'delete_columns' : ['name', 'eftsload', 'syllabus', 'contacthpw',
@@ -267,7 +285,9 @@ TABLES_TO_EDIT = {
         'alter_columns' : {
             'career' : subjects__career
         }, 
-        'new_columns' : {},
+        'new_columns' : {
+            'subject_area_id' : subjects__subject_area
+        },
         'filter_func' : subjects__filter
     },
     'courses' : {
