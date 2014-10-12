@@ -1,31 +1,32 @@
 {% extends "html/base.html" %}
     {% load staticfiles %}
     {% block head %}
-    <link href="{% static "css/review_page.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "css/program_plan.css" %}" rel="stylesheet" type="text/css">
     {% endblock %}
     {% block body %}
         <h2>Degree Planner - {{ program_plan.program }}</h2>
         <div>
             <input type="button" value="Save" onclick="alert('You can continue the plan later on via ' + window.location.href)">
-        </div>        
+        </div>  
+
+        {% for i in no_of_year %}
             <div class="yearFrame">
-               {% for i in no_of_year %}
-                    <table>
-                      <th> Year {{program_plan.current_year}}</th>
-                      <div class="semesterFrame">
-                      {% for n in no_of_semester %}
-                      <table> 
-                          <th>{{program_plan.current_semester.name}} </th>
-                          <tr><td>
-                             <form method="POST" action="#"> 
-                             {%csrf_token %}
-                                 <input type="submit" value="Add Course"><br><br>
-                              </form>
-                          </td></tr>
-                      </table>
-                      {% endfor %} 
-                      </div>
-                  </table>
-               {% endfor %}
+                <div class="yearBanner">Year {{program_plan.current_year}}</div>
+                {% for n in no_of_semester %}
+                <div class="semesterFrame">
+                    <table> 
+                        <th>{{program_plan.current_semester.name}} </th>
+                        <tr><td>
+                            <form method="POST" action="#"> 
+                                {%csrf_token %}
+                                <input type="submit" value="Add Course"><br><br>
+                            </form>
+                        </td></tr>
+                    </table>
+                </div>  
+                {% endfor %} 
+                <div style="clear: both;"></div>
             </div>
+            <div style="clear: both; height: 50px;"></div>
+        {% endfor %}
     {% endblock %}
