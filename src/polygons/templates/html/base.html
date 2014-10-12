@@ -7,6 +7,8 @@
       <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
       <link href="{% static "css/base.css" %}" rel="stylesheet" type="text/css">
       <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
+      {% block head %} 
+      {% endblock %}
       <title>{% block title %}Polygons{% endblock %}</title>
    </head>
    <body>
@@ -26,7 +28,7 @@
             <div class="pure-menu pure-menu-open pure-menu-horizontal">
                 <ul>
                    <li><a href="{% url 'polygons.views.degree_list' %}">Degree Planner</a></li>
-                   <li><a href="#">Course Reviews</a></li>
+                   <li><a href="{% url 'polygons.views.review_page' %}">Course Reviews</a></li>
                    <li>
                     <div class="searchBox">
                         <form class="pure-form">

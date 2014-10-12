@@ -1,4 +1,8 @@
 {% extends "html/base.html" %}
+    {% load staticfiles %}
+    {% block head %}
+    <link href="{% static "css/review_page.css" %}" rel="stylesheet" type="text/css">
+    {% endblock %}
     {% block body %}
         <h2>Degree Planner - {{ program_plan.program }}</h2>
         <div>

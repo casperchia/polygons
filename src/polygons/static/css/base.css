@@ -140,22 +140,3 @@ body {
 	height: auto;
 	float: left;
 }
-
-table, th, td, tr{
-	width: 90%;
-	border: 1px solid #666;
-	font-family: "Lucida Grande", Verdana, Arial, Helvetica,sans-serif;
-}
-
-th{
-	background-color:#0075C9;
-	color: #EBEBEB;
-}
-
-tr{
-	height: 40px;
-	text-align: center;
-}tr:hover{
-	background-color:#DBDBDB;
-}
-
