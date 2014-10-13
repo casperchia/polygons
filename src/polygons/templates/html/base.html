@@ -4,24 +4,74 @@
 <html>
    <head>
       <meta charset="utf-8">
-            <link href="{% static "css/base.css" %}" rel="stylesheet" type="text/css">
-      <title>
-         Test
-      </title>
+      <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+      <link href="{% static "css/base.css" %}" rel="stylesheet" type="text/css">
+      <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
+      {% block head %} 
+      {% endblock %}
+      <title>{% block title %}Polygons{% endblock %}</title>
    </head>
    <body>
-      {% if messages %}
-      <ul>
-         {% for message in messages %}
-         <li>
-            {{ message }}
-         </li>
-         {% endfor %}
-      </ul>
-      {% endif %}
+      <div class="mainFrame">
       
-      {% block body %}
-      {% endblock %}
-   </body>
+            <div class="bannerFrame">
+         
+            <div class="loginFrame">
+               <a class="pure-button pure-button-primary" href="#">Login</a>&nbsp
+               <a class="pure-button pure-button-primary" href="#">Register</a>
+            </div>
+
+            <div class="logo"><a href="{% url 'polygons.views.index' %}"><img src="{% static "images/PolygonsLogo.png" %}" alt="Polygons Logo" width="346" height="120"></a></div>
+            
+            <div class="lineSegment"></div>
+
+            <div class="pure-menu pure-menu-open pure-menu-horizontal">
+                <ul>
+                   <li><a href="{% url 'polygons.views.degree_list' %}">Degree Planner</a></li>
+                   <li><a href="{% url 'polygons.views.review_page' %}">Course Reviews</a></li>
+                   <li>
+                    <div class="searchBox">
+                        <form class="pure-form">
+                           <input type="text" placeholder="i.e. COMP1917" class="pure-input-rounded">
+                           <button type="submit" class="pure-button smallButton">Search</button>
+                        </form>
+                    </div>
+                  </li>
+                   
+                </ul>
+            </div>
+            
+            
+
+            </div> <!--bannerFrame-->
+         
+         <div class="lineSegment"></div>
+               
+         <div class="contentFrame"> <!-- body of page starts here! -->
+
+            {% if messages %}
+            <ul>
+               {% for message in messages %}
+               <li>
+                  {{ message }}
+               </li>
+               {% endfor %}
+            </ul>
+            {% endif %}
+            
+            {% block body %}
+            {% endblock %}
+            
+            </div> <!--contentFrame-->
+           
+        </div> <!--mainFrame-->
+
+      <div class="footerFrame">
+         Andrew Cai | Casper Chia | Mathew Ciancio | Luna Pradhananga | Corey Tattam
+         <br>
+         COMP4920 Semester 2 2014
+      </div> <!--footerFrame-->
+
+    </body>
 </html>
 {% endspaceless %}
