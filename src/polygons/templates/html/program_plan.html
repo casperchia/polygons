@@ -22,8 +22,9 @@
                                 {% endif %}
                             {% endfor %}
                             <tr><td>
-                                <form method="POST" action="#"> 
+                                <form method="POST" action="#">
                                     {%csrf_token %}
+                                    <input id= "semester" type="number" value={{program_plan.current_semester}}
                                     <input type="submit" value="Add Course"><br><br>
                                 </form>
                             </td></tr>
@@ -58,7 +59,7 @@
                                     {% endif %}
                                 {% endfor %}
                                 <tr><td>
-                                    <form method="POST" action="#"> 
+                                    <form method="POST" action="{% url'polygons.views.add_course'%}""> 
                                         {%csrf_token %}
                                         <input type="submit" value="Add Course"><br><br>
                                     </form>
