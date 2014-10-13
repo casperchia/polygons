@@ -59,6 +59,7 @@ UNIQUE_FIELDS = {
 }
 PROGRAM_RULES = {}
 SUBJECT_AREAS = {}
+MISC_SUBJECT_AREA = 'MISC'
 
 def die(message):
     sys.stderr.write('%s\n'%message)
@@ -82,7 +83,10 @@ def programs__degree(**kwargs):
 
 def subjects__subject_area(**kwargs):
     subject_area_code = re.sub(r'[0-9]+$', '', kwargs['code'])
-    return SUBJECT_AREAS[subject_area_code]
+    try:
+        return SUBJECT_AREAS[subject_area_code]
+    except KeyError:
+        return SUBJECT_AREAS[MISC_SUBJECT_AREA]
 
 # Functions used to alter existing columns
 
