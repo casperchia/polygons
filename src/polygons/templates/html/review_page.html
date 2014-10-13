@@ -6,25 +6,53 @@
     {% block body %}
     <ul>
     Polygons Course Review offers current UNSW students the chance to help make course selection easier for their peers, by leaving reviews of subjects they have completed. Current and prospective students can easily look up a course in which they intend to study, in aim to gain a little more insight of what to expect.
+        <form action="/review_page/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+        
         <table>
-           <tr><th>Filter course by letter</th></tr>
+           <tr><th>Filter course by {{ filter_type }}</th></tr>
         </table>
-        <table>
-            <tr>
-                {% for char in alphabet %}
-                    {% if char not in "QXY" %}                    
-                        <td> <a href="{% url 'polygons.views.review_page' char %}">{{char}}</a> </td>
-                    {% endif %}
-                {% endfor %}
+        {% if filter_type == "letter" %}
+            <table>
+                <tr>
+                    {% for char in alphabet %}
+                        {% if char not in "QXY" %}                    
+                            <td> <a href="{% url 'polygons.views.review_page' char %}">{{char}}</a> </td>
+                        {% endif %}
+                    {% endfor %}
+                
+                </tr>
+            </table>
+
+            <br>  
+        {% elif filter_type == "subject area" %}
+                {% for sa in subject_areas %}
+                    <li>
+                        <a href="{% url 'polygons.views.review_page' sa.code %}">{{ sa }}
+                        </a>
+                    </li>
+                {% endfor %}        
             
-            </tr>
-        </table>
-        <br>
+        {% elif filter_type == "career" %}
+            {% for car in careers %}
+                    <li>
+                        <a href="{% url 'polygons.views.review_page' car.abbreviation %}">{{ car.name }}
+                        </a>
+                    </li>
+                {% endfor %} 
+        
+        {% else %}
+        
+        
+        {% endif %}
         {% for subject in subjects %}
-            <li>
-                <a href="#">{{ subject.code }} - {{ subject.name }}
-                </a>
-            </li>
+                <li>
+                    <a href="#">{{ subject.code }} - {{ subject.name }}
+                    </a>
+                </li>
         {% endfor %}
     </ul>
     {% endblock %}
