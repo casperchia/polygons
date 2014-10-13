@@ -1,0 +1,34 @@
+[
+   {
+      "fields": {
+         "code": "COMP",
+         "name": "Computer Science"
+      },
+      "model": "polygons.subject_area",
+      "pk": 29
+   },
+   {
+      "fields": {
+         "code": "ENGG",
+         "name": "Engineering interdisciplinary"
+      },
+      "model": "polygons.subject_area",
+      "pk": 38
+   },
+   {
+      "fields": {
+         "code": "SENG",
+         "name": "Software Engineering"
+      },
+      "model": "polygons.subject_area",
+      "pk": 133
+   },
+   {
+      "fields": {
+         "code": "BINF",
+         "name": "Bioinformatics"
+      },
+      "model": "polygons.subject_area",
+      "pk": 15
+   }
+]
