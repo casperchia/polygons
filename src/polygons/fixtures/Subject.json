@@ -6,7 +6,8 @@
          "career": 1,
          "offered_by": 89,
          "uoc": 6,
-         "excluded": null
+         "excluded": null,
+         "subject_area": 29
       },
       "model": "polygons.subject",
       "pk": 1880
@@ -18,7 +19,8 @@
          "career": 1,
          "offered_by": 89,
          "uoc": 6,
-         "excluded": null
+         "excluded": null,
+         "subject_area": 29
       },
       "model": "polygons.subject",
       "pk": 1882
@@ -30,7 +32,8 @@
          "career": 1,
          "offered_by": 112,
          "uoc": 6,
-         "excluded": null
+         "excluded": null,
+         "subject_area": 38
       },
       "model": "polygons.subject",
       "pk": 2212
@@ -42,7 +45,8 @@
       "career": 1,
       "offered_by": 89,
       "uoc": 6,
-      "excluded": 111675
+      "excluded": 111675,
+      "subject_area": 133
    },
    "model": "polygons.subject",
    "pk": 3940
@@ -54,7 +58,8 @@
          "career": 1,
          "offered_by": 89,
          "uoc": 6,
-         "excluded": 111677
+         "excluded": 111677,
+         "subject_area": 133
       },
       "model": "polygons.subject",
       "pk": 3942
@@ -66,7 +71,8 @@
       "career": 1,
       "offered_by": 89,
       "uoc": 6,
-      "excluded": 111450
+      "excluded": 111450,
+      "subject_area": 29
    },
    "model": "polygons.subject",
    "pk": 1884
@@ -78,7 +84,8 @@
          "career": 1,
          "offered_by": 89,
          "uoc": 6,
-         "excluded": 117239
+         "excluded": 117239,
+         "subject_area": 29
       },
       "model": "polygons.subject",
       "pk": 1935
@@ -90,7 +97,8 @@
       "career": 1,
       "offered_by": 89,
       "uoc": 6,
-      "excluded": 111443
+      "excluded": 111443,
+      "subject_area": 29
    },
    "model": "polygons.subject",
    "pk": 1865
@@ -102,7 +110,8 @@
          "career": 1,
          "offered_by": 89,
          "uoc": 6,
-         "excluded": 111445
+         "excluded": 111445,
+         "subject_area": 29
       },
       "model": "polygons.subject",
       "pk": 1867
@@ -114,7 +123,8 @@
       "career": 1,
       "offered_by": 89,
       "uoc": 6,
-      "excluded": null
+      "excluded": null,
+      "subject_area": 15
    },
    "model": "polygons.subject",
    "pk": 1583
@@ -126,7 +136,8 @@
          "career": 1,
          "offered_by": 89,
          "uoc": 6,
-         "excluded": null
+         "excluded": null,
+         "subject_area": 29
       },
       "model": "polygons.subject",
       "pk": 1922
