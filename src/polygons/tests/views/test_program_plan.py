@@ -17,4 +17,25 @@ class Test_Program_Plan(TestCase):
 
     def test_status_code(self):
         
-        print 'Starting tests for program plan...'
+        print 'Starting tests for program_plan...'
+
+        print 'Test that visiting the page produces a 202 status code.'
+        plan = Program_Plan.objects.get(pk=100)
+        url = reverse('polygons.views.program_plan', args=[plan.id])
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 200)
+
+        print 'Test that visiting the page produces a 202 status code.'
+        plan = Program_Plan.objects.get(pk=101)
+        url = reverse('polygons.views.program_plan', args=[plan.id])
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 200)
+
+        print 'Test that a dummy url produces 404.'
+        response = self.client.get(url + '123/')
+        self.assertEqual(response.status_code, 404)
+
+        print 'Test that a dummy url produces 404.'
+        response = self.client.get(url + 'abc/')
+        self.assertEqual(response.status_code, 404)
+
