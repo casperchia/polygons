@@ -11,20 +11,80 @@
 
         {% for i in no_of_year %}
             <div class="yearFrame">
-                <div class="yearBanner">Year {{program_plan.current_year}}</div>
-                {% for n in no_of_semester %}
-                <div class="semesterFrame">
-                    <table> 
-                        <th>{{program_plan.current_semester.name}} </th>
-                        <tr><td>
-                            <form method="POST" action="#"> 
-                                {%csrf_token %}
-                                <input type="submit" value="Add Course"><br><br>
-                            </form>
-                        </td></tr>
-                    </table>
-                </div>  
-                {% endfor %} 
+                <div class="yearBanner">Year {{i}}</div>
+                {% if i < final_year %}
+                    <div class="semesterFrame">
+                        <table> 
+                            <th>Semester 1</th>
+                            {% for subject in subject_list %}
+                                {% if subject.semester.abbreviation == "S1" and subject.year == i%}
+                                    <tr><td>{{subject.subject}}</td></tr>
+                                {% endif %}
+                            {% endfor %}
+                            <tr><td>
+                                <form method="POST" action="#"> 
+                                    {%csrf_token %}
+                                    <input type="submit" value="Add Course"><br><br>
+                                </form>
+                            </td></tr>
+                        </table>
+                    </div>  
+                    <div class="semesterFrame">
+                        <table> 
+                            <th>Semester 2</th>
+                            {% for subject in subject_list %}
+                                {% if subject.semester.abbreviation == "S2" and subject.year == i%}
+                                    <tr><td>{{subject.subject}}</td></tr>
+                                {% endif %}
+                            {% endfor %}
+                            <tr><td>
+                                <form method="POST" action="#"> 
+                                    {%csrf_token %}
+                                    <input type="submit" value="Add Course"><br><br>
+                                </form>
+                            </td></tr>
+                        </table>
+                    </div>
+                {% endif %}
+                
+                {% if i == final_year %}
+                    {% if final_semester >= 1 %}
+                        <div class="semesterFrame">
+                            <table> 
+                                <th>Semester 1</th>
+                                {% for subject in subject_list %}
+                                    {% if subject.semester.abbreviation == "S1" and subject.year == i%}
+                                        <tr><td>{{subject.subject}}</td></tr>
+                                    {% endif %}
+                                {% endfor %}
+                                <tr><td>
+                                    <form method="POST" action="#"> 
+                                        {%csrf_token %}
+                                        <input type="submit" value="Add Course"><br><br>
+                                    </form>
+                                </td></tr>
+                            </table>
+                        </div>
+                    {% endif %}
+                    {% if final_semester == 2 %}
+                        <div class="semesterFrame">
+                            <table> 
+                                <th>Semester 2</th>
+                                {% for subject in subject_list %}
+                                    {% if subject.semester.abbreviation == "S2" and subject.year == i%}
+                                        <tr><td>{{subject.subject}}</td></tr>
+                                    {% endif %}
+                                {% endfor %}
+                                <tr><td>
+                                    <form method="POST" action="#"> 
+                                        {%csrf_token %}
+                                        <input type="submit" value="Add Course"><br><br>
+                                    </form>
+                                </td></tr>
+                            </table>
+                        </div>
+                    {% endif %}                    
+                {% endif %}                    
                 <div style="clear: both;"></div>
             </div>
             <div style="clear: both; height: 50px;"></div>

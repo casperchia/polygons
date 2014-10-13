@@ -1,0 +1,62 @@
+[
+  {
+   "fields": {
+      "program_plan": 100,
+      "subject": 2212,
+      "semester": 1,
+      "year": 1
+   },
+   "model": "polygons.Semester_Plan",
+   "pk": 1
+   },
+  {
+   "fields": {
+      "program_plan": 100,
+      "subject": 1882,
+      "semester": 1,
+      "year": 1
+   },
+   "model": "polygons.Semester_Plan",
+   "pk": 2
+   },     
+  {
+   "fields": {
+      "program_plan": 100,
+      "subject": 3940,
+      "semester": 1,
+      "year": 1
+   },
+   "model": "polygons.Semester_Plan",
+   "pk": 3
+   },  
+  {
+   "fields": {
+      "program_plan": 100,
+      "subject": 1922,
+      "semester": 2,
+      "year": 1
+   },
+   "model": "polygons.Semester_Plan",
+   "pk": 4
+   },
+  {
+   "fields": {
+      "program_plan": 100,
+      "subject": 1538,
+      "semester": 2,
+      "year": 1
+   },
+   "model": "polygons.Semester_Plan",
+   "pk": 5
+   },     
+  {
+   "fields": {
+      "program_plan": 100,
+      "subject": 1867,
+      "semester": 2,
+      "year": 2
+   },
+   "model": "polygons.Semester_Plan",
+   "pk": 6
+   }  
+]
