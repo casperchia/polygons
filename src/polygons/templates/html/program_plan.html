@@ -59,7 +59,7 @@
                                     {% endif %}
                                 {% endfor %}
                                 <tr><td>
-                                    <form method="POST" action="{% url'polygons.views.add_course'%}""> 
+                                    <form method="POST" action="{% url 'polygons.views.add_course' %}"> 
                                         {%csrf_token %}
                                         <input type="submit" value="Add Course"><br><br>
                                     </form>
