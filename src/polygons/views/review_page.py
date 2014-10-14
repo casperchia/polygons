@@ -94,6 +94,7 @@ def filter_subject_area(filter,form):
     else :
         area = Subject_Area.objects.get(code=filter)
         subjects = Subject.objects.filter(subject_area=area.id)
+        subjects = subjects.order_by('code') 
         sub_area = []
         
     filter_type = 'subject area'
