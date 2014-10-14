@@ -14,7 +14,10 @@ def program_plan(request, program_plan_id):
         current_year = program_plan.current_year
         current_semester = program_plan.current_semester.id
         subject_list = Semester_Plan.objects.filter(program_plan=program_plan_id)
-     
+        program = program_plan.program
+        request.session['program_id'] = program.id
+        request.session['program_plan_id'] = program_plan_id
+
     except Program_Plan.DoesNotExist:
         messages.error(request, INVALID_PROGRAM_PLAN)
         return HttpResponseRedirect(reverse('polygons.views.index'))
