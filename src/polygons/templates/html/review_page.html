@@ -6,9 +6,17 @@
     {% block body %}
     <ul>
     Polygons Course Review offers current UNSW students the chance to help make course selection easier for their peers, by leaving reviews of subjects they have completed. Current and prospective students can easily look up a course in which they intend to study, in aim to gain a little more insight of what to expect.
+        <p>
         <form action="/review_page/" method="post">
             {% csrf_token %}
-            {{ form }}
+            {% for radio in form.choice_field %}
+                {{ radio.tag }}
+                <label for="{{ radio.id_for_label }}">
+                <span></span>
+                {{ radio.choice_label }}
+                </label>
+                <br>
+            {% endfor %}
             <p><input type="submit" value="Submit" /></p>
         </form>
         
