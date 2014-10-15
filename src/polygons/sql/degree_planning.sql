@@ -593,7 +593,8 @@ begin
 end;
 $$ language plpgsql;
 
-create function get_dependent_subjects(_program_id integer, _subject_id integer,
+create function get_dependent_subjects(_program_id integer,
+                                       _pending_subject_id integer,
                                        _existing_subjects integer array)
 returns setof integer
 AS $$
@@ -602,6 +603,7 @@ declare
    _rule record;
    _faculty_id integer;
    _existing_subject_id integer;
+   _subject_id integer;
 begin
    
    select * into _program
@@ -628,10 +630,19 @@ begin
             exists(
                select *
                from expand_subject_rule(_rule.acad_obj_group_id, _faculty_id)
-               where expand_subject_rule = _subject_id
+               where expand_subject_rule = _pending_subject_id
             )
          ) then
+
             return next _existing_subject_id;
+
+            for _subject_id in (
+               select get_dependent_subjects(_program.id, _existing_subject_id,
+                  array_remove(_existing_subjects, _existing_subject_id))
+            ) loop
+               return next _subject_id;
+            end loop;
+
          end if;
 
       end loop;
