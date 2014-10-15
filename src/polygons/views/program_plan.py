@@ -7,6 +7,8 @@ from django.contrib import messages
 from polygons.models.Program_Plan import Program_Plan
 from polygons.models.Semester_Plan import Semester_Plan
 from polygons.messages import INVALID_PROGRAM_PLAN
+from polygons.forms.add_course import Add_Course_Form
+
 
 def program_plan(request, program_plan_id):
     try:
@@ -24,14 +26,14 @@ def program_plan(request, program_plan_id):
         messages.error(request, INVALID_PROGRAM_PLAN)
         return HttpResponseRedirect(reverse('polygons.views.index'))
 
-    # if request.method == 'POST':
-    #     form = Create_Plan_Form(request.POST)
-    #     if form.is_valid():
-    #         program_plan = form.save(program)
-    #         return HttpResponseRedirect(reverse('polygons.views.program_plan',
-    #                                             args=[program_plan.id]))
-    # else:
-    #     form = Create_Plan_Form()
+    if request.method == 'POST':
+        # Not sure if Add_Course_Form() needs request.POST as input
+        form = Add_Course_Form(request.POST)
+        if form.is_valid():
+            form.save(request, program_plan)
+            return HttpResponseRedirect(reverse('polygons.views.add_course'))
+    else:
+        form = Add_Course_Form()
 
 # have to call add_course_form here
     
