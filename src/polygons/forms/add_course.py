@@ -8,16 +8,16 @@ ADD_COURSE_SESSION_KEY = 'add_course'
 
 class Add_Course_Form(forms.Form):
     
-    def __init__(self, *args, **kwargs):
-        program_plan = kwargs.pop('program_plan')
-        super(Add_Course_Form, self).__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     program_plan = kwargs.pop('program_plan')
+    #     super(Add_Course_Form, self).__init__(*args, **kwargs)
         
-        ids = Semester_Plan.objects.filter(program_plan=program_plan).values_list('semester', flat=True)
-        choices = [(s.id, s.abbreviation) for s in Semester.objects.filter(id__in=ids)]
-        self.fields['semester'] = forms.ChoiceField(choices)
+    #     ids = Semester_Plan.objects.filter(program_plan=program_plan).values_list('semester', flat=True)
+    #     choices = [(s.id, s.abbreviation) for s in Semester.objects.filter(id__in=ids)]
+    #     self.fields['semester'] = forms.ChoiceField(choices)
         
-        self.fields['year'] = forms.IntegerField(min_value=START_YEAR,
-                                                 max_value=program_plan.current_year)
+    #     self.fields['year'] = forms.IntegerField(min_value=START_YEAR,
+    #                                              max_value=program_plan.current_year)
 
     def save(self, request, program_plan_id):
         semester = self.cleaned_data['semester']
