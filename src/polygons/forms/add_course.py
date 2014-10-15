@@ -8,7 +8,8 @@ ADD_COURSE_SESSION_KEY = 'add_course'
 
 class Add_Course_Form(forms.Form):
     
-    def __init__(self, program_plan, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        program_plan = kwargs.pop('program_plan')
         super(Add_Course_Form, self).__init__(*args, **kwargs)
         
         ids = Semester_Plan.objects.filter(program_plan=program_plan).values_list('semester', flat=True)

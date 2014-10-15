@@ -25,10 +25,10 @@ def program_plan(request, program_plan_id):
     if request.method == 'POST':
         form = Add_Course_Form(request.POST)
         if form.is_valid():
-            form.save(request, program_plan.id)
+            form.save(request, program_plan_id)
             return HttpResponseRedirect(reverse('polygons.views.add_course'))
     else:
-        form = Add_Course_Form()
+        form = Add_Course_Form(request.POST)
     
     return render_to_response('html/program_plan.html',
                              {
