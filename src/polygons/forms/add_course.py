@@ -23,7 +23,7 @@ class Add_Course_Form(forms.Form):
         year = self.cleaned_data['year']
         
         data = {
-                'semester_id' : semester.id,
+                'semester_id' : semester,
                 'year' : year,
                 'program_plan_id' : program_plan.id
         }

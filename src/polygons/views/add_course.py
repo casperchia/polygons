@@ -6,7 +6,7 @@ from django.contrib import messages
 
 from polygons.models.Program_Plan import Program_Plan
 from polygons.models.Semester_Plan import Semester_Plan
-from polygons.forms.add_course import Semester_Plan_Form
+from polygons.forms.add_course import Add_Course_Form
 from polygons.messages import INVALID_PROGRAM_PLAN
 
 def add_course(request):
@@ -36,6 +36,13 @@ def add_course(request):
         return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                             args=[program_plan_id]))
     
+
+#      add_course_data = request.session[ADD_COURSE_SESSION_KEY]
+# except KeyError:
+#     ... error handling...
+
+
+
    # subject_list = Semester_Plan.objects.filter(program=program_id)
    # if request.method == 'POST':
    #     form = Semester_Plan_Form(request.POST)

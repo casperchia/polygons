@@ -33,6 +33,7 @@ def program_plan(request, program_plan_id):
     # else:
     #     form = Create_Plan_Form()
 
+# have to call add_course_form here
     
     return render_to_response('html/program_plan.html',
                              {
