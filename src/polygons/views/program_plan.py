@@ -18,24 +18,17 @@ def program_plan(request, program_plan_id):
         subject_list = Semester_Plan.objects.filter(program_plan=program_plan_id)
         program = program_plan.program
 
-        # should be in form
-        # request.session['program_id'] = program.id
-        # request.session['program_plan_id'] = program_plan_id
-
     except Program_Plan.DoesNotExist:
         messages.error(request, INVALID_PROGRAM_PLAN)
         return HttpResponseRedirect(reverse('polygons.views.index'))
 
     if request.method == 'POST':
-        # Not sure if Add_Course_Form() needs request.POST as input
         form = Add_Course_Form(request.POST)
         if form.is_valid():
-            form.save(request, program_plan)
+            form.save(request, program_plan.id)
             return HttpResponseRedirect(reverse('polygons.views.add_course'))
     else:
         form = Add_Course_Form()
-
-# have to call add_course_form here
     
     return render_to_response('html/program_plan.html',
                              {

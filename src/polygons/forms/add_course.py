@@ -18,14 +18,14 @@ class Add_Course_Form(forms.Form):
         self.fields['year'] = forms.IntegerField(min_value=START_YEAR,
                                                  max_value=program_plan.current_year)
 
-    def save(self, request, program_plan):
+    def save(self, request, program_plan_id):
         semester = self.cleaned_data['semester']
         year = self.cleaned_data['year']
         
         data = {
                 'semester_id' : semester,
                 'year' : year,
-                'program_plan_id' : program_plan.id
+                'program_plan_id' : program_plan_id
         }
         
         request.session[ADD_COURSE_SESSION_KEY] = data
