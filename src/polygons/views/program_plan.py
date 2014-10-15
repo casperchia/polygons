@@ -15,12 +15,24 @@ def program_plan(request, program_plan_id):
         current_semester = program_plan.current_semester.id
         subject_list = Semester_Plan.objects.filter(program_plan=program_plan_id)
         program = program_plan.program
-        request.session['program_id'] = program.id
-        request.session['program_plan_id'] = program_plan_id
+
+        # should be in form
+        # request.session['program_id'] = program.id
+        # request.session['program_plan_id'] = program_plan_id
 
     except Program_Plan.DoesNotExist:
         messages.error(request, INVALID_PROGRAM_PLAN)
         return HttpResponseRedirect(reverse('polygons.views.index'))
+
+    # if request.method == 'POST':
+    #     form = Create_Plan_Form(request.POST)
+    #     if form.is_valid():
+    #         program_plan = form.save(program)
+    #         return HttpResponseRedirect(reverse('polygons.views.program_plan',
+    #                                             args=[program_plan.id]))
+    # else:
+    #     form = Create_Plan_Form()
+
     
     return render_to_response('html/program_plan.html',
                              {
