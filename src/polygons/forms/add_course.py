@@ -1,23 +1,32 @@
 import django.forms as forms
 
-from polygons.models.Program_Plan import Program_Plan
-from polygons.models.Semester_Plan import Semester_Plan
 from polygons.models.Semester import Semester
+from polygons.models.Semester_Plan import Semester_Plan
+from polygons.models.Program_Plan import START_YEAR
 
-class Add_Course(forms.Form):
-    semester = forms.IntegerField()
-    year = forms.IntegerField()
+ADD_COURSE_SESSION_KEY = 'add_course'
 
-    def save(self,program_plan):
-        year = self.cleaned_data['year']
+class Add_Course_Form(forms.Form):
+    
+    def __init__(self, program_plan, *args, **kwargs):
+        super(Add_Course_Form, self).__init__(*args, **kwargs)
+        
+        ids = Semester_Plan.objects.filter(program_plan=program_plan).values_list('semester', flat=True)
+        choices = [(s.id, s.abbreviation) for s in Semester.objects.filter(id__in=ids)]
+        self.fields['semester'] = forms.ChoiceField(choices)
+        
+        self.fields['year'] = forms.IntegerField(min_value=START_YEAR,
+                                                 max_value=program_plan.current_year)
 
-        # need choice field for semester to validate input
+    def save(self, request, program_plan):
         semester = self.cleaned_data['semester']
-
-        # semester_plan = Semester_plan(program=program,subject= subject)
-        # semester_plan.save()
-
-        return semester_plan
-
-# save semester, year and program_plan id into user session
-# add them to session
+        year = self.cleaned_data['year']
+        
+        data = {
+                'semester_id' : semester.id,
+                'year' : year,
+                'program_plan_id' : program_plan.id
+        }
+        
+        request.session[ADD_COURSE_SESSION_KEY] = data
+        request.session.save()
