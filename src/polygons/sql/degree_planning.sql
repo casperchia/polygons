@@ -592,3 +592,51 @@ begin
 
 end;
 $$ language plpgsql;
+
+create function get_dependent_subjects(_program_id integer, _subject_id integer,
+                                       _existing_subjects integer array)
+returns setof integer
+AS $$
+declare
+   _program record;
+   _rule record;
+   _faculty_id integer;
+   _existing_subject_id integer;
+begin
+   
+   select * into _program
+   from polygons_program
+   where id = _program_id;
+   
+   _faculty_id := get_faculty(_program.offered_by_id);
+   
+   for _existing_subject_id in (
+      select unnest(_existing_subjects)
+   ) loop
+
+      for _rule in (
+         select r.*
+         from polygons_subject_prereq sp join polygons_rule r on 
+            (sp.rule_id=r.id) join polygons_acad_obj_group aog on
+            (r.acad_obj_group_id=aog.id) join polygons_acad_obj_group_type aogt
+            on (aog.type_id=aogt.id)
+         where subject_id = _existing_subject_id and
+            career_id = _program.career_id and aogt.name = 'subject'
+      ) loop
+
+         if (
+            exists(
+               select *
+               from expand_subject_rule(_rule.acad_obj_group_id, _faculty_id)
+               where expand_subject_rule = _subject_id
+            )
+         ) then
+            return next _existing_subject_id;
+         end if;
+
+      end loop;
+
+   end loop;
+
+end;
+$$ language plpgsql;
