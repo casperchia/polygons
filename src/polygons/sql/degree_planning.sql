@@ -356,28 +356,90 @@ begin
 end;
 $$ language plpgsql;
 
+create function should_expand_subject_rule(_rule_id integer,
+                                           _program_id integer,
+                                           _faculty_id integer,
+                                           _existing_subjects integer array)
+returns boolean
+AS $$
+declare
+   _rule record;
+   _rule_subjects integer array;
+   _subject_id integer;
+   _subject record;
+   _uoc_tally integer := 0;
+begin
+
+   select * into _rule
+   from polygons_rule
+   where id = _rule_id;
+
+   if (_rule.max is not null and _rule.max > 0) then
+      
+      select array_agg(expand_subject_rule) into _rule_subjects
+      from expand_subject_rule(_rule.acad_obj_group_id, _faculty_id);
+
+      for _subject_id in (
+         select unnest(_existing_subjects)
+      ) loop
+
+         select * into _subject
+         from polygons_subject
+         where id = _subject_id;
+
+         if (
+            exists(
+               select *
+               from unnest(_rule_subjects)
+               where unnest = _subject_id
+            )
+         ) then
+           _uoc_tally := _uoc_tally + _subject.uoc; 
+         end if;
+
+      end loop;
+
+      if (_uoc_tally >= _rule.max) then
+         return false;
+      end if;
+
+   end if;
+
+   return true;
+
+end;
+$$ language plpgsql;
+
 create function generate_program_subjects(_program_id integer,
-                                          _faculty_id integer)
+                                          _faculty_id integer,
+                                          _existing_subjects integer array)
 returns setof integer
 AS $$
 declare
    _subject_id integer;
-   _acad_obj_group_id integer;
    _ds_acad_obj_group_id integer;
+   _rule record;
 begin
    
-   for _acad_obj_group_id in (
-      select r.acad_obj_group_id
+   for _rule in (
+      select r.*
       from polygons_program_rule pr join polygons_rule r on (pr.rule_id=r.id)
          join polygons_rule_type rt on (r.type_id=rt.id)
       where pr.program_id=_program_id and rt.abbreviation <> 'DS'
    ) loop
       
-      for _subject_id in (
-         select expand_subject_rule(_acad_obj_group_id, _faculty_id)
-      ) loop
-         return next _subject_id;
-      end loop;
+      if (
+         select should_expand_subject_rule(_rule.id, _program_id, _faculty_id,
+            _existing_subjects)
+      ) then
+
+         for _subject_id in (
+            select expand_subject_rule(_rule.acad_obj_group_id, _faculty_id)
+         ) loop
+            return next _subject_id;
+         end loop;
+
+     end if;
 
    end loop;
 
@@ -388,19 +450,26 @@ begin
       where pr.program_id=_program_id and rt.abbreviation = 'DS'
    ) loop
       
-      for _acad_obj_group_id in (
-         select r.acad_obj_group_id
+      for _rule in (
+         select r.*
          from polygons_stream_group_member sgm join polygons_stream_rule sr on 
             (sgm.stream_id=sr.stream_id) join polygons_rule r on 
             (sr.rule_id=r.id)
          where sgm.acad_obj_group_id = _ds_acad_obj_group_id
       ) loop
 
-         for _subject_id in (
-            select expand_subject_rule(_acad_obj_group_id, _faculty_id)
-         ) loop
-            return next _subject_id;
-         end loop;
+         if (
+            select should_expand_subject_rule(_rule.id, _program_id,
+               _faculty_id, _existing_subjects)
+         ) then
+
+            for _subject_id in (
+               select expand_subject_rule(_rule.acad_obj_group_id, _faculty_id)
+            ) loop
+               return next _subject_id;
+            end loop;
+
+        end if;
          
       end loop;
 
@@ -519,7 +588,8 @@ begin
    _faculty_id := get_faculty(_program.offered_by_id);
 
    for _subject_id in (
-      select generate_program_subjects(_program_id, _faculty_id)
+      select generate_program_subjects(_program_id, _faculty_id,
+         _existing_subjects)
       except
       select get_exclusion_subjects(_existing_subjects, _faculty_id)
    ) loop
