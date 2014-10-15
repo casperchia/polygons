@@ -54,6 +54,8 @@ begin
             if (_subject_faculty_id != _faculty_id) then
                return next _subject.id;
             end if;
+         else
+            return next _subject.id;
          end if;
 
       else
