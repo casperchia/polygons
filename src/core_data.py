@@ -130,6 +130,12 @@ def rule_types():
     record = Rule_Type(abbreviation='DS', name='Stream')
     records.append(record)
     
+    record = Rule_Type(abbreviation='LR', name='Limit')
+    records.append(record)
+    
+    record = Rule_Type(abbreviation='MR', name='Maturity')
+    records.append(record)
+    
     insert_records(records)
     
 def semesters():

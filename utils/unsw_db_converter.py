@@ -152,6 +152,10 @@ def rules__filter(**kwargs):
     rule_type = Rule_Type.objects.filter(abbreviation=kwargs['type']).exists()
     acad_obj_group = kwargs['ao_group'] != NULL
     result = rule_type and acad_obj_group
+    
+    if result and kwargs['type'] == 'LR':
+        if kwargs['min'] != NULL or kwargs['max'] == NULL:
+            result = False
 
     if not result:
         FILTERED_RECORDS['rules'][kwargs['id']] = True

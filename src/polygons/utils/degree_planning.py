@@ -1,6 +1,7 @@
 from django.db import connection
 
 from polygons.models.Subject import Subject
+from Semester_Plan import Semester_Plan
 
 def get_core_subjects(program):
     with connection.cursor() as cursor:
@@ -14,11 +15,12 @@ def get_core_subjects(program):
     
     return Subject.objects.filter(id__in=subject_ids)
 
-def get_program_subjects(program, semester,
-                         existing_subjects=[]):
+def get_program_subjects(program_plan, semester):
+    subjects = Semester_Plan.objects.filter(program_plan=program_plan).values_list('semester', flat=True)
+    
     with connection.cursor() as cursor:
         cursor.execute('select get_program_subjects(%s, %s, %s)',
-                       [program.id, semester.id, list(existing_subjects)])
+                       [program_plan.program_id, semester.id, subjects])
         results = cursor.fetchall()
     
     if results:
