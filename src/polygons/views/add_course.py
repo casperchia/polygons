@@ -29,6 +29,8 @@ def add_course(request):
             subject_list = filter_form.save(subject_list)
     else:
         filter_form = Filter_Subjects_Form()
+        
+    subject_list = subject_list.order_by('code')
 
     return render_to_response('html/add_course.html',
                              {
