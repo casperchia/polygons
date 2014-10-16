@@ -15,3 +15,4 @@ class Add_To_Plan_Form(forms.Form):
         subject = Subject.objects.get(id=subject_id)
         semester_plan = Semester_Plan(program_plan=program_plan, subject=subject, semester=semester, year=year)
         semester_plan.save()
+        request.session[ADD_COURSE_SESSION_KEY].clear()
