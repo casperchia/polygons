@@ -7,23 +7,36 @@
       {% endblock %}
 
       {% block body %}
+      <h2>Filter courses:</h2>
       <form method="POST" action="{% url 'polygons.views.add_course' %}">
          {% csrf_token %}
          {{ filter_form.non_field_errors }}
-         <div class="fieldWrapper"> 
-            <label for="id_careers">Career:</label>
-            {{ filter_form.careers }}
-            {{ filter_form.careers.errors }}
+         <div class="fieldWrapper">
+            <div class="label">
+               <label for="id_careers">Career:</label>
+            </div>
+            <div class="field">
+               {{ filter_form.careers }}
+               {{ filter_form.careers.errors }}
+            </div>
          </div> 
          <div class="fieldWrapper">
-            <label for="id_subject_areas">Subject Area:</label>
-            {{ filter_form.subject_areas }}
-            {{ filter_form.subject_areas.errors }}
+            <div class="label">
+               <label for="id_subject_areas">Subject Area:</label>
+            </div>
+            <div class="field">
+               {{ filter_form.subject_areas }}
+               {{ filter_form.subject_areas.errors }}
+            </div>
          </div> 
          <div class="fieldWrapper">
-            <label for="id_letters">Letter:</label>
-            {{ filter_form.letters }}
-            {{ filter_form.letters.errors }}
+            <div class="label">
+               <label for="id_letters">Letter:</label>
+            </div>
+            <div class="field">
+               {{ filter_form.letters }}
+               {{ filter_form.letters.errors }}
+            </div>
          </div> 
          <input type="submit" value="Filter">
       </form>

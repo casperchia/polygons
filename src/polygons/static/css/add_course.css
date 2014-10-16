@@ -1,9 +1,17 @@
 @charset "utf-8";
 
 .fieldWrapper {
-   vertical-align: middle;
+   padding-top: 1%;
+   padding-bottom: 1%;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
 }
 
-.fieldWrapper > * {
-   display: inline-block;
+.label {
+   width: 10%;
+}
+
+.field {
+   max-width: 90%;
 }
