@@ -1,0 +1,20 @@
+table{
+    width: 80%;
+    font-family: "Lucida Grande", Verdana, Arial, Helvetica,sans-serif;
+}
+
+th{
+    background-color:#0075C9;
+    color: #EBEBEB;
+}
+
+tr{
+
+}tr:nth-child(odd) {
+    background-color: #E6E6E6;
+}
+
+.course_title{
+    font-weight: bold;
+    font-size: 120%;
+}
