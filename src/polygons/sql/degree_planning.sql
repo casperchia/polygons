@@ -469,10 +469,90 @@ begin
          )
       ) then
 
-         if (_maturity_rule.min is not null and _maturity_rule.min > 0) then
-            if (_maturity_rule.min > _uoc_tally) then
-               return true;
-            end if;
+         if (_maturity_rule.min > _uoc_tally) then
+            return true;
+         end if;
+
+      end if;
+
+   end loop;
+
+   return false;
+
+end;
+$$ language plpgsql;
+
+create function breaks_limit_rule(_program_id integer, _faculty_id integer,
+                                  _pending_subject_id integer,
+                                  _existing_subjects integer array)
+returns boolean
+AS $$
+declare
+   _limit_rule_ids integer array;
+   _temp_limit_rule_ids integer array;
+   _ds_acad_obj_group_id integer;
+   _limit_rule_id integer;
+   _limit_rule record;
+   _uoc_tally integer;
+   _subject_id integer;
+   _subject record;
+   _limit_rule_subjects integer array;
+begin
+
+   select array_agg(r.id) into _limit_rule_ids
+   from polygons_program_rule pr join polygons_rule r on (r.id=pr.rule_id) join
+      polygons_rule_type rt on (r.type_id=rt.id)
+   where pr.program_id = _program_id and rt.abbreviation = 'LR';
+   
+   for _ds_acad_obj_group_id in (
+      select r.acad_obj_group_id
+      from polygons_program_rule pr join polygons_rule r on (pr.rule_id=r.id)
+         join polygons_rule_type rt on (r.type_id=rt.id)
+      where pr.program_id = _program_id and rt.abbreviation = 'DS'
+   ) loop
+      
+      select array_agg(r.id) into _temp_limit_rule_ids
+      from polygons_stream_group_member sgm join polygons_stream_rule sr on 
+         (sgm.stream_id=sr.stream_id) join polygons_rule r on 
+         (sr.rule_id=r.id) join polygons_rule_type rt on (r.type_id=rt.id)
+      where sgm.acad_obj_group_id = _ds_acad_obj_group_id and
+         rt.abbreviation = 'LR';
+   
+      _limit_rule_ids := _limit_rule_ids || _temp_limit_rule_ids;
+
+   end loop;
+
+   for _limit_rule_id in (
+      select unnest(_limit_rule_ids)
+   ) loop
+
+      select * into _limit_rule
+      from polygons_rule
+      where id = _limit_rule_id;
+
+      _limit_rule_subjects := array[]::integer[];
+      select array_agg(expand_subject_rule) into _limit_rule_subjects
+      from expand_subject_rule(_limit_rule.acad_obj_group_id, _faculty_id);
+
+      if (_limit_rule_subjects @> array[_pending_subject_id]) then
+  
+         _uoc_tally := 0;
+         for _subject_id in (
+            select unnest(_existing_subjects)
+            intersect
+            select unnest(_limit_rule_subjects)
+         ) loop
+
+            select * into _subject
+            from polygons_subjects
+            where id = _subject_id;
+
+            _uoc_tally := uoc_tally + _subject.uoc;
+
+         end loop;
+
+         if (_uoc_tally >= _limit_rule.max) then
+            return true;
          end if;
 
       end if;
@@ -752,6 +832,13 @@ begin
       if (
          select breaks_maturity_rule(_program_id, _faculty_id, _subject_id,
             _uoc_tally)
+      ) then
+         continue;
+      end if;
+      
+      if (
+         select breaks_limit_rule(_program_id, _faculty_id, _subject_id,
+            _existing_subjects)
       ) then
          continue;
       end if;
