@@ -123,7 +123,7 @@ begin
          if (_constraint_faculty_id is null) then
             return next _subject_id;
          elsif (_subject_faculty_id = _constraint_faculty_id) then
-            if (!negation) then
+            if (not negation) then
                return next _subject_id;
             end if;
          else
@@ -194,7 +194,7 @@ begin
          if (_constraint_faculty_id is null) then
             return next _program_id;
          elsif (_program_faculty_id = _constraint_faculty_id) then
-            if (!negation) then
+            if (not negation) then
                return next _program_id;
             end if;
          else
@@ -743,7 +743,7 @@ begin
 
       end loop;
 
-      if (!_meets_prereqs) then
+      if (not _meets_prereqs) then
          continue;
       end if;
 
