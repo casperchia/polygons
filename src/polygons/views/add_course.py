@@ -9,6 +9,7 @@ from polygons.models.Program_Plan import Program_Plan
 from polygons.messages import INVALID_ADD_COURSE_DATA
 from polygons.forms.add_course import ADD_COURSE_SESSION_KEY
 from polygons.utils.degree_planning import get_program_subjects
+from polygons.forms.add_course import Filter_Subjects_Form
 
 def add_course(request):
     try:
@@ -21,9 +22,15 @@ def add_course(request):
     semester = Semester.objects.get(id=add_course_data['semester_id'])
 
     subject_list = get_program_subjects(program_plan, semester)
+    
+    if request.method == 'POST':
+        filter_form = Filter_Subjects_Form(request.POST)
+        if filter_form.is_valid():
+            subject_list = filter_form.save(subject_list)
 
     return render_to_response('html/add_course.html',
                              {
-                                'subject_list' : subject_list
+                                'subject_list' : subject_list,
+                                'filter_form' : filter_form
                              },
                              context_instance=RequestContext(request))
