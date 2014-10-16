@@ -6,6 +6,6 @@ urlpatterns = patterns('polygons.views',
     url(r'^degree/(?P<program_id>\d+)/$', 'program_details'),
     url(r'^degree/plan/(?P<program_plan_id>\d+)/$', 'program_plan'),
     url(r'^review_page[/]?$', 'review_page'),
-    url(r'^review_page/(?P<letter>[A-PR-WZ])$', 'review_page'),
     url(r'^degree/plan/course/$', 'add_course'),
+    url(r'^review_page/(?P<filter>[A-Z]{1,4})$', 'review_page'),
 )
