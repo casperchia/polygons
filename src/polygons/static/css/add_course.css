@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+.fieldWrapper {
+   vertical-align: middle;
+}
+
+.fieldWrapper > * {
+   display: inline-block;
+}
