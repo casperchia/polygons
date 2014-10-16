@@ -94,18 +94,22 @@ declare
    _subject record;
    _faculty_matches text array;
    _clean_pattern text;
-   _negation text;
+   _negation boolean;
    _org_unit_code text;
    _constraint_faculty_id integer;
    _subject_faculty_id integer;
 begin
 
    _faculty_matches := regexp_matches(_pattern, '([^/]+)/F=(!?)([a-zA-Z]+)');
-   if (_faculty_matches) then
+   if (_faculty_matches is not null) then
       
-      _clean_pattern := _faculty_matches[0];
-      _negation := _faculty_matches[1];
-      _org_unit_code := _faculty_matches[2];
+      _clean_pattern := _faculty_matches[1];
+      _negation := _faculty_matches[2] = '!';
+      _org_unit_code := _faculty_matches[3];
+         
+      select get_faculty(id) into _constraint_faculty_id
+      from polygons_org_unit
+      where code = _org_unit_code;
 
       for _subject_id in (
          select expand_clean_subject_pattern(_clean_pattern, _faculty_id)
@@ -116,18 +120,15 @@ begin
          where id = _subject_id;
 
          _subject_faculty_id := get_faculty(_subject.offered_by_id);
-         select id into _constraint_faculty_id
-         from polygons_org_unit
-         where code = _org_unit_code;
 
          if (_constraint_faculty_id is null) then
             return next _subject_id;
          elsif (_subject_faculty_id = _constraint_faculty_id) then
-            if (not negation) then
+            if (not _negation) then
                return next _subject_id;
             end if;
          else
-            if (negation) then
+            if (_negation) then
                return next _subject_id;
             end if;
          end if;
@@ -165,18 +166,22 @@ declare
    _program record;
    _faculty_matches text array;
    _clean_pattern text;
-   _negation text;
+   _negation boolean;
    _org_unit_code text;
    _constraint_faculty_id integer;
    _program_faculty_id integer;
 begin
 
    _faculty_matches := regexp_matches(_pattern, '([^/]+)/F=(!?)([a-zA-Z]+)');
-   if (_faculty_matches) then
+   if (_faculty_matches is not null) then
       
-      _clean_pattern := _faculty_matches[0];
-      _negation := _faculty_matches[1];
-      _org_unit_code := _faculty_matches[2];
+      _clean_pattern := _faculty_matches[1];
+      _negation := _faculty_matches[2] = '!';
+      _org_unit_code := _faculty_matches[3];
+         
+      select get_faculty(id) into _constraint_faculty_id
+      from polygons_org_unit
+      where code = _org_unit_code;
 
       for _program_id in (
          select expand_clean_program_pattern(_clean_pattern)
@@ -187,18 +192,15 @@ begin
          where id = _program_id;
 
          _program_faculty_id := get_faculty(_program.offered_by_id);
-         select id into _constraint_faculty_id
-         from polygons_org_unit
-         where code = _org_unit_code;
 
          if (_constraint_faculty_id is null) then
             return next _program_id;
          elsif (_program_faculty_id = _constraint_faculty_id) then
-            if (not negation) then
+            if (not _negation) then
                return next _program_id;
             end if;
          else
-            if (negation) then
+            if (_negation) then
                return next _program_id;
             end if;
          end if;
