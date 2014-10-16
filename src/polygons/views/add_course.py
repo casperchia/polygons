@@ -27,6 +27,8 @@ def add_course(request):
         filter_form = Filter_Subjects_Form(request.POST)
         if filter_form.is_valid():
             subject_list = filter_form.save(subject_list)
+    else:
+        filter_form = Filter_Subjects_Form()
 
     return render_to_response('html/add_course.html',
                              {

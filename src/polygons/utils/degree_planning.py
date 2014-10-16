@@ -20,7 +20,7 @@ def get_program_subjects(program_plan, semester):
     
     with connection.cursor() as cursor:
         cursor.execute('select get_program_subjects(%s, %s, %s)',
-                       [program_plan.program_id, semester.id, subjects])
+                       [program_plan.program_id, semester.id, list(subjects)])
         results = cursor.fetchall()
     
     if results:
