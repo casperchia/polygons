@@ -52,7 +52,7 @@ begin
          from get_faculty(_subject.offered_by_id);
 
          if (_subject_faculty_id is not null) then
-            if (_subject_faculty_id != _faculty_id) then
+            if (_subject_faculty_id <> _faculty_id) then
                return next _subject.id;
             end if;
          else
@@ -413,6 +413,75 @@ begin
 end;
 $$ language plpgsql;
 
+create function breaks_maturity_rule(_program_id integer,
+                                     _faculty_id integer,
+                                     _subject_id integer,
+                                     _uoc_tally integer)
+returns boolean
+AS $$
+declare
+   _maturity_rule_ids integer array;
+   _temp_maturity_rule_ids integer array;
+   _ds_acad_obj_group_id integer;
+   _maturity_rule_id integer;
+   _maturity_rule record;
+begin
+
+   select array_agg(r.id) into _maturity_rule_ids
+   from polygons_program_rule pr join polygons_rule r on (r.id=pr.rule_id) join
+      polygons_rule_type rt on (r.type_id=rt.id)
+   where pr.program_id = _program_id and rt.abbreviation = 'MR';
+   
+   for _ds_acad_obj_group_id in (
+      select r.acad_obj_group_id
+      from polygons_program_rule pr join polygons_rule r on (pr.rule_id=r.id)
+         join polygons_rule_type rt on (r.type_id=rt.id)
+      where pr.program_id = _program_id and rt.abbreviation = 'DS'
+   ) loop
+      
+      select array_agg(r.id) into _temp_maturity_rule_ids
+      from polygons_stream_group_member sgm join polygons_stream_rule sr on 
+         (sgm.stream_id=sr.stream_id) join polygons_rule r on 
+         (sr.rule_id=r.id) join polygons_rule_type rt on (r.type_id=rt.id)
+      where sgm.acad_obj_group_id = _ds_acad_obj_group_id and
+         rt.abbreviation = 'MR';
+   
+      _maturity_rule_ids := _maturity_rule_ids || _temp_maturity_rule_ids;
+
+   end loop;
+
+   for _maturity_rule_id in (
+      select unnest(_maturity_rule_ids)
+   ) loop
+
+      select * into _maturity_rule
+      from polygons_rule
+      where id = _maturity_rule_id;
+
+      if (
+         exists(
+            select *
+            from expand_subject_rule(_maturity_rule.acad_obj_group_id,
+               _faculty_id)
+            where expand_subject_rule = _subject_id
+         )
+      ) then
+
+         if (_maturity_rule.min is not null and _maturity_rule.min > 0) then
+            if (_maturity_rule.min > _uoc_tally) then
+               return true;
+            end if;
+         end if;
+
+      end if;
+
+   end loop;
+
+   return false;
+
+end;
+$$ language plpgsql;
+
 create function generate_program_subjects(_program_id integer,
                                           _faculty_id integer,
                                           _existing_subjects integer array)
@@ -584,6 +653,8 @@ declare
    _rule record;
    _aog_type_name text;
    _meets_prereqs boolean;
+   _uoc_tally integer := 0;
+   _subject record;
 begin
    
    select * into _program
@@ -591,6 +662,18 @@ begin
    where id = _program_id;
 
    _faculty_id := get_faculty(_program.offered_by_id);
+   
+   for _subject_id in (
+      select unnest(_existing_subjects)
+   ) loop
+
+      select * into _subject
+      from polygons_subjects
+      where id = _subject_id;
+
+      _uoc_tally := uoc_tally + _subject.uoc;
+
+   end loop;
 
    for _subject_id in (
       select generate_program_subjects(_program_id, _faculty_id,
@@ -646,7 +729,8 @@ begin
 
             if (
                exists(
-                  select expand_subject_rule(_rule.acad_obj_group_id, _faculty_id)
+                  select expand_subject_rule(_rule.acad_obj_group_id,
+                     _faculty_id)
                   except
                   select unnest(_existing_subjects)
                )
@@ -659,9 +743,18 @@ begin
 
       end loop;
 
-      if (_meets_prereqs) then
-         return next _subject_id;
+      if (!_meets_prereqs) then
+         continue;
       end if;
+
+      if (
+         select breaks_maturity_rule(_program_id, _faculty_id, _subject_id,
+            _uoc_tally)
+      ) then
+         continue;
+      end if;
+         
+      return next _subject_id;
       
    end loop;
 
