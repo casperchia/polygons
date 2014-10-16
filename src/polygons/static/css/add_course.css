@@ -9,12 +9,11 @@ th{
 }
 
 tr{
-
 }tr:nth-child(odd) {
     background-color: #E6E6E6;
 }
 
 .course_title{
     font-weight: bold;
-    font-size: 120%;
+    font-size: 110%;
 }
