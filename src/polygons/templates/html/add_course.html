@@ -1,0 +1,11 @@
+{% extends "html/base.html" %}
+      {% block body %}
+      <h2>Select a course:</h2>
+      <ul>
+         {% for subject in subject_list %}
+         <li>
+            {{ subject }}
+         </li>
+         {% endfor %}
+      </ul>
+      {% endblock %}

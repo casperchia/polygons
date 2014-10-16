@@ -23,8 +23,6 @@ def program_details(request, program_id):
             program_plan = form.save(program)
             return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                                 args=[program_plan.id]))
-    else:
-        form = Create_Plan_Form()
     
     subjects = get_core_subjects(program)
     subjects = subjects.order_by('code')
@@ -32,7 +30,6 @@ def program_details(request, program_id):
     return render_to_response('html/program_details.html', 
                               {
                                 'program' : program,
-                                'core_subjects' : subjects,
-                                'form' : form
+                                'core_subjects' : subjects
                               }, 
                               context_instance=RequestContext(request))
