@@ -428,7 +428,8 @@ begin
       select r.*
       from polygons_program_rule pr join polygons_rule r on (pr.rule_id=r.id)
          join polygons_rule_type rt on (r.type_id=rt.id)
-      where pr.program_id=_program_id and rt.abbreviation <> 'DS'
+      where pr.program_id=_program_id and rt.abbreviation not in
+         ('DS', 'LR', 'MR')
    ) loop
       
       if (
@@ -457,8 +458,9 @@ begin
          select r.*
          from polygons_stream_group_member sgm join polygons_stream_rule sr on 
             (sgm.stream_id=sr.stream_id) join polygons_rule r on 
-            (sr.rule_id=r.id)
-         where sgm.acad_obj_group_id = _ds_acad_obj_group_id
+            (sr.rule_id=r.id) join polygons_rule_type rt on (r.type_id=rt.id)
+         where sgm.acad_obj_group_id = _ds_acad_obj_group_id and
+            rt.abbreviation not in ('LR', 'MR')
       ) loop
 
          if (
