@@ -76,3 +76,5 @@ class Filter_Subjects_Form(forms.Form):
         if letters:
             regex = r'^[' + ''.join(letters) + ']'
             subjects = subjects.filter(code__regex=regex)
+            
+        return subjects
