@@ -1,7 +1,7 @@
 from django.db import connection
 
 from polygons.models.Subject import Subject
-from Semester_Plan import Semester_Plan
+from polygons.models.Semester_Plan import Semester_Plan
 
 def get_core_subjects(program):
     with connection.cursor() as cursor:
