@@ -13,14 +13,13 @@ from polygons.forms.add_course import Add_Course_Form
 def program_plan(request, program_plan_id):
     try:
         program_plan = Program_Plan.objects.get(id=program_plan_id)
-        current_year = program_plan.current_year
-        current_semester = program_plan.current_semester.id
-        subject_list = Semester_Plan.objects.filter(program_plan=program_plan_id)
-        program = program_plan.program
-
     except Program_Plan.DoesNotExist:
         messages.error(request, INVALID_PROGRAM_PLAN)
         return HttpResponseRedirect(reverse('polygons.views.index'))
+    
+    current_year = program_plan.current_year
+    current_semester = program_plan.current_semester.id
+    subject_list = Semester_Plan.objects.filter(program_plan=program_plan_id)
 
     if request.method == 'POST':
         form = Add_Course_Form(request.POST, program_plan=program_plan)
