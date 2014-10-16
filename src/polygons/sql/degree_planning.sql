@@ -415,11 +415,9 @@ begin
 end;
 $$ language plpgsql;
 
-create function breaks_maturity_rule(_program_id integer,
-                                     _faculty_id integer,
-                                     _subject_id integer,
+create function get_maturity_subjects(_program_id integer, _faculty_id integer,
                                      _uoc_tally integer)
-returns boolean
+returns setof integer
 AS $$
 declare
    _maturity_rule_ids integer array;
@@ -427,6 +425,7 @@ declare
    _ds_acad_obj_group_id integer;
    _maturity_rule_id integer;
    _maturity_rule record;
+   _subject_id integer;
 begin
 
    select array_agg(r.id) into _maturity_rule_ids
@@ -459,33 +458,26 @@ begin
       select * into _maturity_rule
       from polygons_rule
       where id = _maturity_rule_id;
-
-      if (
-         exists(
-            select *
-            from expand_subject_rule(_maturity_rule.acad_obj_group_id,
+         
+      if (_maturity_rule.min > _uoc_tally) then
+     
+         for _subject_id in (
+            select expand_subject_rule(_maturity_rule.acad_obj_group_id,
                _faculty_id)
-            where expand_subject_rule = _subject_id
-         )
-      ) then
-
-         if (_maturity_rule.min > _uoc_tally) then
-            return true;
-         end if;
-
+         ) loop
+            return next _subject_id;
+         end loop;
+      
       end if;
 
    end loop;
 
-   return false;
-
 end;
 $$ language plpgsql;
 
-create function breaks_limit_rule(_program_id integer, _faculty_id integer,
-                                  _pending_subject_id integer,
+create function get_limit_subjects(_program_id integer, _faculty_id integer,
                                   _existing_subjects integer array)
-returns boolean
+returns setof integer
 AS $$
 declare
    _limit_rule_ids integer array;
@@ -534,32 +526,32 @@ begin
       select array_agg(expand_subject_rule) into _limit_rule_subjects
       from expand_subject_rule(_limit_rule.acad_obj_group_id, _faculty_id);
 
-      if (_limit_rule_subjects @> array[_pending_subject_id]) then
-  
-         _uoc_tally := 0;
+      _uoc_tally := 0;
+      for _subject_id in (
+         select unnest(_existing_subjects)
+         intersect
+         select unnest(_limit_rule_subjects)
+      ) loop
+
+         select * into _subject
+         from polygons_subjects
+         where id = _subject_id;
+
+         _uoc_tally := uoc_tally + _subject.uoc;
+
+      end loop;
+
+      if (_uoc_tally >= _limit_rule.max) then
+         
          for _subject_id in (
-            select unnest(_existing_subjects)
-            intersect
             select unnest(_limit_rule_subjects)
          ) loop
-
-            select * into _subject
-            from polygons_subjects
-            where id = _subject_id;
-
-            _uoc_tally := uoc_tally + _subject.uoc;
-
+            return next _subject_id;
          end loop;
-
-         if (_uoc_tally >= _limit_rule.max) then
-            return true;
-         end if;
 
       end if;
 
    end loop;
-
-   return false;
 
 end;
 $$ language plpgsql;
@@ -737,6 +729,9 @@ declare
    _meets_prereqs boolean;
    _uoc_tally integer := 0;
    _subject record;
+   _subjects integer array;
+   _maturity_subjects integer array;
+   _limit_subjects integer array;
 begin
    
    select * into _program
@@ -828,23 +823,31 @@ begin
       if (not _meets_prereqs) then
          continue;
       end if;
+ 
+      _subjects := array_append(_subjects, _subject_id);
+      
+   end loop;
+      
+   for _subject_id in (
+      select get_maturity_subjects(_program_id, _faculty_id, _uoc_tally)
+   ) loop
+      _maturity_subjects := array_append(_maturity_subjects, _subject_id);
+   end loop;
 
-      if (
-         select breaks_maturity_rule(_program_id, _faculty_id, _subject_id,
-            _uoc_tally)
-      ) then
-         continue;
-      end if;
-      
-      if (
-         select breaks_limit_rule(_program_id, _faculty_id, _subject_id,
-            _existing_subjects)
-      ) then
-         continue;
-      end if;
-         
+   for _subject_id in (
+      select get_limit_subjects(_program_id, _faculty_id, _existing_subjects)
+   ) loop
+      _limit_subjects := array_append(_limit_subjects, _subject_id);
+   end loop;
+
+   for _subject_id in (
+      select unnest(_subjects)
+      except
+      select unnest(_maturity_subjects)
+      except
+      select unnest(_limit_subjects)
+   ) loop
       return next _subject_id;
-      
    end loop;
 
 end;
