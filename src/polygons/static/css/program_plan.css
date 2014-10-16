@@ -1,5 +1,6 @@
 table, th, td, tr{
-	width: 90%;
+    height: 40px;
+    width: 384px;
 	border: 1px solid #666;
 	font-family: "Lucida Grande", Verdana, Arial, Helvetica,sans-serif;
 }
@@ -14,4 +15,32 @@ tr{
 	text-align: center;
 }tr:hover{
 	background-color:#DBDBDB;
+}
+
+table{
+    margin-left: 67px; 
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.yearBanner{
+    width: auto;
+    height: 40px;
+    background-color:#0075C9;
+    color: #EBEBEB;
+    text-align: center;
+    border: 1px solid #666;
+    font-family: "Lucida Grande", Verdana, Arial, Helvetica,sans-serif;
+}
+
+.yearFrame{
+    width: auto;
+    height: auto;
+    border: 1px solid #666;
+}
+
+.semesterFrame{
+    width: 451px;
+    height: auto;
+    float: left;
 }
