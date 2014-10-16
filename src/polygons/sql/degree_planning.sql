@@ -10,7 +10,8 @@ begin
 	end if;
 
 	select t.name into _name
-	from polygons_org_unit u join polygons_org_unit_type t on (u.type_id=t.id);
+	from polygons_org_unit u join polygons_org_unit_type t on (u.type_id=t.id)
+   where u.id = _org_unit_id;
 
 	if (_name is null) then
 		return null;
