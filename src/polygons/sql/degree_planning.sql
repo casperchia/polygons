@@ -787,7 +787,7 @@ begin
          select aogt.name into _aog_type_name
          from polygons_acad_obj_group_type aogt join polygons_acad_obj_group aog
             on (aogt.id=aog.type_id) 
-         where aog.id = _rule.id;
+         where aog.id = _rule.acad_obj_group_id;
 
          if (_aog_type_name = 'program') then
 
