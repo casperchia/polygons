@@ -560,7 +560,12 @@ begin
          select unnest(_existing_subjects)
       ) loop
          
-         _existing_subjects := array_remove(_existing_subjects, _subject_id);
+         select array_agg(unnest) into _existing_subjects
+         from (
+            select unnest(_existing_subjects)
+            except
+            select _subject_id
+         ) sub;
 
          select * into _subject
          from polygons_subject
