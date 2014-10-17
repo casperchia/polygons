@@ -36,17 +36,17 @@ echo "Inserting core data..."
 ./core_data.py >/dev/null
 
 echo "Inserting UNSW data..."
-psql -v ON_ERROR_STOP=1 -U postgres "$DB_NAME" -f "$DB_DUMP_FILE" >/dev/null
+psql -U postgres "$DB_NAME" -f "$DB_DUMP_FILE" >/dev/null
 
 echo "Untarring archive file..."
 tar -xvf "$PATTERN_DUMP_ARCHIVE_FILE" >/dev/null
 
 echo "Inserting pattern cache data..."
-psql -v ON_ERROR_STOP=1 -U postgres "$DB_NAME" -f "$DB_DUMP_FILE" >/dev/null
+psql -U postgres "$DB_NAME" -f "$DB_DUMP_FILE" >/dev/null
 
 echo "Inserting custom DB functions..."
 for filePath in $(find "$CUSTOM_SQL_PATH" -type f); do
-   psql -v ON_ERROR_STOP=1 -U postgres polygons -f "$filePath" >/dev/null
+   psql -U postgres polygons -f "$filePath" >/dev/null
 done;
 
 rm -f "$DB_DUMP_ARCHIVE_FILE" "$PATTERN_DUMP_ARCHIVE_FILE" "$DB_DUMP_FILE"
