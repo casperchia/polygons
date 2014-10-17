@@ -7,16 +7,32 @@
       <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
       <link href="{% static "css/base.css" %}" rel="stylesheet" type="text/css">
       <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
+      <script type="text/JavaScript" src="{% static "js/base.js" %}"></script> 
       {% block head %} 
       {% endblock %}
       <title>{% block title %}Polygons{% endblock %}</title>
    </head>
    <body>
+      {% if messages %}
+      <ul id="messages" onmouseover="expand_messages()" onmouseout="contract_messages()">
+         {% for message in messages %}
+         <li>
+            <div class="message">
+               {{ message }}
+            </div>
+            <div class="close_message_button" onclick="hide_message()">
+               X
+            </div>
+         </li>
+         {% endfor %}
+      </ul>
+      {% endif %}
       <div class="mainFrame">
       
             <div class="bannerFrame">
          
             <div class="loginFrame">
+               <!-- Ignore the grey text colour, the <a> tags below will be changed to <buttons> in a form -->
                <a class="pure-button pure-button-primary" href="#">Login</a>&nbsp
                <a class="pure-button pure-button-primary" href="#">Register</a>
             </div>
@@ -49,16 +65,6 @@
                
          <div class="contentFrame"> <!-- body of page starts here! -->
 
-            {% if messages %}
-            <ul>
-               {% for message in messages %}
-               <li>
-                  {{ message }}
-               </li>
-               {% endfor %}
-            </ul>
-            {% endif %}
-            
             {% block body %}
             {% endblock %}
             

@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+.fieldWrapper {
+   padding-top: 1%;
+   padding-bottom: 1%;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+
+.label {
+   width: 10%;
+}
+
+.field {
+   max-width: 90%;
+}
+
+table{
+    width: 80%;
+    font-family: "Lucida Grande", Verdana, Arial, Helvetica,sans-serif;
+}
+
+th{
+    background-color:#0075C9;
+    color: #EBEBEB;
+}
+
+tr{
+}tr:nth-child(odd) {
+    background-color: #E6E6E6;
+}
+
+.course_title{
+    font-weight: bold;
+    font-size: 110%;
+}
+
+/* unvisited link */
+a:link {
+    color: #666666;
+}
+
+/* visited link */
+a:visited {
+    color: #666666;
+}
+
+/* mouse over link */
+a:hover {
+    color: #444444;
+}
+
+/* selected link */
+a:active {
+    color: #666666;
+}
+
+a{
+    text-decoration: none;
+}

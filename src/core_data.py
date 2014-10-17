@@ -43,16 +43,19 @@ def careers():
     print 'Inserting Career records...'
     records = []
     
-    record = Career(name='undergraduate', abbreviation='UG')
+    record = Career(name='undergraduate', abbreviation='UG',
+                    display_name='Undergraduate')
     records.append(record)
     
-    record = Career(name='postgraduate', abbreviation='PG')
+    record = Career(name='postgraduate', abbreviation='PG',
+                    display_name='Postgraduate')
     records.append(record)
     
-    record = Career(name='nonaward', abbreviation='NA')
+    record = Career(name='nonaward', abbreviation='NA',
+                    display_name='Non-Award')
     records.append(record)
     
-    record = Career(name='research', abbreviation='RS')
+    record = Career(name='research', abbreviation='RS', display_name='Research')
     records.append(record)
     
     insert_records(records)
@@ -128,6 +131,12 @@ def rule_types():
     records.append(record)
     
     record = Rule_Type(abbreviation='DS', name='Stream')
+    records.append(record)
+    
+    record = Rule_Type(abbreviation='LR', name='Limit')
+    records.append(record)
+    
+    record = Rule_Type(abbreviation='MR', name='Maturity')
     records.append(record)
     
     insert_records(records)

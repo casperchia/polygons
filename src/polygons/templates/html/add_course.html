@@ -1,11 +1,67 @@
 {% extends "html/base.html" %}
-      {% block body %}
-      <h2>Select a course:</h2>
-      <ul>
-         {% for subject in subject_list %}
-         <li>
-            {{ subject }}
-         </li>
-         {% endfor %}
-      </ul>
+{% load staticfiles %}
+
+      {% block head %}
+      {{ block.super }}
+      <link href="{% static "css/add_course.css" %}" rel="stylesheet" type="text/css">
       {% endblock %}
+
+      {% block body %}
+      <h2>Filter courses:</h2>
+      <form method="POST" action="{% url 'polygons.views.course_listing' %}">
+         {% csrf_token %}
+         {{ filter_form.non_field_errors }}
+         <div class="fieldWrapper">
+            <div class="label">
+               <label for="id_careers">Career:</label>
+            </div>
+            <div class="field">
+               {{ filter_form.careers }}
+               {{ filter_form.careers.errors }}
+            </div>
+         </div> 
+         <div class="fieldWrapper">
+            <div class="label">
+               <label for="id_subject_areas">Subject Area:</label>
+            </div>
+            <div class="field">
+               {{ filter_form.subject_areas }}
+               {{ filter_form.subject_areas.errors }}
+            </div>
+         </div> 
+         <div class="fieldWrapper">
+            <div class="label">
+               <label for="id_letters">Letter:</label>
+            </div>
+            <div class="field">
+               {{ filter_form.letters }}
+               {{ filter_form.letters.errors }}
+            </div>
+         </div> 
+         <button type="submit" class="pure-button smallButton">
+            Filter
+         </button>
+      </form>
+      <h2>Select a course:</h2>
+
+    <table>
+        {% for subject in subject_list %}
+        <tr>
+            <td>
+                <a class="course_title" href='#'> {{ subject.code }} - {{ subject.name }} </a>
+                <br>
+                Units of Credit: {{ subject.uoc }}
+                <br>
+                Offered by: {{ subject.offered_by.name }}
+            </td>
+            <td>
+                <form method="POST" action="{% url 'polygons.views.add_course' %}"> 
+                    {%csrf_token %}
+                    <input type="hidden" name="subject" value="{{ subject.id }}">
+                    <button type="submit" class="pure-button pure-button-primary">Add To Plan</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}
