@@ -38,12 +38,7 @@ def add_course(request):
     else:
         form = Add_To_Plan_Form()
 
-    # Old version:
-    # Does get_program_subjects() take a list of subjects, or subject ids?
-    subject_list = get_program_subjects(program, semester)
-
-    # Latest version:
-    # get_program_subjects(program_plan, semester)
+    subject_list = get_program_subjects(program_plan, semester)
 
     return render_to_response('html/add_course.html',
                              {
