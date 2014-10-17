@@ -29,4 +29,4 @@ def get_program_subjects(program_plan, semester):
     else:
         subject_ids = []
     
-    return Subject.objects.filter(id__in=subject_ids)
+    return Subject.objects.select_related('offered_by').filter(id__in=subject_ids)
