@@ -1,12 +1,48 @@
 {% extends "html/base.html" %}
-    {% load staticfiles %}
+{% load staticfiles %}
 
-    {% block head %}
-    <link href="{% static "css/add_course.css" %}" rel="stylesheet" type="text/css">
-    {% endblock %}
+      {% block head %}
+      {{ block.super }}
+      <link href="{% static "css/add_course.css" %}" rel="stylesheet" type="text/css">
+      {% endblock %}
 
-    {% block body %}
-    <h2>Select a course:</h2>
+      {% block body %}
+      <h2>Filter courses:</h2>
+      <form method="POST" action="{% url 'polygons.views.course_listing' %}">
+         {% csrf_token %}
+         {{ filter_form.non_field_errors }}
+         <div class="fieldWrapper">
+            <div class="label">
+               <label for="id_careers">Career:</label>
+            </div>
+            <div class="field">
+               {{ filter_form.careers }}
+               {{ filter_form.careers.errors }}
+            </div>
+         </div> 
+         <div class="fieldWrapper">
+            <div class="label">
+               <label for="id_subject_areas">Subject Area:</label>
+            </div>
+            <div class="field">
+               {{ filter_form.subject_areas }}
+               {{ filter_form.subject_areas.errors }}
+            </div>
+         </div> 
+         <div class="fieldWrapper">
+            <div class="label">
+               <label for="id_letters">Letter:</label>
+            </div>
+            <div class="field">
+               {{ filter_form.letters }}
+               {{ filter_form.letters.errors }}
+            </div>
+         </div> 
+         <button type="submit" class="pure-button smallButton">
+            Filter
+         </button>
+      </form>
+      <h2>Select a course:</h2>
 
     <table>
         {% for subject in subject_list %}
@@ -28,5 +64,4 @@
         </tr>
         {% endfor %}
     </table>
-
     {% endblock %}
