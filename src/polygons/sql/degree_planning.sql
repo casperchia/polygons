@@ -777,6 +777,10 @@ begin
       except
       select get_exclusion_subjects(_existing_subjects, _faculty_id)
    ) loop
+         
+      select * into _subject
+      from polygons_subject
+      where id = _subject_id;
 
       if (_existing_subjects @> array[_subject_id]) then
          -- Subject is already in plan
@@ -840,10 +844,6 @@ begin
       if (not _meets_prereqs) then
          continue;
       elsif (_subject.career_id <> _program.career_id) then
-
-         select * into _subject
-         from polygons_subject
-         where id = _subject_id;
 
          if (
             exists(
