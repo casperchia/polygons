@@ -732,6 +732,7 @@ declare
    _subjects integer array;
    _maturity_subjects integer array;
    _limit_subjects integer array;
+   _has_prereq boolean;
 begin
    
    select * into _program
@@ -776,6 +777,7 @@ begin
       end if;
 
       _meets_prereqs := true;
+      _has_prereq := false;
 
       for _rule in (
          select r.*
@@ -783,6 +785,8 @@ begin
             (sp.rule_id=r.id)
          where subject_id = _subject_id and career_id = _program.career_id
       ) loop
+
+         _has_prereq := true;
 
          select aogt.name into _aog_type_name
          from polygons_acad_obj_group_type aogt join polygons_acad_obj_group aog
@@ -822,6 +826,16 @@ begin
 
       if (not _meets_prereqs) then
          continue;
+      elsif (not _has_prereq) then
+
+         select * into _subject
+         from polygons_subject
+         where id = _subject_id;
+
+         if (_subject.career_id <> _program.career_id) then
+            continue;
+         end if;
+   
       end if;
  
       _subjects := array_append(_subjects, _subject_id);
