@@ -684,6 +684,56 @@ begin
 end;
 $$ language plpgsql;
 
+create function meets_subject_prereqs(_rule_id integer, _faculty_id integer,
+                                      _existing_subjects integer array)
+returns boolean
+AS $$
+declare
+   _uoc_tally integer := 0;
+   _subject_id integer;
+   _subject_ids integer array;
+   _rule record;
+   _subject record;
+begin
+
+   select * into _rule
+   from polygons_rule
+   where id = _rule_id;
+
+   select array_agg(expand_subject_rule) into _subject_ids
+   from expand_subject_rule(_rule.acad_obj_group_id, _faculty_id);
+
+   for _subject_id in (
+      select unnest(_existing_subjects)
+   ) loop
+
+      if (
+         exists (
+            select *
+            from unnest(_subject_ids)
+            where unnest = _subject_id
+         )
+      ) then
+
+         select * into _subject
+         from polygons_subject
+         where id = _subject_id;
+
+         _uoc_tally := _uoc_tally + _subject.uoc;
+
+      end if;
+
+   end loop;
+
+   if (_uoc_tally >= _rule.min) then
+      return true;
+   else
+      return false;
+   end if;
+
+end;
+$$ language plpgsql;
+
 create function get_program_subjects(_program_id integer, _semester_id integer,
                                      _existing_subjects integer array)
 returns setof integer
@@ -778,11 +828,9 @@ begin
          elsif (_aog_type_name = 'subject') then
 
             if (
-               exists(
-                  select expand_subject_rule(_rule.acad_obj_group_id,
-                     _faculty_id)
-                  except
-                  select unnest(_existing_subjects)
+               not(
+                  select meets_subject_prereqs(_rule.id, _faculty_id,
+                     _existing_subjects)
                )
             ) then
                _meets_prereqs := false;
