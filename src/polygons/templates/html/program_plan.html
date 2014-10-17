@@ -8,7 +8,9 @@
         <div>
             <input type="button" value="Save" onclick="alert('You can continue the plan later on via ' + window.location.href)">
         </div>  
-
+        <div>
+            <h2>{{ program_plan.uoc_tally }} / {{ program_plan.program.uoc }}</h2>
+        </div>
         {% for i in no_of_year %}
             <div class="yearFrame">
                 <div class="yearBanner">Year {{ i }}</div>
