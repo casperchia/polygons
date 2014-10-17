@@ -887,3 +887,111 @@ begin
 
 end;
 $$ language plpgsql;
+
+create function get_broken_rules()
+returns setof integer
+AS $$
+declare
+   _rule record;
+   _uoc_tally integer;
+   _subject_id integer;
+   _subject record;
+begin
+
+   for _rule in (
+      select *
+      from polygons_rule r join polygons_acad_obj_group aog on
+         (r.acad_obj_group_id=aog.id) join polygons_acad_obj_group_type aogt
+         on (aog.type_id=aogt.id) join polygons_rule_type rt on
+         (r.type_id=rt.id)
+      where aogt.name = 'subject' and rt.abbreviation not in ('DS', 'MR', 'LR', 'RQ')
+   ) loop
+
+      _uoc_tally := 0;
+
+      for _subject_id in (
+         select expand_subject_rule(_rule.acad_obj_group_id, 112)
+      ) loop
+
+         select * into _subject
+         from polygons_subject
+         where id = _subject_id;
+
+         _uoc_tally := _uoc_tally + _subject.uoc;
+      
+         if (_uoc_tally >= _rule.min) then
+            exit;
+         end if;
+
+      end loop;
+
+      if (_uoc_tally < _rule.min) then
+         return next _rule.id;
+      end if;
+
+   end loop;
+
+end;
+$$ language plpgsql;
+
+create function get_cse_rules()
+returns setof integer
+AS $$
+declare
+   _rule_id integer;
+   _rule_ids integer array;
+   _temp_rule_ids integer array;
+   _ds_acad_obj_group_id integer;
+begin
+   
+   select array_agg(r.id) into _rule_ids
+   from polygons_program_rule pr join polygons_rule r on (pr.rule_id=r.id)
+      join polygons_rule_type rt on (r.type_id=rt.id)
+   where pr.program_id in (6400, 554, 747, 529) and rt.abbreviation not in
+      ('DS', 'LR', 'MR', 'RQ');
+
+   for _ds_acad_obj_group_id in (
+      select r.acad_obj_group_id
+      from polygons_program_rule pr join polygons_rule r on (pr.rule_id=r.id)
+         join polygons_rule_type rt on (r.type_id=rt.id)
+      where pr.program_id in (6400, 554, 747, 529) and rt.abbreviation = 'DS'
+   ) loop
+      
+      select array_agg(r.id) into _temp_rule_ids
+      from polygons_stream_group_member sgm join polygons_stream_rule sr on 
+         (sgm.stream_id=sr.stream_id) join polygons_rule r on 
+         (sr.rule_id=r.id) join polygons_rule_type rt on (r.type_id=rt.id)
+      where sgm.acad_obj_group_id = _ds_acad_obj_group_id and
+         rt.abbreviation not in ('LR', 'MR', 'RQ');
+
+      _rule_ids := _rule_ids || _temp_rule_ids;
+
+   end loop;
+
+   for _rule_id in (
+      select unnest(_rule_ids)
+   ) loop
+      return next _rule_id;
+   end loop;
+
+end;
+$$ language plpgsql;
+
+create function get_broken_cse_rules()
+returns setof integer
+AS $$
+declare
+   _rule_id integer;
+begin
+
+   for _rule_id in (
+      select get_broken_rules()
+      intersect
+      select get_cse_rules()
+   ) loop
+      return next _rule_id;
+   end loop;
+
+end;
+$$ language plpgsql;
+
