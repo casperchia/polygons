@@ -33,7 +33,7 @@ def add_course(request):
     if request.method == 'POST':
         form = Add_To_Plan_Form(request.POST)
         if form.is_valid():
-            form.save(program_plan, semester, year)
+            form.save(request, program_plan, semester, year)
             return HttpResponseRedirect(reverse('polygons.views.program_plan', args=[program_plan_id]))
     else:
         form = Add_To_Plan_Form()
