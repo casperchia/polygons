@@ -13,18 +13,13 @@ from polygons.messages import INVALID_COURSE_SELECTED
 class Add_To_Plan_Form(forms.Form):
 
     def __init__(self, *args, **kwargs):
+        subjects = kwargs.pop('subjects')
         super(Add_To_Plan_Form, self).__init__(*args, **kwargs)
+        self.fields['subject'] = forms.ModelChoiceField(queryset=subjects)
 
-        self.fields['subject_id'] = forms.IntegerField()
 
     def save(self, request, program_plan, semester, year):
-        subject_id = self.cleaned_data['subject_id']
-        subject = Subject.objects.get(id=subject_id)
+        subject = self.cleaned_data['subject']
         semester_plan = Semester_Plan(program_plan=program_plan, subject=subject, semester=semester, year=year)
-        try:
-            semester_plan.save()
-        except Exception, e:
-            messages.error(request, INVALID_COURSE_SELECTED)
-            request.session[ADD_COURSE_SESSION_KEY].clear()
-            return HttpResponseRedirect(reverse('polygons.views.program_plan', args=[program_plan.id]))
-        request.session[ADD_COURSE_SESSION_KEY].clear()
+        semester_plan.save()
+        request.session.pop(ADD_COURSE_SESSION_KEY, False)

@@ -30,15 +30,16 @@ def add_course(request):
     program = Program.objects.get(id=program_id)
     semester = Semester.objects.get(id=semester_id)
 
+    subject_list = get_program_subjects(program_plan, semester)
+
     if request.method == 'POST':
-        form = Add_To_Plan_Form(request.POST)
+        form = Add_To_Plan_Form(request.POST, subjects=subject_list)
         if form.is_valid():
             form.save(request, program_plan, semester, year)
             return HttpResponseRedirect(reverse('polygons.views.program_plan', args=[program_plan_id]))
     else:
-        form = Add_To_Plan_Form()
+        form = Add_To_Plan_Form(subjects=subject_list)
 
-    subject_list = get_program_subjects(program_plan, semester)
 
     return render_to_response('html/add_course.html',
                              {
