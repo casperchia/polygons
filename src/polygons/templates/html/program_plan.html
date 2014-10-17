@@ -91,17 +91,16 @@
                                 </td></tr>
                             </table>
                         </div>
-                    {% endif %}                    
+                    {% endif %}               
                 {% endif %}                    
                 <div style="clear: both;"></div>
+                 <div>
+                        <form method="POST" action="{%url 'polygons.views.semester_planning' program_plan.id %}"> 
+                        {%csrf_token %}
+                         <input type="submit" value="New Semester"><br><br>
+                        </form>
+                    </div>     
             </div>
             <div style="clear: both; height: 50px;"></div>
-        {% endfor %}
-        <div>
-           <form method="POST" action="{%url 'polygons.views.semester_planning' program_plan.id %}"> 
-                {%csrf_token %}
-                <input type="submit" value="Submit"><br><br>
-            </form>
-        </div>
-            
+        {% endfor %}     
     {% endblock %}
