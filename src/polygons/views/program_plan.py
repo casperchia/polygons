@@ -25,7 +25,7 @@ def program_plan(request, program_plan_id):
         form = Add_Course_Form(request.POST, program_plan=program_plan)
         if form.is_valid():
             form.save(request, program_plan_id)
-            return HttpResponseRedirect(reverse('polygons.views.add_course'))
+            return HttpResponseRedirect(reverse('polygons.views.course_listing'))
     else:
         form = Add_Course_Form(program_plan=program_plan)
     
