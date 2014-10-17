@@ -8,7 +8,7 @@
 
       {% block body %}
       <h2>Filter courses:</h2>
-      <form method="POST" action="{% url 'polygons.views.add_course' %}">
+      <form method="POST" action="{% url 'polygons.views.course_listing' %}">
          {% csrf_token %}
          {{ filter_form.non_field_errors }}
          <div class="fieldWrapper">
@@ -38,14 +38,30 @@
                {{ filter_form.letters.errors }}
             </div>
          </div> 
-         <input type="submit" value="Filter">
+         <button type="submit" class="pure-button smallButton">
+            Filter
+         </button>
       </form>
       <h2>Select a course:</h2>
-      <ul>
-         {% for subject in subject_list %}
-         <li>
-            {{ subject }}
-         </li>
-         {% endfor %}
-      </ul>
-      {% endblock %}
+
+    <table>
+        {% for subject in subject_list %}
+        <tr>
+            <td>
+                <a class="course_title" href='#'> {{ subject.code }} - {{ subject.name }} </a>
+                <br>
+                Units of Credit: {{ subject.uoc }}
+                <br>
+                Offered by: {{ subject.offered_by.name }}
+            </td>
+            <td>
+                <form method="POST" action="{% url 'polygons.views.add_course' %}"> 
+                    {%csrf_token %}
+                    <input type="hidden" name="subject" value="{{ subject.id }}">
+                    <button type="submit" class="pure-button pure-button-primary">Add To Plan</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

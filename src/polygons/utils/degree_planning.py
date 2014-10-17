@@ -16,7 +16,8 @@ def get_core_subjects(program):
     return Subject.objects.filter(id__in=subject_ids)
 
 def get_program_subjects(program_plan, semester):
-    subjects = Semester_Plan.objects.filter(program_plan=program_plan).values_list('semester', flat=True)
+    subjects = Semester_Plan.objects.filter(program_plan=program_plan).values_list('subject',
+                                                                                   flat=True)
     
     with connection.cursor() as cursor:
         cursor.execute('select get_program_subjects(%s, %s, %s)',
@@ -28,4 +29,4 @@ def get_program_subjects(program_plan, semester):
     else:
         subject_ids = []
     
-    return Subject.objects.filter(id__in=subject_ids)
+    return Subject.objects.select_related('offered_by').filter(id__in=subject_ids)

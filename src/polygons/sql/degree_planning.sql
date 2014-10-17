@@ -534,10 +534,10 @@ begin
       ) loop
 
          select * into _subject
-         from polygons_subjects
+         from polygons_subject
          where id = _subject_id;
 
-         _uoc_tally := uoc_tally + _subject.uoc;
+         _uoc_tally := _uoc_tally + _subject.uoc;
 
       end loop;
 
@@ -745,10 +745,10 @@ begin
    ) loop
 
       select * into _subject
-      from polygons_subjects
+      from polygons_subject
       where id = _subject_id;
 
-      _uoc_tally := uoc_tally + _subject.uoc;
+      _uoc_tally := _uoc_tally + _subject.uoc;
 
    end loop;
 
