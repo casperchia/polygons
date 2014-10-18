@@ -1,14 +1,21 @@
 {% extends "html/base.html" %}
     {% load staticfiles %}
     {% block head %}
+    {{ block.super }}
     <link href="{% static "css/program_plan.css" %}" rel="stylesheet" type="text/css">
+    <script type="text/JavaScript" src="{% static "js/program_plan.js" %}"></script> 
     {% endblock %}
     {% block body %}
         <h2>Degree Planner - {{ program_plan.program }}</h2>
         <div>
             <input type="button" value="Save" onclick="alert('You can continue the plan later on via ' + window.location.href)">
         </div>  
-
+        <form method="POST" action="{% url 'polygons.views.delete_program_plan' program_plan.id %}"> 
+           {%csrf_token %}
+           <button type="submit" class="pure-button smallButton" onclick="delete_program_plan(this);">
+              Delete Plan
+           </button>
+        </form>
         {% for i in no_of_year %}
             <div class="yearFrame">
                 <div class="yearBanner">Year {{ i }}</div>
