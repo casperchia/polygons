@@ -46,4 +46,8 @@ def program_plan_to_pdf(request, program_plan_id):
         messages.error(request, INVALID_PROGRAM_PLAN)
         return HttpResponseRedirect(reverse('polygons.views.index'))
     
-    return render_to_pdf('pdf/program_plan.html', {}, str(program_plan.program))
+    return render_to_pdf('pdf/program_plan.html',
+                         {
+                            'program_plan' : program_plan,
+                         },
+                         str(program_plan.program))
