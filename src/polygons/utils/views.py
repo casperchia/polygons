@@ -29,6 +29,7 @@ def render_to_pdf(template_path, context_data, file_name):
     if not success:
         raise Exception('Failed to render "%s" PDF!'%file_name)
     
-    response.write(pdf_output)
+    pdf_output.seek(0)
+    response.write(pdf_output.read())
     
     return response
