@@ -8,6 +8,7 @@ class Add_To_Plan_Form(forms.Form):
 
     def __init__(self, *args, **kwargs):
         subjects = kwargs.pop('subjects')
+        self.prg_plan = kwargs.pop('prg_plan')
         super(Add_To_Plan_Form, self).__init__(*args, **kwargs)
         self.fields['subject'] = forms.ModelChoiceField(queryset=subjects)
 
@@ -22,12 +23,12 @@ class Add_To_Plan_Form(forms.Form):
         request.session.pop(ADD_COURSE_SESSION_KEY, False)
         
         
-    def clean(self,request, program_plan):
+    def clean(self):
         
         subject = self.cleaned_data['subject']
-        current_uoc = program_plan.uoc_tally
+        current_uoc = self.prg_plan.uoc_tally
         current_uoc += subject.uoc
-        if current_uoc > program_plan.program.uoc :
+        if current_uoc > self.prg_plan.program.uoc :
             raise forms.ValidationError("Cannot add course to plan as "
                 "you have exceeded the program UOC limit.")
         
