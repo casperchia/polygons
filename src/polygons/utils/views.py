@@ -31,3 +31,11 @@ def render_to_pdf(template_path, context_data, file_name):
     response.write(pdf_output)
     
     return response
+
+class Program_Plan_Year(object):
+    # TODO
+    pass
+
+class Program_Plan_Semester(object):
+    # TODO
+    pass
