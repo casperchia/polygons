@@ -21,7 +21,7 @@ def render_to_pdf(template_path, context_data, file_name):
     html = template.render(context)
     
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="%s.pdf"'%file_name
+    response['Content-Disposition'] = 'filename="%s.pdf"'%file_name
     
     pdf_output = StringIO.StringIO()
     
