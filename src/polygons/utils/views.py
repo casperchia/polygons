@@ -2,11 +2,13 @@ from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse
 
-from xhtml2pdf import pisa
-import StringIO
+import pdfcrowd
 
 from polygons.models.Program import Program
 from polygons.models.Program_Group_Member import Program_Group_Member
+
+from comp4920.settings import PDFCROWD_USERNAME
+from comp4920.settings import PDFCROWD_API_KEY
 
 _CSE_PLANS_ID = 20382
 
@@ -23,13 +25,9 @@ def render_to_pdf(template_path, context_data, file_name):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'filename="%s.pdf"'%file_name
     
-    pdf_output = StringIO.StringIO()
+    client = pdfcrowd.Client(PDFCROWD_USERNAME, PDFCROWD_API_KEY)
+    pdf_output = client.convertHtml(html)
     
-    success = pisa.CreatePDF(html, dest=pdf_output)
-    if not success:
-        raise Exception('Failed to render "%s" PDF!'%file_name)
-    
-    pdf_output.seek(0)
-    response.write(pdf_output.read())
+    response.write(pdf_output)
     
     return response
