@@ -2,6 +2,7 @@ import django.forms as forms
 
 from polygons.models.Program_Plan import Program_Plan
 from polygons.models.Semester import Semester
+from polygons.models.Semester_Plan import Semester_Plan
 
 class Create_Plan_Form(forms.Form):
     
@@ -13,4 +14,7 @@ class Create_Plan_Form(forms.Form):
         return program_plan
     
 class Delete_Program_Plan_Form(forms.Form):
-    pass
+    
+    def save(self, program_plan):
+        Semester_Plan.objects.filter(program_plan=program_plan).delete()
+        program_plan.delete()
