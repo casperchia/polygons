@@ -8,7 +8,7 @@ from polygons.models.Program_Plan import Program_Plan
 from polygons.models.Semester_Plan import Semester_Plan
 from polygons.messages import INVALID_PROGRAM_PLAN
 from polygons.forms.add_course import Add_Course_Form
-
+from polygons.utils.views import render_to_pdf
 
 def program_plan(request, program_plan_id):
     try:
@@ -38,3 +38,12 @@ def program_plan(request, program_plan_id):
                                 'final_semester' : current_semester
                              },  
                              context_instance=RequestContext(request))
+    
+def program_plan_to_pdf(request, program_plan_id):
+    try:
+        program_plan = Program_Plan.objects.get(id=program_plan_id)
+    except Program_Plan.DoesNotExist:
+        messages.error(request, INVALID_PROGRAM_PLAN)
+        return HttpResponseRedirect(reverse('polygons.views.index'))
+    
+    return render_to_pdf('pdf/program_plan.html', {}, str(program_plan.program))
