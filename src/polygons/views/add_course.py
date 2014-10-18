@@ -54,6 +54,8 @@ def add_course(request):
     if request.method == 'POST':
         form = Add_To_Plan_Form(request.POST, subjects=subject_list)
         if form.is_valid():
+            # Added clean here to check UOC limit not violated
+            form.clean(request, program_plan)
             form.save(request, program_plan, semester, add_course_data['year'])
             return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                                 args=[program_plan.id]))

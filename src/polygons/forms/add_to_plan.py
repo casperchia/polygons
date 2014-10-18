@@ -20,3 +20,15 @@ class Add_To_Plan_Form(forms.Form):
         prg_plan.save()
         semester_plan.save()
         request.session.pop(ADD_COURSE_SESSION_KEY, False)
+        
+        
+    def clean(self,request, program_plan):
+        
+        subject = self.cleaned_data['subject']
+        current_uoc = program_plan.uoc_tally
+        current_uoc += subject.uoc
+        if current_uoc > program_plan.program.uoc :
+            raise forms.ValidationError("Cannot add course to plan as "
+                "you have exceeded the program UOC limit.")
+        
+        
