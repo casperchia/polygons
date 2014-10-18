@@ -112,22 +112,22 @@ def rule_types():
     print 'Inserting Rule_Type records...'
     records = []
     
-    record = Rule_Type(abbreviation='PE', name='Program Elective')
-    records.append(record)
-    
-    record = Rule_Type(abbreviation='RQ', name='Prerequisite')
+    record = Rule_Type(abbreviation='CC', name='Core Course')
     records.append(record)
     
     record = Rule_Type(abbreviation='RC', name='Recommended')
     records.append(record)
     
-    record = Rule_Type(abbreviation='GE', name='General Education')
+    record = Rule_Type(abbreviation='PE', name='Program Elective')
     records.append(record)
     
     record = Rule_Type(abbreviation='FE', name='Free Elective')
     records.append(record)
     
-    record = Rule_Type(abbreviation='CC', name='Core Course')
+    record = Rule_Type(abbreviation='GE', name='General Education')
+    records.append(record)
+    
+    record = Rule_Type(abbreviation='RQ', name='Prerequisite')
     records.append(record)
     
     record = Rule_Type(abbreviation='DS', name='Stream')
