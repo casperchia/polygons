@@ -21,10 +21,7 @@ def render_to_pdf(template_path, context_data, file_name):
     template = get_template(template_path)
     context = Context(context_data)
     html = template.render(context)
-    
-    return HttpResponse(html)
-    
-    '''
+
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'filename="%s.pdf"'%file_name
     
@@ -34,7 +31,6 @@ def render_to_pdf(template_path, context_data, file_name):
     response.write(pdf_output)
     
     return response
-    '''
 
 class Program_Plan_Year(object):
     
