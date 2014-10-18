@@ -11,19 +11,21 @@
 
         {% for i in no_of_year %}
             <div class="yearFrame">
-                <div class="yearBanner">Year {{i}}</div>
+                <div class="yearBanner">Year {{ i }}</div>
                 {% if i < final_year %}
                     <div class="semesterFrame">
                         <table> 
                             <th>Semester 1</th>
                             {% for subject in subject_list %}
                                 {% if subject.semester.abbreviation == "S1" and subject.year == i%}
-                                    <tr><td>{{subject.subject}}</td></tr>
+                                    <tr><td>{{ subject.subject }}</td></tr>
                                 {% endif %}
                             {% endfor %}
                             <tr><td>
-                                <form method="POST" action="#"> 
+                                <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
                                     {%csrf_token %}
+                                    <input type="hidden" name="semester" value="1">
+                                    <input type="hidden" name="year" value="{{ i }}">
                                     <input type="submit" value="Add Course"><br><br>
                                 </form>
                             </td></tr>
@@ -34,12 +36,14 @@
                             <th>Semester 2</th>
                             {% for subject in subject_list %}
                                 {% if subject.semester.abbreviation == "S2" and subject.year == i%}
-                                    <tr><td>{{subject.subject}}</td></tr>
+                                    <tr><td>{{ subject.subject }}</td></tr>
                                 {% endif %}
                             {% endfor %}
                             <tr><td>
-                                <form method="POST" action="#"> 
+                                <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
                                     {%csrf_token %}
+                                    <input type="hidden" name="semester" value="2">
+                                    <input type="hidden" name="year" value="{{ i }}">
                                     <input type="submit" value="Add Course"><br><br>
                                 </form>
                             </td></tr>
@@ -54,12 +58,14 @@
                                 <th>Semester 1</th>
                                 {% for subject in subject_list %}
                                     {% if subject.semester.abbreviation == "S1" and subject.year == i%}
-                                        <tr><td>{{subject.subject}}</td></tr>
+                                        <tr><td>{{ subject.subject }}</td></tr>
                                     {% endif %}
                                 {% endfor %}
                                 <tr><td>
-                                    <form method="POST" action="#"> 
+                                    <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
                                         {%csrf_token %}
+                                        <input type="hidden" name="semester" value="1">
+                                        <input type="hidden" name="year" value="{{ i }}">
                                         <input type="submit" value="Add Course"><br><br>
                                     </form>
                                 </td></tr>
@@ -72,12 +78,14 @@
                                 <th>Semester 2</th>
                                 {% for subject in subject_list %}
                                     {% if subject.semester.abbreviation == "S2" and subject.year == i%}
-                                        <tr><td>{{subject.subject}}</td></tr>
+                                        <tr><td>{{ subject.subject }}</td></tr>
                                     {% endif %}
                                 {% endfor %}
                                 <tr><td>
-                                    <form method="POST" action="#"> 
+                                    <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
                                         {%csrf_token %}
+                                        <input type="hidden" name="semester" value="2">
+                                        <input type="hidden" name="year" value="{{ i }}">
                                         <input type="submit" value="Add Course"><br><br>
                                     </form>
                                 </td></tr>

@@ -2,6 +2,8 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from polygons.models.Subject import Subject
+from polygons.models.Subject_Area import Subject_Area
+from polygons.models.Career import Career
 
 class Test_Review_Page(TestCase):
     urls = 'comp4920.urls'
@@ -44,13 +46,41 @@ class Test_Review_Page(TestCase):
             self.assertContains(response, str(subject.code), status_code=200)
             
         print 'Test that only subjects filter by one letter are displayed'
-        response = self.client.get(url + '/W')
-        for subject in Subject.objects.filter(code__startswith='W'):
-            self.assertContains(response, str(subject), status_code=200)
-            self.assertContains(response, subject.id, status_code=200)            
+        response = self.client.get(url + '/C')
+        for subject in Subject.objects.filter(code__startswith='C'):
+            self.assertContains(response, str(subject.code), status_code=200)           
             
         print ('Testing that the page contains no other subjects.')
-        for subject in Subject.objects.filter(~Q(code__startswith='W')):
-            self.assertNotContains(response, str(subject), status_code=200)
-            self.assertNotContains(response, subject.id, status_code=200)
+        for subject in Subject.objects.filter(~Q(code__startswith='C')):
+            self.assertNotContains(response, str(subject.code), status_code=200)
+            
+        
+        print 'Test that all career text representations exist on the page.'
+        response = self.client.post('/review_page/',{'choice_field':'CAREER'})
+        cars = Career.objects.all()
+        for car in cars:
+            self.assertContains(response, str(car.name), status_code=200)
+        
+            
+        print 'Test that all subject area text representations exist on the page.'
+        response = self.client.post('/review_page/',{'choice_field':'SUBJECT_AREA'})
+        areas = Subject_Area.objects.all()
+        for area in areas:
+            self.assertContains(response, str(area.code), status_code=200)
+            
+        
+        print 'Test that all UG subjects text representations exist on the page.'    
+        car = Career.objects.get(abbreviation='UG')
+        subjects = Subject.objects.filter(career=car.id)
+        response = self.client.get(url + '/UG')
+        for subject in subjects:
+            self.assertContains(response, str(subject.code), status_code=200)
+            
+        print 'Test that all COMP subjects text representations exist on the page.'
+        response = self.client.get(url + '/COMP')    
+        for subject in Subject.objects.filter(code__startswith='COMP'):
+            self.assertContains(response, str(subject.code),status_code=200)
+            
+            
+            
             

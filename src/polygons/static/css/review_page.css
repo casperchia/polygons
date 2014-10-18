@@ -1,6 +1,8 @@
+@charset "utf-8";
+
 table, th, td, tr{
 	width: 100%;
-	border: 1px solid #666;
+	border: 1px solid #0075C9;
 	font-family: "Lucida Grande", Verdana, Arial, Helvetica,sans-serif;
 }
 
@@ -18,4 +20,27 @@ td{
     width: 4%;
 }td:hover{
 	background-color:#DBDBDB;
+}
+
+ul{
+    list-style-type:none;
+}
+
+input[type="radio"]{
+    display:none;
+}
+
+
+input[type="radio"] + label span{
+    display:inline-block;
+    height:19px;
+    width:19px;
+    margin: -1px 4px 0 0;
+    vertical-align:middle;
+    background:url(../images/check_radio_sheet.png) left top no-repeat;
+    cursor:pointer;
+}
+input[type="radio"]:checked + label span{
+    background:url(../images/check_radio_sheet.png) -19px top no-repeat;
+    font-weight:bold;
 }
