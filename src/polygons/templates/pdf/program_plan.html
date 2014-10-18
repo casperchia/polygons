@@ -12,6 +12,11 @@
          h1, h2 {
             text-align: center;
          }
+
+         .semester {
+            display: inline-block;
+            width: 50%;
+         }
       </style>
    </head>
    <body>
@@ -21,5 +26,25 @@
       <h2>
          Program Plan
       </h2>
+      <ul>
+         {% for plan_year in plan_years %}
+         <li class="year">
+            {% for plan_semester in plan_year %}
+            <div class="semester">
+               <div class="semester_label">
+                  {{ plan_semester.semester }}
+               </div>
+               <div class="subjects">
+                  {% for subject in plan_semester %}
+                  <div class="subject">
+                     {{ subject }}
+                  </div>
+               {% endfor %}
+               </div>
+            </div>
+            {% endfor %}
+         </li>
+         {% endfor %}
+      </ul>
    </body>
 </html>
