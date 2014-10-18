@@ -11,3 +11,6 @@ class Create_Plan_Form(forms.Form):
         program_plan.save()
         
         return program_plan
+    
+class Delete_Program_Plan_Form(forms.Form):
+    pass

@@ -12,7 +12,7 @@
         </div>  
         <form method="POST" action="{% url 'polygons.views.delete_program_plan' program_plan.id %}"> 
            {%csrf_token %}
-           <button type="submit" class="pure-button smallButton" onclick="delete_program_plan(this);">
+           <button type="submit" class="pure-button smallButton" onclick="delete_program_plan(this);" id="delete_button">
               Delete Plan
            </button>
         </form>
