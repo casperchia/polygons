@@ -9,7 +9,14 @@
             <input type="button" value="Save" onclick="alert('You can continue the plan later on via ' + window.location.href)">
         </div>  
         <div>
-            <h2>{{ program_plan.uoc_tally }} / {{ program_plan.program.uoc }}</h2>
+            <h2>
+            <!-- Check if reached max UOC-->
+            {% if finished %}
+               <p> FULL
+            {% else %}
+                <p> {{ program_plan.uoc_tally }} / {{ program_plan.program.uoc }} UOC
+            {% endif %}
+            </h2>
         </div>
         {% for i in no_of_year %}
             <div class="yearFrame">
@@ -23,6 +30,8 @@
                                     <tr><td>{{ subject.subject }}</td></tr>
                                 {% endif %}
                             {% endfor %}
+                            <!-- Check if reached max UOC-->
+                            {% if not finished %}
                             <tr><td>
                                 <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
                                     {%csrf_token %}
@@ -31,6 +40,7 @@
                                     <input type="submit" value="Add Course"><br><br>
                                 </form>
                             </td></tr>
+                            {% endif %}
                         </table>
                     </div>  
                     <div class="semesterFrame">
@@ -41,6 +51,7 @@
                                     <tr><td>{{ subject.subject }}</td></tr>
                                 {% endif %}
                             {% endfor %}
+                            {% if not finished %}
                             <tr><td>
                                 <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
                                     {%csrf_token %}
@@ -49,6 +60,7 @@
                                     <input type="submit" value="Add Course"><br><br>
                                 </form>
                             </td></tr>
+                            {% endif %}
                         </table>
                     </div>
                 {% endif %}
@@ -63,6 +75,7 @@
                                         <tr><td>{{ subject.subject }}</td></tr>
                                     {% endif %}
                                 {% endfor %}
+                                {% if not finished %}
                                 <tr><td>
                                     <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
                                         {%csrf_token %}
@@ -71,6 +84,7 @@
                                         <input type="submit" value="Add Course"><br><br>
                                     </form>
                                 </td></tr>
+                                {% endif %}
                             </table>
                         </div>
                     {% endif %}
@@ -83,6 +97,7 @@
                                         <tr><td>{{ subject.subject }}</td></tr>
                                     {% endif %}
                                 {% endfor %}
+                                {% if not finished %}
                                 <tr><td>
                                     <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
                                         {%csrf_token %}
@@ -91,6 +106,7 @@
                                         <input type="submit" value="Add Course"><br><br>
                                     </form>
                                 </td></tr>
+                                {% endif %}
                             </table>
                         </div>
                     {% endif %}                    

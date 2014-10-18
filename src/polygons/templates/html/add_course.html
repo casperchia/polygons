@@ -54,6 +54,8 @@
                 <br>
                 Offered by: {{ subject.offered_by.name }}
             </td>
+            <!-- Check if reached max UOC-->
+            
             <td>
                 <form method="POST" action="{% url 'polygons.views.add_course' %}"> 
                     {%csrf_token %}

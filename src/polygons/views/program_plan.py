@@ -20,6 +20,7 @@ def program_plan(request, program_plan_id):
     current_year = program_plan.current_year
     current_semester = program_plan.current_semester.id
     subject_list = Semester_Plan.objects.filter(program_plan=program_plan_id)
+    program_finished = (program_plan.uoc_tally >= program_plan.program.uoc)
 
     if request.method == 'POST':
         form = Add_Course_Form(request.POST, program_plan=program_plan)
@@ -35,6 +36,7 @@ def program_plan(request, program_plan_id):
                                 'no_of_year' : range(1, current_year+1),
                                 'subject_list' : subject_list,
                                 'final_year' : current_year,
-                                'final_semester' : current_semester
+                                'final_semester' : current_semester,
+                                'finished' : program_finished
                              },  
                              context_instance=RequestContext(request))
