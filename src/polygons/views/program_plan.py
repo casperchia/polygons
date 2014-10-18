@@ -64,5 +64,6 @@ def program_plan_to_pdf(request, program_plan_id):
     return render_to_pdf('pdf/program_plan.html',
                          {
                             'program_plan' : program_plan,
+                            'plan_years' : plan_years
                          },
                          str(program_plan.program))

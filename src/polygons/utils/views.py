@@ -33,9 +33,35 @@ def render_to_pdf(template_path, context_data, file_name):
     return response
 
 class Program_Plan_Year(object):
-    # TODO
-    pass
+    
+    def __init__(self, year):
+        self.__year = year
+        self.__plan_semesters = []
+        
+    def __iter__(self):
+        for plan_semester in self.__plan_semesters:
+            yield plan_semester
+        
+    @property
+    def year(self):
+        return self.__year
+    
+    def add_semester(self, plan_semester):
+        self.__plan_semesters.append(plan_semester)
 
 class Program_Plan_Semester(object):
-    # TODO
-    pass
+    
+    def __init__(self, semester):
+        self.__semester = semester
+        self.__subjects = []
+        
+    def __iter__(self):
+        for subject in self.__subjects:
+            yield subject
+        
+    @property
+    def semester(self):
+        return self.__semester
+    
+    def add_subject(self, subject):
+        self.__subjects.append(subject)
