@@ -57,6 +57,13 @@ def add_course(request):
             form.save(request, program_plan, semester, add_course_data['year'])
             return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                                 args=[program_plan.id]))
-        
+        else :
+            return render_to_response('html/add_course.html',
+                             {
+                                'subject_list' : subject_list,
+                                'add_form' : form
+                             },
+                             context_instance=RequestContext(request))
+
     
     return HttpResponseRedirect(reverse('polygons.views.course_listing'))

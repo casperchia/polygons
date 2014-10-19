@@ -7,3 +7,7 @@ INVALID_ADD_COURSE_DATA = 'Required data for adding course cannot be found.'
 SUBJECT_FILTRATION_REQUIRED = 'At least one form of filtration is required.'
 
 PROGRAM_PLAN_DELETED = 'The progam plan has been deleted from the system.'
+
+UOC_LIMIT_EXCEEDED = 'Cannot add course to plan. UOC limit for program exceeded'
+
+

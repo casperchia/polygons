@@ -7,6 +7,9 @@
       {% endblock %}
 
       {% block body %}
+      <div>
+      {{ add_form.non_field_errors }}
+      </div>
       <h2>Filter courses:</h2>
       <form method="POST" action="{% url 'polygons.views.course_listing' %}">
          {% csrf_token %}
@@ -54,7 +57,6 @@
                 <br>
                 Offered by: {{ subject.offered_by.name }}
             </td>
-            <!-- Check if reached max UOC-->
             
             <td>
                 <form method="POST" action="{% url 'polygons.views.add_course' %}"> 
