@@ -5,6 +5,11 @@
    margin-left: 0;
 }
 
+#pdf_button {
+   margin: 1%;
+   margin-left: 0;
+}
+
 table, th, td, tr{
     height: 40px;
     width: 384px;
