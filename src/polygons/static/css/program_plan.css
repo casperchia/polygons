@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+#delete_button {
+   margin: 1%;
+   margin-left: 0;
+}
+
 #pdf_button {
    margin: 1%;
    margin-left: 0;
