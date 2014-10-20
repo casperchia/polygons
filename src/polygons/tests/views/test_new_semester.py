@@ -2,10 +2,9 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from polygons.models.Program_Plan import Program_Plan
-from polygons.forms.add_semester import New_Semester_Form
 
 
-class Test_new_semester(TestCase):
+class Test_New_Semester(TestCase):
     urls = 'comp4920.urls'
     fixtures = ['Acad_Obj_Group_Type.json', 'Acad_Obj_Group.json',
                 'Org_Unit_Type.json', 'Org_Unit.json', 'Career.json',
@@ -16,15 +15,9 @@ class Test_new_semester(TestCase):
                 'Semester.json', 'Program_Plan.json']  
 
     def test_status_code(self):
-        url = reverse('polygons.views.program_details',args=[554])
+        url = reverse('polygons.views.new_semester',args=[100])
         response = self.client.post(url)
-        plan_count = Program_Plan.objects.count()
-        plan = Program_Plan.objects.get(pk=100)
-        url = reverse('polygons.views.program_plan', args=[plan.id])
-
-        print 'Test that visiting the page produces a 200 status code.'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
         print 'Test that a dummy url produces 404.'
         response = self.client.get(url + '123/')
@@ -34,23 +27,23 @@ class Test_new_semester(TestCase):
         response = self.client.get(url + 'abc/')
         self.assertEqual(response.status_code, 404)
 
-    def test_template(self):
-        plan = Program_Plan.objects.get(pk=100)
-        url = reverse('polygons.views.program_plan', args=[plan.id])
+    def test_database(self):
+        count = Program_Plan.objects.count()
+        url = reverse('polygons.views.new_semester',args=[100])
+        response = self.client.post(url)
+        new_count = Program_Plan.objects.count()
 
-        print 'Test that the correct templates are used to render the page.'
-        response = self.client.get(url)
-        self.assertTemplateUsed(response, 'html/program_plan.html')
-        self.assertTemplateNotUsed(response, 'html/home.html')
+        print 'Testing the program_plan database remains same after adding new semester'
+        self.assertEqual(count, new_count)
 
-    def test_contain(self):
+    def test_content(self):
         plan = Program_Plan.objects.get(pk=100)
         plan_semester = plan.current_semester
-        count = Program_Plan.objects.count()
-        
-        form= New_Semester_Form()
-        new_semester = form.save(plan)
-        new_count = Program_Plan.objects.count()
+   
+        url = reverse('polygons.views.new_semester', args=[100]) 
+        response = self.client.post(url)
+        new_semester = Program_Plan.objects.get(pk=100)
+       
 
         print 'Test that the new semester is being added'
         self.assertNotEqual(plan_semester, new_semester.current_semester)
@@ -61,14 +54,13 @@ class Test_new_semester(TestCase):
         new_plan = Program_Plan.objects.get(pk = 101)
         new_plan_year = new_plan.current_year
         url = reverse('polygons.views.new_semester',args=[new_plan.id])
-        form= New_Semester_Form()
-        new_plan_semester = form.save(new_plan)
+        response = self.client.post(url)
+        new_plan_semester = Program_Plan.objects.get(pk=101)
 
         print 'Test that the new semester is being added as semester 1'
-        self.assertNotEqual(new_plan, new_plan_semester.current_semester)
+        self.assertNotEqual(new_plan.current_semester, new_plan_semester.current_semester)
 
         print 'Testing year increases when adding semester 1'
         self.assertEqual(new_plan_year+1, new_plan_semester.current_year)
 
-        print 'Testing the program_plan database remains same after adding new semester'
-        self.assertEqual(count, new_count)
+        
