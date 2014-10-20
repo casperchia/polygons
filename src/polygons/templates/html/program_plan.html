@@ -7,8 +7,12 @@
         <h2>Degree Planner - {{ program_plan.program }}</h2>
         <div>
             <input type="button" value="Save" onclick="alert('You can continue the plan later on via ' + window.location.href)">
-        </div>  
-
+        </div>
+        <a href="{% url 'polygons.views.program_plan_to_pdf' program_plan.id %}" target="_blank">
+           <button class="pure-button smallButton" id="pdf_button">
+              Export to PDF
+           </button>
+        </a>
         {% for i in no_of_year %}
             <div class="yearFrame">
                 <div class="yearBanner">Year {{ i }}</div>
@@ -95,7 +99,7 @@
                 {% endif %}                    
                 <div style="clear: both;"></div>
                  <div>
-                        <form method="POST" action="{%url 'polygons.views.semester_planning' program_plan.id %}"> 
+                        <form method="POST" action="{% url 'polygons.views.new_semester' program_plan.id %}"> 
                         {%csrf_token %}
                          <input type="submit" value="New Semester"><br><br>
                         </form>
