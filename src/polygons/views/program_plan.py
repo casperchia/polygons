@@ -9,6 +9,7 @@ from polygons.models.Semester_Plan import Semester_Plan
 from polygons.models.Semester import Semester
 from polygons.messages import INVALID_PROGRAM_PLAN
 from polygons.forms.add_course import Add_Course_Form
+from polygons.forms.add_semester import New_Semester_Form
 from polygons.utils.views import render_to_pdf
 from polygons.utils.views import Program_Plan_Year
 from polygons.utils.views import Program_Plan_Semester
@@ -69,7 +70,11 @@ def program_plan_to_pdf(request, program_plan_id):
                          str(program_plan.program))
 
 def new_semester(request,program_plan_id):
-    program_plan = Program_Plan.objects.get(id = program_plan_id)
+    try:
+        program_plan = Program_Plan.objects.get(id=program_plan_id)
+    except Program_Plan.DoesNotExist:
+        messages.error(request, INVALID_PROGRAM_PLAN)
+        return HttpResponseRedirect(reverse('polygons.views.index'))
    
     if request.method == 'POST':
         form = New_Semester_Form(request.POST)
@@ -80,4 +85,8 @@ def new_semester(request,program_plan_id):
     else:
         form = New_Semester_Form()
     
-    return render_to_response('html/program_plan.html', context_instance=RequestContext(request))
+    return render_to_response('html/program_plan.html', 
+                             {
+                                'program_plan' : program_plan
+                             },  
+                             context_instance=RequestContext(request))

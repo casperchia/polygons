@@ -7,4 +7,3 @@ from review_page import review_page
 from add_course import course_listing
 from add_course import add_course
 from program_plan import new_semester
-
