@@ -5,9 +5,9 @@ from polygons.models.Semester_Plan import Semester_Plan
 class Remove_From_Plan_Form(forms.Form):
     
     def __init__(self, *args, **kwargs):
-        subject = kwargs.pop('subject')
+        subjects = kwargs.pop('subjects')
         super(Remove_From_Plan_Form, self).__init__(*args, **kwargs)
-        self.fields['subject'] = forms.ModelChoiceField(queryset=subject)
+        self.fields['subject'] = forms.ModelChoiceField(queryset=subjects)
     
     def save(self, program_plan, semester, year):
         subject = self.cleaned_data['subject']
