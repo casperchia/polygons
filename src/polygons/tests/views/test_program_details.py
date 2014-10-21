@@ -132,11 +132,13 @@ class Test_Program_Details(Base_Test):
         
         print 'Testing that the page contains the program text representation.'
         self.assertContains(response, str(program), status_code=200)
-        
+        print 'Testing that the page contains links to the handbook entries of the courses.'
         subject_ids = [3942,3940]
         for subject in Subject.objects.filter(id__in=subject_ids):
             self.assertContains(response, str(subject), status_code=200)
             self.assertContains(response, subject.id, status_code=200)
+            # TEST link to handbook page
+            self.assertContains(response, subject.handbook_link, status_code=200)
             
         print ('Testing that the page contains no other subjects.')
         for subject in Subject.objects.filter(~Q(id__in=subject_ids)):

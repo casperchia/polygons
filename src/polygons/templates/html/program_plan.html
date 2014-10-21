@@ -24,7 +24,9 @@
                             <th>Semester 1</th>
                             {% for subject in subject_list %}
                                 {% if subject.semester.abbreviation == "S1" and subject.year == i%}
-                                    <tr><td>{{ subject.subject }}</td></tr>
+                                    <tr><td><a href="{{ subject.subject.handbook_link }}" target="_blank">
+                                    {{ subject.subject }}</a>
+                                    </td></tr>
                                 {% endif %}
                             {% endfor %}
                             <tr><td>
@@ -42,7 +44,7 @@
                             <th>Semester 2</th>
                             {% for subject in subject_list %}
                                 {% if subject.semester.abbreviation == "S2" and subject.year == i%}
-                                    <tr><td>{{ subject.subject }}</td></tr>
+                                    <tr><td><a href="{{ subject.subject.handbook_link }}" target="_blank">{{ subject.subject }}</a></td></tr>
                                 {% endif %}
                             {% endfor %}
                             <tr><td>
@@ -64,7 +66,7 @@
                                 <th>Semester 1</th>
                                 {% for subject in subject_list %}
                                     {% if subject.semester.abbreviation == "S1" and subject.year == i%}
-                                        <tr><td>{{ subject.subject }}</td></tr>
+                                        <tr><td><a href="{{ subject.subject.handbook_link }}" target="_blank">{{ subject.subject }}</a></td></tr>
                                     {% endif %}
                                 {% endfor %}
                                 <tr><td>
@@ -84,7 +86,7 @@
                                 <th>Semester 2</th>
                                 {% for subject in subject_list %}
                                     {% if subject.semester.abbreviation == "S2" and subject.year == i%}
-                                        <tr><td>{{ subject.subject }}</td></tr>
+                                        <tr><td><a href="{{ subject.subject.handbook_link }}" target="_blank">{{ subject.subject }}</a></td></tr>
                                     {% endif %}
                                 {% endfor %}
                                 <tr><td>
