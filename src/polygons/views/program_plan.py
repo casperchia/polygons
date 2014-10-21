@@ -9,6 +9,7 @@ from polygons.models.Semester_Plan import Semester_Plan
 from polygons.models.Semester import Semester
 from polygons.messages import INVALID_PROGRAM_PLAN
 from polygons.messages import PROGRAM_PLAN_DELETED
+from polygons.messages import COURSE_REMOVED
 from polygons.forms.add_course import Add_Course_Form
 from polygons.forms.remove_from_plan import Remove_From_Plan_Form
 from polygons.utils.degree_planning import get_program_subjects
@@ -74,6 +75,7 @@ def remove_course(request, program_plan_id):
         form = Remove_From_Plan_Form(request.POST, subjects=subject_list)
         if form.is_valid():
             form.save(program_plan=program_plan)
+            messages.info(request, COURSE_REMOVED)
             return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                             args=[program_plan.id]))
         else:

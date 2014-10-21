@@ -30,7 +30,12 @@
                             <th>Semester 1</th>
                             {% for subject in subject_list %}
                                 {% if subject.semester.abbreviation == "S1" and subject.year == i%}
-                                    <tr><td>{{ subject.subject }}</td></tr>
+                                    <tr><td>{{ subject.subject }}
+                                    <form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}">
+                                            <input type="hidden" name="subject" value="{{ subject.subject.id }}">
+                                            {% csrf_token %}
+                                            <input type="submit" value="Remove Course">
+                                        </form></td></tr>
                                 {% endif %}
                             {% endfor %}
                             <tr><td>
@@ -48,7 +53,12 @@
                             <th>Semester 2</th>
                             {% for subject in subject_list %}
                                 {% if subject.semester.abbreviation == "S2" and subject.year == i%}
-                                    <tr><td>{{ subject.subject }}</td></tr>
+                                    <tr><td>{{ subject.subject }}
+                                    <form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}">
+                                            <input type="hidden" name="subject" value="{{ subject.subject.id }}">
+                                            {% csrf_token %}
+                                            <input type="submit" value="Remove Course">
+                                        </form></td></tr>
                                 {% endif %}
                             {% endfor %}
                             <tr><td>
@@ -73,7 +83,7 @@
                                         <tr><td>{{ subject.subject }}
                                         <form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}">
 	                                        <input type="hidden" name="subject" value="{{ subject.subject.id }}">
-	                                        {% csrf_token %}
+	                                        {%csrf_token %}
 	                                        <input type="submit" value="Remove Course">
                                         </form>
                                         </td></tr>
