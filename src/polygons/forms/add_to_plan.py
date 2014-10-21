@@ -10,6 +10,9 @@ class Add_To_Plan_Form(forms.Form):
         super(Add_To_Plan_Form, self).__init__(*args, **kwargs)
         self.fields['subject'] = forms.ModelChoiceField(queryset=subjects)
 
+    # def clean(self):
+    #     subject = self.cleaned_data['subject']
+
 
     def save(self, request, program_plan, semester, year):
         subject = self.cleaned_data['subject']
