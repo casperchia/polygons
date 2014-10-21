@@ -158,14 +158,26 @@
                 {% for plan_semester in plan_year %}
                     <div class="semesterFrame">
                         <table> 
-                            <th>Semester {{ plan_semester.semester }}</th>
+                            <th>{{ plan_semester.semester }}</th>
                             {% for subject in plan_semester %}
-                            <tr><td><a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a></td></tr>
-
+                            <tr><td>
+                                <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a>
+                            </td></tr>
                             {% endfor %}
+                            {% if plan_semester.is_uoc_full == False %}
+                                <tr><td>
+                                    <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
+                                        {%csrf_token %}
+                                        <input type="hidden" name="semester" value="{{ plan_semester.semester.id }}">
+                                        <input type="hidden" name="year" value="{{ plan_year.year }}">
+                                        <input type="submit" value="Add Course"><br><br>
+                                    </form>
+                                </td></tr>                            
+                            {% endif %}
                         </table>
                     </div>
                 {% endfor %}
+                <div style="clear: both;"></div>                
             </div>
             <div style="clear: both; height: 50px;"></div>
         {% endfor %}

@@ -68,6 +68,11 @@ class Program_Plan_Semester(object):
     def semester(self):
         return self.__semester
     
+    @property
+    def is_uoc_full(self):
+        return self.__is_uoc_full
+    
+
     def add_subject(self, subject):
         self.__subjects.append(subject)
         self.__uoc += subject.uoc
