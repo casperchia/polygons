@@ -51,9 +51,9 @@ def remove_course(request, program_plan_id):
     current_semester = program_plan.current_semester.id
 
     if request.method == 'POST':
-        form = Remove_From_Plan_Form(program_plan=program_plan, current_semester, current_year)
+        form = Remove_From_Plan_Form(request.POST)
         if form.is_valid():
-            form.save()
+            form.save(program_plan=program_plan, semester=current_semester, year=current_year)
             return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                             args=[program_plan.id]))
     
