@@ -69,7 +69,11 @@ class Test_Program_Plan(TestCase):
         new_semester_plan.save()
         response = self.client.post(url)
         self.assertContains(response, subject_comp2041, status_code=200)
-
+        # TEST LINK TO HANDBOOK PAGE
+        print 'Testing that the page contains links to the handbook entries of the courses.'
+        self.assertContains(response, subject_comp2041.handbook_link, status_code=200)
+        
+        
         print 'Test that added subject will display on planner page'
         subject_comp3311 = Subject.objects.get(code='COMP3311')
         new_semester_plan2 = Semester_Plan(program_plan=plan, subject=subject_comp3311, semester=semester_1, year=1)
@@ -82,3 +86,7 @@ class Test_Program_Plan(TestCase):
         response = self.client.post(url)
         self.assertNotContains(response, subject_comp2041, status_code=200)
         self.assertContains(response, subject_comp3311, status_code=200)
+        
+        
+        
+        
