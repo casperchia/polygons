@@ -1,6 +1,7 @@
 {% extends "html/base.html" %}
     {% load staticfiles %}
     {% block head %}
+    {{ block.super }}
     <link href="{% static "css/program_plan.css" %}" rel="stylesheet" type="text/css">
     {% endblock %}
     {% block body %}
@@ -8,7 +9,18 @@
         <div>
             <input type="button" value="Save" onclick="alert('You can continue the plan later on via ' + window.location.href)">
         </div>  
-
+        <a href="{% url 'polygons.views.program_plan_to_pdf' program_plan.id %}" target="_blank">
+           <button class="pure-button smallButton" id="pdf_button">
+              Export to PDF
+           </button>
+        </a>
+        <form method="POST" action="{% url 'polygons.views.delete_program_plan' program_plan.id %}" onsubmit="return confirm('Are you sure want to permanently delete this plan?');"> 
+           {%csrf_token %}
+           <button type="submit" class="pure-button smallButton" id="delete_button">
+              Delete Plan
+           </button>
+        </form>
+        </div>
         {% for i in no_of_year %}
             <div class="yearFrame">
                 <div class="yearBanner">Year {{ i }}</div>
