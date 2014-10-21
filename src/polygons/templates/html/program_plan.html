@@ -111,4 +111,62 @@
             </div>
             <div style="clear: both; height: 50px;"></div>
         {% endfor %}
+
+    <h1>
+         {{ program_plan.program }}
+      </h1>
+      <h2>
+         Program Plan
+      </h2>
+      <ul id="years">
+         {% for plan_year in plan_years %}
+         <li class="year">
+            <div class="year_label">
+               Year {{ plan_year.year }}
+            </div>
+            <div class="semesters">
+               {% for plan_semester in plan_year %}
+               <div class="semester">
+                  <div class="semester_label">
+                     {{ plan_semester.semester }}
+                  </div>
+                  <div class="subjects">
+                     {% for subject in plan_semester %}
+                     <div class="subject">
+                        {{ subject }}
+                     </div>
+                  {% endfor %}
+                  </div>
+               </div>
+               {% endfor %}
+            </div>
+         </li>
+         {% endfor %}
+      </ul>
+
+
+    
+      <h1>
+         {{ program_plan.program }}
+      </h1>
+      <h2>
+         Program Plan
+      </h2>
+        {% for plan_year in plan_years %}
+            <div class="yearFrame">
+                <div class="yearBanner">Year {{ plan_year.year }}</div>
+                {% for plan_semester in plan_year %}
+                    <div class="semesterFrame">
+                        <table> 
+                            <th>Semester {{ plan_semester.semester }}</th>
+                            {% for subject in plan_semester %}
+                            <tr><td><a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a></td></tr>
+
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+            <div style="clear: both; height: 50px;"></div>
+        {% endfor %}
     {% endblock %}

@@ -6,6 +6,8 @@ import pdfcrowd
 
 from polygons.models.Program import Program
 from polygons.models.Program_Group_Member import Program_Group_Member
+from polygons.models.Semester import Semester
+from polygons.models.Semester_Plan import Semester_Plan
 
 from comp4920.settings import PDFCROWD_USERNAME
 from comp4920.settings import PDFCROWD_API_KEY
@@ -69,9 +71,9 @@ class Program_Plan_Semester(object):
     def add_subject(self, subject):
         self.__subjects.append(subject)
         self.__uoc += subject.uoc
-        if self.__uoc >= _MAX_SEMESTER_UOC
+        if self.__uoc >= _MAX_SEMESTER_UOC:
             self.__is_uoc_full = True
-        else
+        else:
             self.__is_uoc_full = False
 
 def get_formatted_plan(program_plan):
