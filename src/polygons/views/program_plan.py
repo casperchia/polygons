@@ -35,35 +35,9 @@ def get_valid_program_plan(view):
     
     return wrapper
 
-# @get_valid_program_plan
-# def program_plan(request, program_plan):
-#     current_year = program_plan.current_year
-#     current_semester = program_plan.current_semester.id
-#     subject_list = Semester_Plan.objects.filter(program_plan=program_plan.id)
-
-#     if request.method == 'POST':
-#         form = Add_Course_Form(request.POST, program_plan=program_plan)
-#         if form.is_valid():
-#             form.save(request, program_plan.id)
-#             return HttpResponseRedirect(reverse('polygons.views.course_listing'))
-#     else:
-#         form = Add_Course_Form(program_plan=program_plan)
-    
-#     return render_to_response('html/program_plan.html',
-#                              {
-#                                 'program_plan' : program_plan, 
-#                                 'no_of_year' : range(1, current_year+1),
-#                                 'subject_list' : subject_list,
-#                                 'final_year' : current_year,
-#                                 'final_semester' : current_semester
-#                              },  
-#                              context_instance=RequestContext(request))
 
 @get_valid_program_plan
 def program_plan(request, program_plan):
-    current_year = program_plan.current_year
-    current_semester = program_plan.current_semester.id
-    subject_list = Semester_Plan.objects.filter(program_plan=program_plan.id)
 
     if request.method == 'POST':
         form = Add_Course_Form(request.POST, program_plan=program_plan)
@@ -78,10 +52,6 @@ def program_plan(request, program_plan):
     return render_to_response('html/program_plan.html',
                              {
                                 'program_plan' : program_plan, 
-                                'no_of_year' : range(1, current_year+1),
-                                'subject_list' : subject_list,
-                                'final_year' : current_year,
-                                'final_semester' : current_semester,
                                 'plan_years' : plan_years
                              },  
                              context_instance=RequestContext(request))
