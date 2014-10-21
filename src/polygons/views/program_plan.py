@@ -14,6 +14,7 @@ from polygons.forms.program_planning import Delete_Program_Plan_Form
 from polygons.utils.views import render_to_pdf
 from polygons.utils.views import Program_Plan_Year
 from polygons.utils.views import Program_Plan_Semester
+from polygons.utils.views import get_formatted_plan
 
 from functools import wraps
 
@@ -69,17 +70,8 @@ def delete_program_plan(request, program_plan):
 
 @get_valid_program_plan
 def program_plan_to_pdf(request, program_plan):
-    plan_years = []
-    for year in xrange(1, program_plan.current_year + 1):
-        plan_year = Program_Plan_Year(year)
-        for semester in Semester.objects.all():
-            plan_semester = Program_Plan_Semester(semester)
-            for semester_plan in Semester_Plan.objects.filter(program_plan=program_plan,
-                                                              semester=semester,
-                                                              year=year):
-                plan_semester.add_subject(semester_plan.subject)
-            plan_year.add_semester(plan_semester)
-        plan_years.append(plan_year)
+
+    plan_years = get_formatted_plan(program_plan)
     
     return render_to_pdf('pdf/program_plan.html',
                          {
