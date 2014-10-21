@@ -18,5 +18,15 @@
    },
    "model": "polygons.program_plan",
    "pk": 101
+   },
+  {
+   "fields": {
+      "program": 6400,
+      "uoc_tally": 0,
+      "current_semester": 1,
+      "current_year": 2
+   },
+   "model": "polygons.program_plan",
+   "pk": 102
    }   
 ]

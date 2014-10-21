@@ -81,16 +81,41 @@ class Program_Plan_Semester(object):
         else:
             self.__is_uoc_full = False
 
+# def get_formatted_plan(program_plan):
+#     plan_years = []
+#     for year in xrange(1, program_plan.current_year + 1):
+#         plan_year = Program_Plan_Year(year)
+#         for semester in Semester.objects.all():
+#             plan_semester = Program_Plan_Semester(semester)
+#             for semester_plan in Semester_Plan.objects.filter(program_plan=program_plan,
+#                                                               semester=semester,
+#                                                               year=year):
+#                 plan_semester.add_subject(semester_plan.subject)
+#             plan_year.add_semester(plan_semester)
+#         plan_years.append(plan_year)    
+#     return plan_years
+
 def get_formatted_plan(program_plan):
     plan_years = []
     for year in xrange(1, program_plan.current_year + 1):
         plan_year = Program_Plan_Year(year)
-        for semester in Semester.objects.all():
-            plan_semester = Program_Plan_Semester(semester)
-            for semester_plan in Semester_Plan.objects.filter(program_plan=program_plan,
-                                                              semester=semester,
-                                                              year=year):
-                plan_semester.add_subject(semester_plan.subject)
-            plan_year.add_semester(plan_semester)
-        plan_years.append(plan_year)    
+        if year < program_plan.current_year:
+            for semester in Semester.objects.all():
+                plan_semester = Program_Plan_Semester(semester)
+                for semester_plan in Semester_Plan.objects.filter(program_plan=program_plan,
+                                                                  semester=semester,
+                                                                  year=year):
+                    plan_semester.add_subject(semester_plan.subject)
+                plan_year.add_semester(plan_semester)
+            plan_years.append(plan_year)    
+        else:
+            for sem in xrange(1, program_plan.current_semester.id + 1):
+                semester = Semester.objects.get(id=sem)
+                plan_semester = Program_Plan_Semester(semester)
+                for semester_plan in Semester_Plan.objects.filter(program_plan=program_plan,
+                                                                  semester=semester,
+                                                                  year=year):
+                    plan_semester.add_subject(semester_plan.subject)
+                plan_year.add_semester(plan_semester)
+            plan_years.append(plan_year)                                        
     return plan_years
