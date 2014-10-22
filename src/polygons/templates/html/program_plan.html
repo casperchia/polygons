@@ -14,7 +14,7 @@
               Export to PDF
            </button>
         </a>
-        <form method="POST" action="{% url 'polygons.views.delete_program_plan' program_plan.id %}" onsubmit="return confirm('Are you sure want to permanently delete this plan?');"> 
+          <form method="POST" action="{% url 'polygons.views.delete_program_plan' program_plan.id %}" onsubmit="return confirm('Are you sure want to permanently delete this plan?');"> 
            {%csrf_token %}
            <button type="submit" class="pure-button smallButton" id="delete_button">
               Delete Plan
@@ -105,10 +105,16 @@
                                 </td></tr>
                             </table>
                         </div>
-                    {% endif %}                    
+                    {% endif %}               
                 {% endif %}                    
                 <div style="clear: both;"></div>
             </div>
             <div style="clear: both; height: 50px;"></div>
-        {% endfor %}
+        {% endfor %}     
+          <div>
+            <form method="POST" action="{% url 'polygons.views.new_semester' program_plan.id %}"> 
+            {%csrf_token %}
+            <input type="submit" value="New Semester"><br><br>
+            </form>
+        </div>     
     {% endblock %}
