@@ -99,9 +99,5 @@ def new_semester(request,program_plan):
     else:
         form = New_Semester_Form()
     
-    return render_to_response('html/program_plan.html', 
-                             {
-                                'program_plan' : program_plan
-                             },  
-                             context_instance=RequestContext(request))
+    return  HttpResponseRedirect(reverse('polygons.views.program_plan', args=[program_plan.id]))
 
