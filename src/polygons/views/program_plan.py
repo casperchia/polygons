@@ -34,6 +34,17 @@ def get_valid_program_plan(view):
         return view(request, *args, **kwargs)
     return wrapper
 
+
+@get_valid_program_plan
+def new_semester(request,program_plan):
+    if request.method == 'POST':
+        form = New_Semester_Form(request.POST)
+        if form.is_valid():
+            new_semester = form.save(program_plan)
+            return HttpResponseRedirect(reverse('polygons.views.program_plan',
+                                            args=[new_semester.id]))
+    return  HttpResponseRedirect(reverse('polygons.views.program_plan', args=[program_plan.id]))
+
 @get_valid_program_plan
 def program_plan(request, program_plan):
 
@@ -87,17 +98,3 @@ def program_plan_to_pdf(request, program_plan):
                             'plan_years' : plan_years
                          },
                          str(program_plan.program))
-
-@get_valid_program_plan
-def new_semester(request,program_plan):
-    if request.method == 'POST':
-        form = New_Semester_Form(request.POST)
-        if form.is_valid():
-            new_semester = form.save(program_plan)
-            return HttpResponseRedirect(reverse('polygons.views.program_plan',
-                                            args=[new_semester.id]))
-    else:
-        form = New_Semester_Form()
-    
-    return  HttpResponseRedirect(reverse('polygons.views.program_plan', args=[program_plan.id]))
-
