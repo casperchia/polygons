@@ -68,8 +68,7 @@ def remove_course(request, program_plan_id):
     except Program_Plan.DoesNotExist:
         return HttpResponseRedirect(reverse('polygons.views.index'))
 
-    current_semester = program_plan.current_semester.id
-    subject_list = get_program_subjects(program_plan, current_semester)
+    subject_list = get_program_subjects(program_plan, program_plan.current_semester)
 
     if request.method == 'POST':
         form = Remove_From_Plan_Form(request.POST, subjects=subject_list)
