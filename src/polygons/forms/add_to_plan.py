@@ -2,7 +2,7 @@ import django.forms as forms
 
 from polygons.models.Semester_Plan import Semester_Plan
 from polygons.forms.add_course import ADD_COURSE_SESSION_KEY
-from polygons.utils.views import _MAX_SEMESTER_UOC
+from polygons.utils.views import MAX_SEMESTER_UOC
 from polygons.messages import SEMESTER_UOC_LIMIT
 from polygons.models.Subject import Subject
 
@@ -24,7 +24,7 @@ class Add_To_Plan_Form(forms.Form):
         for subject in subjects_taken:
             uoc = uoc + subject.subject.uoc
         uoc = uoc + new_subject.uoc
-        if uoc > _MAX_SEMESTER_UOC:
+        if uoc > MAX_SEMESTER_UOC:
             raise forms.ValidationError(SEMESTER_UOC_LIMIT)       
 
     def save(self, request, program_plan, semester, year):

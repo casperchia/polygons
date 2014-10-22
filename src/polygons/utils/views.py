@@ -13,7 +13,7 @@ from comp4920.settings import PDFCROWD_USERNAME
 from comp4920.settings import PDFCROWD_API_KEY
 
 _CSE_PLANS_ID = 20382
-_MAX_SEMESTER_UOC = 27
+MAX_SEMESTER_UOC = 27
 
 def get_cse_programs():
     ids = Program_Group_Member.objects.filter(acad_obj_group=_CSE_PLANS_ID).values_list('program',
@@ -76,7 +76,7 @@ class Program_Plan_Semester(object):
     def add_subject(self, subject):
         self.__subjects.append(subject)
         self.__uoc += subject.uoc
-        if self.__uoc >= _MAX_SEMESTER_UOC:
+        if self.__uoc >= MAX_SEMESTER_UOC:
             self.__is_uoc_full = True
         else:
             self.__is_uoc_full = False
