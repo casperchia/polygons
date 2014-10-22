@@ -38,7 +38,7 @@
                                 <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a>
                             </td></tr>
                             {% endfor %}
-                            {% if plan_semester.is_uoc_full == False %}
+                            {% if not plan_semester.is_uoc_full %}
                                 <tr><td>
                                     <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
                                         {%csrf_token %}
