@@ -11,6 +11,7 @@ from polygons.forms.add_course import ADD_COURSE_SESSION_KEY
 from polygons.utils.degree_planning import get_program_subjects
 from polygons.forms.add_course import Filter_Subjects_Form
 from polygons.forms.add_to_plan import Add_To_Plan_Form
+from polygons.forms.back_to_plan import Back_To_Plan_Form
 
 def course_listing(request):
     try:
@@ -64,3 +65,18 @@ def add_course(request):
             return HttpResponseRedirect(reverse('polygons.views.course_listing'))
 
     return HttpResponseRedirect(reverse('polygons.views.course_listing'))
+
+def back_to_plan(request):
+    try:
+        add_course_data = request.session[ADD_COURSE_SESSION_KEY]
+    except KeyError:
+        messages.error(request, INVALID_ADD_COURSE_DATA)
+        return HttpResponseRedirect(reverse('polygons.views.degree_list'))
+
+    program_plan_id = add_course_data['program_plan_id']
+
+    if request.method == 'POST':
+        form = Back_To_Plan_Form(request.POST)
+        form.save(request)
+
+    return HttpResponseRedirect(reverse('polygons.views.program_plan', args=[program_plan_id]))
