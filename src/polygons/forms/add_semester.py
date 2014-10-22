@@ -16,5 +16,4 @@ class New_Semester_Form(forms.Form):
             program_plan.current_year += 1
         else:
             program_plan.current_semester = semester2
-        program_plan.save()
-        return program_plan
+        program_plan.save() 

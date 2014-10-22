@@ -40,9 +40,7 @@ def new_semester(request,program_plan):
     if request.method == 'POST':
         form = New_Semester_Form(request.POST)
         if form.is_valid():
-            new_semester = form.save(program_plan)
-            return HttpResponseRedirect(reverse('polygons.views.program_plan',
-                                            args=[new_semester.id]))
+            form.save(program_plan)
     return  HttpResponseRedirect(reverse('polygons.views.program_plan', args=[program_plan.id]))
 
 @get_valid_program_plan
