@@ -3,7 +3,7 @@
    "fields": {
       "program": 554,
       "uoc_tally": 0,
-      "current_semester": 2,
+      "current_semester": 1,
       "current_year": 2
    },
    "model": "polygons.program_plan",
@@ -14,7 +14,7 @@
       "program": 747,
       "uoc_tally": 24,
       "current_semester": 2,
-      "current_year": 3
+      "current_year": 1
    },
    "model": "polygons.program_plan",
    "pk": 101
