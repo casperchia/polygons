@@ -12,4 +12,5 @@ urlpatterns = patterns('polygons.views',
     url(r'^degree/plan/courses/$', 'course_listing'),
     url(r'^degree/plan/course/add/$', 'add_course'),
     url(r'^review_page/(?P<filter>[A-Z]{1,4})$', 'review_page'),
+    url(r'^degree/plan/remove/(?P<program_plan_id>\d+)/$', 'remove_course')
 )
