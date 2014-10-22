@@ -85,23 +85,22 @@ def get_formatted_plan(program_plan):
     plan_years = []
     for year in xrange(1, program_plan.current_year + 1):
         plan_year = Program_Plan_Year(year)
-        if year < program_plan.current_year:
-            for semester in Semester.objects.all():
+        for semester in Semester.objects.all():
+            add_semester = False
+
+            if year < program_plan.current_year:
+                add_semester = True
+            elif semester != Semester.objects.get(abbreviation='S2'):
+                add_semester = True
+            elif program_plan.current_semester == semester:
+                add_semester = True
+                
+            if add_semester:
                 plan_semester = Program_Plan_Semester(semester)
                 for semester_plan in Semester_Plan.objects.filter(program_plan=program_plan,
                                                                   semester=semester,
                                                                   year=year):
                     plan_semester.add_subject(semester_plan.subject)
                 plan_year.add_semester(plan_semester)
-            plan_years.append(plan_year)    
-        else:
-            for sem in xrange(1, program_plan.current_semester.id + 1):
-                semester = Semester.objects.get(id=sem)
-                plan_semester = Program_Plan_Semester(semester)
-                for semester_plan in Semester_Plan.objects.filter(program_plan=program_plan,
-                                                                  semester=semester,
-                                                                  year=year):
-                    plan_semester.add_subject(semester_plan.subject)
-                plan_year.add_semester(plan_semester)
-            plan_years.append(plan_year)                                        
+        plan_years.append(plan_year)                                        
     return plan_years
