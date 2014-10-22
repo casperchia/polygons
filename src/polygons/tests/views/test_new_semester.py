@@ -29,27 +29,22 @@ class Test_New_Semester(TestCase):
 
     def test_database(self):
         count = Program_Plan.objects.count()
-        url = reverse('polygons.views.new_semester',args=[100])
-        response = self.client.post(url)
-        new_count = Program_Plan.objects.count()
-
-        print 'Testing the program_plan database remains same after adding new semester'
-        self.assertEqual(count, new_count)
-
-    def test_content(self):
         plan = Program_Plan.objects.get(pk=100)
         plan_semester = plan.current_semester
-   
+       
         url = reverse('polygons.views.new_semester', args=[100]) 
         response = self.client.post(url)
         new_semester = Program_Plan.objects.get(pk=100)
+        new_count = Program_Plan.objects.count()
        
-
         print 'Test that the new semester is being added'
         self.assertNotEqual(plan_semester, new_semester.current_semester)
 
         print 'Testing year remains same when adding semester 2'
         self.assertEqual(plan.current_year, new_semester.current_year)
+
+        print 'Testing the program_plan database remains same after adding new semester'
+        self.assertEqual(count, new_count)
 
         new_plan = Program_Plan.objects.get(pk = 101)
         new_plan_year = new_plan.current_year
