@@ -61,7 +61,6 @@ def program_plan(request, program_plan):
                              },  
                              context_instance=RequestContext(request))
 
-@get_valid_program_plan
 def remove_course(request, program_plan_id):
     
     try:
