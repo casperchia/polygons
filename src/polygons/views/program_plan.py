@@ -61,6 +61,7 @@ def program_plan(request, program_plan):
                              },  
                              context_instance=RequestContext(request))
 
+@get_valid_program_plan
 def remove_course(request, program_plan_id):
     
     try:
@@ -75,7 +76,7 @@ def remove_course(request, program_plan_id):
         form = Remove_From_Plan_Form(request.POST, subjects=subject_list)
         if form.is_valid():
             form.save(program_plan=program_plan)
-            messages.info(request, COURSE_REMOVED)
+            messages.info(request, COURSE_DELETED)
             return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                             args=[program_plan.id]))
         else:
