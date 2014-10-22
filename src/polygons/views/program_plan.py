@@ -17,7 +17,9 @@ from polygons.utils.degree_planning import get_program_subjects
 from polygons.forms.program_planning import Delete_Program_Plan_Form
 from polygons.utils.views import render_to_pdf
 from polygons.utils.views import Program_Plan_Year
-from polygons.utils.views import Program_Plan_Semester
+from polygons.utils.views import Program_Plan_Semester 
+from polygons.utils.views import get_formatted_plan
+from polygons.utils.views import Program_Plan_Semester 
 from polygons.utils.degree_planning import get_dependent_subjects
 
 from functools import wraps
@@ -81,11 +83,8 @@ def remove_course(request, program_plan_id):
         else:
             form = Remove_From_Plan_Form(subjects=subject_list)
     
-    return render_to_response('html/program_plan.html', 
-                             {
-                                'program_plan' : program_plan
-                             },  
-                             context_instance=RequestContext(request))
+    return HttpResponseRedirect(reverse('polygons.views.program_plan',
+                                        args=[program_plan.id]))
     
 @get_valid_program_plan
 def delete_program_plan(request, program_plan):
