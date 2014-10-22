@@ -20,20 +20,16 @@ from functools import wraps
 
 def get_valid_program_plan(view):
     @wraps(view)
-
     def wrapper(request, *args, **kwargs):
-
         program_plan_id = kwargs.pop('program_plan_id')        
-
         try:
             program_plan = Program_Plan.objects.get(id=program_plan_id)
         except Program_Plan.DoesNotExist:
-           messages.error(request, INVALID_PROGRAM_PLAN)
-           return HttpResponseRedirect(reverse('polygons.views.index'))
+            messages.error(request, INVALID_PROGRAM_PLAN)
+            return HttpResponseRedirect(reverse('polygons.views.index'))
         kwargs['program_plan'] = program_plan
         return view(request, *args, **kwargs)
     return wrapper
-
 
 @get_valid_program_plan
 def new_semester(request,program_plan):
