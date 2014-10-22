@@ -13,6 +13,6 @@ class Add_To_Plan_Form(forms.Form):
 
     def save(self, request, program_plan, semester, year):
         subject = self.cleaned_data['subject']
-        semester_plan = Semester_Plan(program_plan=program_plan, subject=subject)
+        semester_plan = Semester_Plan(program_plan=program_plan, subject=subject, semester=semester, year=year)
         semester_plan.save()
         request.session.pop(ADD_COURSE_SESSION_KEY, False)
