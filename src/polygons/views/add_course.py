@@ -59,7 +59,8 @@ def add_course(request):
             return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                                 args=[program_plan.id]))
         else:
-            messages.error(request, SEMESTER_UOC_LIMIT)
+            for error in form.non_field_errors():
+               messages.error(request, error)
             return HttpResponseRedirect(reverse('polygons.views.course_listing'))
 
     return HttpResponseRedirect(reverse('polygons.views.course_listing'))
