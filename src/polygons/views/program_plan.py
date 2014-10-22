@@ -7,6 +7,7 @@ from django.contrib import messages
 from polygons.models.Program_Plan import Program_Plan
 from polygons.models.Semester_Plan import Semester_Plan
 from polygons.models.Semester import Semester
+from polygons.models.Subject import Subject
 from polygons.messages import INVALID_PROGRAM_PLAN
 from polygons.messages import PROGRAM_PLAN_DELETED
 from polygons.messages import COURSE_DELETED
@@ -17,6 +18,7 @@ from polygons.forms.program_planning import Delete_Program_Plan_Form
 from polygons.utils.views import render_to_pdf
 from polygons.utils.views import Program_Plan_Year
 from polygons.utils.views import Program_Plan_Semester
+from polygons.utils.degree_planning import get_dependent_subjects
 
 from functools import wraps
 
@@ -62,18 +64,20 @@ def program_plan(request, program_plan):
                              context_instance=RequestContext(request))
 
 def remove_course(request, program_plan_id):
-    
     try:
         program_plan = Program_Plan.objects.get(id=program_plan_id)
     except Program_Plan.DoesNotExist:
         return HttpResponseRedirect(reverse('polygons.views.index'))
+    
+    subject = Subject.objects.get(id=request.POST.get('subject', ""))
 
-    subject_list = get_program_subjects(program_plan, program_plan.current_semester)
+    print subject
+    subject_list = get_dependent_subjects(program_plan, subject)
 
     if request.method == 'POST':
         form = Remove_From_Plan_Form(request.POST, subjects=subject_list)
         if form.is_valid():
-            form.save(program_plan=program_plan)
+            form.save(request, program_plan=program_plan)
             messages.info(request, COURSE_DELETED)
             return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                             args=[program_plan.id]))

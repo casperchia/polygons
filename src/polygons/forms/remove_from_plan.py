@@ -9,7 +9,9 @@ class Remove_From_Plan_Form(forms.Form):
         super(Remove_From_Plan_Form, self).__init__(*args, **kwargs)
         self.fields['subject'] = forms.ModelChoiceField(queryset=subjects)
     
-    def save(self, program_plan, semester, year):
+    def save(self, request, program_plan):
         subject = self.cleaned_data['subject']
-        semester_plan = Semester_Plan(program_plan=program_plan, subject=subject)
+        print 'program plan id=' + program_plan.id + 'subject id=' + subject.id
+        semester_plan = Semester_Plan.objects.get(program_plan_id=program_plan.id, 
+                                                  subject_id=subject.id)
         semester_plan.delete()
