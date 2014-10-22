@@ -21,7 +21,7 @@
          <ul>
             {% for subject in core_subjects %}
             <li>
-               {{ subject }} {{ subject.id }}
+               <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }} {{ subject.id }}</a>
             </li>
             {% endfor %}
          </ul>

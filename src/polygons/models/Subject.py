@@ -19,6 +19,11 @@ class Subject(models.Model):
     
     def __unicode__(self):
         return '%s (%s)'%(self.code, self.name)
+        
+    @property
+    def handbook_link(self):
+        return 'http://www.handbook.unsw.edu.au/%s/courses/2013/%s.html'%(
+                    self.career.name, self.code)
     
     class Meta:
         app_label = 'polygons'

@@ -6,6 +6,7 @@ INVALID_ADD_COURSE_DATA = 'Required data for adding course cannot be found.'
 
 COURSE_DELETED = 'The course has been removed from your plan.'
 
-SUBJECT_FILTRATION_REQUIRED = 'At least one form of filtration is required.'
-
 PROGRAM_PLAN_DELETED = 'The progam plan has been deleted from the system.'
+SUBJECT_FILTRATION_REQUIRED = 'At least one form of filtration is required.'
+PROGRAM_PLAN_DELETED = 'The progam plan has been deleted from the system.'
+SEMESTER_UOC_LIMIT = 'Only a maximum of 27 UOC is allowed per semester.'

@@ -13,18 +13,11 @@ ADD_COURSE_SESSION_KEY = 'add_course'
 
 class Add_Course_Form(forms.Form):
     
+    semester = forms.ModelChoiceField(queryset=Semester.objects.all())
+    
     def __init__(self, *args, **kwargs):
         program_plan = kwargs.pop('program_plan')
         super(Add_Course_Form, self).__init__(*args, **kwargs)
-        
-        ids = Semester_Plan.objects.filter(program_plan=program_plan).values_list('semester',
-                                                                                  flat=True)
-        choices = [(s.id, s.abbreviation) for s in Semester.objects.filter(id__in=ids)]
-        if not choices: # Brand new plan
-            choices = [(program_plan.current_semester.id,
-                        program_plan.current_semester.abbreviation)]
-        self.fields['semester'] = forms.ChoiceField(choices)
-        
         self.fields['year'] = forms.IntegerField(min_value=START_YEAR,
                                                  max_value=program_plan.current_year)
 
@@ -33,7 +26,7 @@ class Add_Course_Form(forms.Form):
         year = self.cleaned_data['year']
         
         data = {
-                'semester_id' : semester,
+                'semester_id' : semester.id,
                 'year' : year,
                 'program_plan_id' : program_plan_id
         }
