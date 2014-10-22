@@ -32,101 +32,37 @@
            </button>
         </form>
         </div>
-        {% for i in no_of_year %}
+        
+        <h2>
+            Program Plan
+        </h2>
+        
+        {% for plan_year in plan_years %}
             <div class="yearFrame">
-                <div class="yearBanner">Year {{ i }}</div>
-                {% if i < final_year %}
+                <div class="yearBanner">Year {{ plan_year.year }}</div>
+                {% for plan_semester in plan_year %}
                     <div class="semesterFrame">
                         <table> 
-                            <th>Semester 1</th>
-                            {% for subject in subject_list %}
-                                {% if subject.semester.abbreviation == "S1" and subject.year == i%}
-                                    <tr><td><a href="{{ subject.subject.handbook_link }}" target="_blank">
-                                    {{ subject.subject }}</a>
-                                    </td></tr>
-                                {% endif %}
-                            {% endfor %}
-                            <!-- Check if reached max UOC-->
-                            {% if not finished %}
+                            <th>{{ plan_semester.semester }}</th>
+                            {% for subject in plan_semester %}
                             <tr><td>
-                                <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
-                                    {%csrf_token %}
-                                    <input type="hidden" name="semester" value="1">
-                                    <input type="hidden" name="year" value="{{ i }}">
-                                    <input type="submit" value="Add Course"><br><br>
-                                </form>
+                                <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a>
                             </td></tr>
-                            {% endif %}
-                        </table>
-                    </div>  
-                    <div class="semesterFrame">
-                        <table> 
-                            <th>Semester 2</th>
-                            {% for subject in subject_list %}
-                                {% if subject.semester.abbreviation == "S2" and subject.year == i%}
-                                    <tr><td><a href="{{ subject.subject.handbook_link }}" target="_blank">{{ subject.subject }}</a></td></tr>
-                                {% endif %}
                             {% endfor %}
-                            {% if not finished %}
-                            <tr><td>
-                                <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
-                                    {%csrf_token %}
-                                    <input type="hidden" name="semester" value="2">
-                                    <input type="hidden" name="year" value="{{ i }}">
-                                    <input type="submit" value="Add Course"><br><br>
-                                </form>
-                            </td></tr>
+                            {% if not plan_semester.is_uoc_full and not finished %}
+                                <tr><td>
+                                    <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
+                                        {%csrf_token %}
+                                        <input type="hidden" name="semester" value="{{ plan_semester.semester.id }}">
+                                        <input type="hidden" name="year" value="{{ plan_year.year }}">
+                                        <input type="submit" value="Add Course"><br><br>
+                                    </form>
+
+                                </td></tr>                            
                             {% endif %}
                         </table>
                     </div>
-                {% endif %}
-                
-                {% if i == final_year %}
-                    {% if final_semester >= 1 %}
-                        <div class="semesterFrame">
-                            <table> 
-                                <th>Semester 1</th>
-                                {% for subject in subject_list %}
-                                    {% if subject.semester.abbreviation == "S1" and subject.year == i%}
-                                        <tr><td><a href="{{ subject.subject.handbook_link }}" target="_blank">{{ subject.subject }}</a></td></tr>
-                                    {% endif %}
-                                {% endfor %}
-                                {% if not finished %}
-                                <tr><td>
-                                    <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
-                                        {%csrf_token %}
-                                        <input type="hidden" name="semester" value="1">
-                                        <input type="hidden" name="year" value="{{ i }}">
-                                        <input type="submit" value="Add Course"><br><br>
-                                    </form>
-                                </td></tr>
-                                {% endif %}
-                            </table>
-                        </div>
-                    {% endif %}
-                    {% if final_semester == 2 %}
-                        <div class="semesterFrame">
-                            <table> 
-                                <th>Semester 2</th>
-                                {% for subject in subject_list %}
-                                    {% if subject.semester.abbreviation == "S2" and subject.year == i%}
-                                        <tr><td><a href="{{ subject.subject.handbook_link }}" target="_blank">{{ subject.subject }}</a></td></tr>
-                                    {% endif %}
-                                {% endfor %}
-                                {% if not finished %}
-                                <tr><td>
-                                    <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
-                                        {%csrf_token %}
-                                        <input type="hidden" name="semester" value="2">
-                                        <input type="hidden" name="year" value="{{ i }}">
-                                        <input type="submit" value="Add Course"><br><br>
-                                    </form>
-                                </td></tr>
-                                {% endif %}
-                            </table>
-                        </div>
-                    {% endif %}               
-                {% endif %}                    
+                {% endfor %}
                 <div style="clear: both;"></div>
             </div>
             <div style="clear: both; height: 50px;"></div>

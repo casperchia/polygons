@@ -10,6 +10,11 @@
       <div>
       {{ add_form.non_field_errors }}
       </div>
+      <form method="POST" action="{% url 'polygons.views.back_to_plan' %}">
+       {% csrf_token %}
+        <button type="submit" class="pure-button smallButton">Back</button>
+      </form>
+
       <h2>Filter courses:</h2>
       <form method="POST" action="{% url 'polygons.views.course_listing' %}">
          {% csrf_token %}
