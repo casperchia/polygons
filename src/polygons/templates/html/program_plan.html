@@ -37,11 +37,10 @@
                             <tr><td>
                                 <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a>
 									<form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}">
-									    <input type="hidden" name="subject" value="{{ subject.subject.id }}">
+									    <input type="hidden" name="subject" value="{{ subject.id }}">
 									    {% csrf_token %}
 									    <input type="submit" value="Remove Course">
 									</form>
-=======
                             </td></tr>
                             {% endfor %}
                             {% if not plan_semester.is_uoc_full %}
