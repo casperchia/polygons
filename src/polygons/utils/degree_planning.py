@@ -40,7 +40,7 @@ def get_dependent_subjects(program_plan, pending_subject):
     with connection.cursor() as cursor:
         cursor.execute('select get_dependent_subjects(%s, %s, %s)',
                        [program_plan.program_id, pending_subject.id,
-                        existing_subjects])
+                        list(existing_subjects)])
         results = cursor.fetchall()
     
     if results:
