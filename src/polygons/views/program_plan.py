@@ -19,7 +19,6 @@ from polygons.utils.views import render_to_pdf
 from polygons.utils.views import Program_Plan_Year
 from polygons.utils.views import Program_Plan_Semester 
 from polygons.utils.views import get_formatted_plan
-from polygons.utils.views import Program_Plan_Semester 
 from polygons.utils.degree_planning import get_dependent_subjects
 
 from functools import wraps
