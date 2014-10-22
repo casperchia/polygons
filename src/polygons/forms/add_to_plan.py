@@ -21,10 +21,7 @@ class Add_To_Plan_Form(forms.Form):
     def clean(self):
         new_subject = self.cleaned_data['subject']
         subjects_taken = Semester_Plan.objects.filter(program_plan=self.program_plan, semester=self.semester, year=self.year)
-        uoc_dict = Semester_Plan.objects.filter(program_plan=self.program_plan, 
-                                                semester=self.semester, 
-                                                year=self.year).aggregate(uoc_sum=Sum('subject__uoc'))
-        uoc_sum = uoc_dict.get('uoc_sum', 0) or 0
+        uoc_sum = subjects_taken.aggregate(uoc_sum=Sum('subject__uoc')).get('uoc_sum', 0) or 0
         uoc =  uoc_sum + new_subject.uoc
         if uoc > MAX_SEMESTER_UOC:
             raise forms.ValidationError(SEMESTER_UOC_LIMIT)       
