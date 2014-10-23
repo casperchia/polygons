@@ -54,6 +54,7 @@ def add_course(request):
     subject_list = get_program_subjects(program_plan, semester)
     
     if request.method == 'POST':
+
         form = Add_To_Plan_Form(request.POST, subjects=subject_list, program_plan=program_plan, semester=semester, year=year)
         if form.is_valid():
             form.save(request, program_plan, semester, year)

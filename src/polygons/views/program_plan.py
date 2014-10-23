@@ -47,13 +47,19 @@ def program_plan(request, program_plan):
 
     current_year = program_plan.current_year
     current_semester = program_plan.current_semester.id
+
     subject_list = Semester_Plan.objects.filter(program_plan=program_plan.id)
+    program_finished = (program_plan.uoc_tally >= program_plan.program.uoc)
+
 
     if request.method == 'POST':
         form = Add_Course_Form(request.POST, program_plan=program_plan)
         if form.is_valid():
             form.save(request, program_plan.id)
             return HttpResponseRedirect(reverse('polygons.views.course_listing'))
+                                    
+        
+        
     else:
         form = Add_Course_Form(program_plan=program_plan)
     
@@ -61,8 +67,9 @@ def program_plan(request, program_plan):
 
     return render_to_response('html/program_plan.html',
                              {
-                                'program_plan' : program_plan, 
-                                'plan_years' : plan_years
+                                'program_plan' : program_plan,
+                                'plan_years' : plan_years,
+                                'finished' : program_finished
                              },  
                              context_instance=RequestContext(request))
 
@@ -86,3 +93,4 @@ def program_plan_to_pdf(request, program_plan):
                             'plan_years' : plan_years
                          },
                          str(program_plan.program))
+
