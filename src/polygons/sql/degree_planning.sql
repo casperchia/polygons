@@ -740,7 +740,8 @@ end;
 $$ language plpgsql;
 
 create function get_program_subjects(_program_id integer, _semester_id integer,
-                                     _existing_subjects integer array)
+                                     _existing_subjects integer array,
+                                     _past_subjects integer array)
 returns setof integer
 AS $$
 declare
@@ -835,7 +836,7 @@ begin
             if (
                not(
                   select meets_subject_prereqs(_rule.id, _faculty_id,
-                     _existing_subjects)
+                     _past_subjects)
                )
             ) then
                _meets_prereqs := false;

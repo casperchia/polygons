@@ -23,7 +23,8 @@ def course_listing(request):
     program_plan = Program_Plan.objects.get(id=add_course_data['program_plan_id'])
     semester = Semester.objects.get(id=add_course_data['semester_id'])
 
-    subject_list = get_program_subjects(program_plan, semester)
+    subject_list = get_program_subjects(program_plan, add_course_data['year'],
+                                        semester)
     
     if request.method == 'POST':
         filter_form = Filter_Subjects_Form(request.POST)
@@ -51,7 +52,7 @@ def add_course(request):
     program_plan = Program_Plan.objects.get(id=add_course_data['program_plan_id'])
     semester = Semester.objects.get(id=add_course_data['semester_id'])
     year = add_course_data['year']
-    subject_list = get_program_subjects(program_plan, semester)
+    subject_list = get_program_subjects(program_plan, year, semester)
     
     if request.method == 'POST':
         form = Add_To_Plan_Form(request.POST, subjects=subject_list, program_plan=program_plan, semester=semester, year=year)

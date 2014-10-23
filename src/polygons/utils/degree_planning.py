@@ -15,13 +15,15 @@ def get_core_subjects(program):
     
     return Subject.objects.filter(id__in=subject_ids)
 
-def get_program_subjects(program_plan, semester):
-    subjects = Semester_Plan.objects.filter(program_plan=program_plan).values_list('subject',
-                                                                                   flat=True)
+def get_program_subjects(program_plan, year, semester):
+    subjects = Semester_Plan.objects.filter(program_plan=program_plan)
+    past_subjects = subjects.exclude(year=year, semester=semester)
     
     with connection.cursor() as cursor:
-        cursor.execute('select get_program_subjects(%s, %s, %s)',
-                       [program_plan.program_id, semester.id, list(subjects)])
+        cursor.execute('select get_program_subjects(%s, %s, %s, %s)',
+                       [program_plan.program_id, semester.id,
+                        list(subjects.values_list('subject', flat=True)),
+                        list(past_subjects.values_list('subject', flat=True))])
         results = cursor.fetchall()
     
     if results:
