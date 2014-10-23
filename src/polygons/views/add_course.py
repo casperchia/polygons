@@ -6,7 +6,6 @@ from django.contrib import messages
 from polygons.models.Semester import Semester
 from polygons.models.Program_Plan import Program_Plan
 from polygons.messages import INVALID_ADD_COURSE_DATA
-from polygons.messages import SEMESTER_UOC_LIMIT
 from polygons.forms.add_course import ADD_COURSE_SESSION_KEY
 from polygons.utils.degree_planning import get_program_subjects
 from polygons.forms.add_course import Filter_Subjects_Form

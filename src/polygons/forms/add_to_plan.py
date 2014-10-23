@@ -5,8 +5,6 @@ from polygons.models.Semester_Plan import Semester_Plan
 from polygons.forms.add_course import ADD_COURSE_SESSION_KEY
 from polygons.utils.views import MAX_SEMESTER_UOC
 from polygons.messages import SEMESTER_UOC_LIMIT
-from polygons.models.Subject import Subject
-
 
 class Add_To_Plan_Form(forms.Form):
 

@@ -1,7 +1,6 @@
 import django.forms as forms
 
 from polygons.models.Semester import Semester
-from polygons.models.Semester_Plan import Semester_Plan
 from polygons.models.Career import Career
 from polygons.models.Subject_Area import Subject_Area
 from polygons.models.Program_Plan import START_YEAR
