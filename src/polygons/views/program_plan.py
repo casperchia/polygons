@@ -40,11 +40,13 @@ def new_semester(request,program_plan):
 
 @get_valid_program_plan
 def program_plan(request, program_plan):
+    program_finished = (program_plan.uoc_tally >= program_plan.program.uoc)
+    
     if request.method == 'POST':
         form = Add_Course_Form(request.POST, program_plan=program_plan)
         if form.is_valid():
             form.save(request, program_plan.id)
-            return HttpResponseRedirect(reverse('polygons.views.course_listing'))
+            return HttpResponseRedirect(reverse('polygons.views.course_listing'))    
     else:
         form = Add_Course_Form(program_plan=program_plan)
     
@@ -54,7 +56,8 @@ def program_plan(request, program_plan):
                              {
                                 'program_plan' : program_plan, 
                                 'plan_years' : plan_years,
-                                'MAX_SEMESTER_UOC' : MAX_SEMESTER_UOC
+                                'MAX_SEMESTER_UOC' : MAX_SEMESTER_UOC,
+                                'finished' : program_finished
                              },  
                              context_instance=RequestContext(request))
 

@@ -9,6 +9,17 @@
         <div>
             <input type="button" value="Save" onclick="alert('You can continue the plan later on via ' + window.location.href)">
         </div>  
+
+        <div>
+            <h2>
+            <!-- Check if reached max UOC-->
+            {% if finished %}
+               <p> FULL
+            {% else %}
+                <p> {{ program_plan.uoc_tally }} / {{ program_plan.program.uoc }} UOC
+            {% endif %}
+            </h2>
+
         <a href="{% url 'polygons.views.program_plan_to_pdf' program_plan.id %}" target="_blank">
            <button class="pure-button smallButton" id="pdf_button">
               Export to PDF
@@ -38,7 +49,7 @@
                                 <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a>
                             </td></tr>
                             {% endfor %}
-                            {% if not plan_semester.is_uoc_full %}
+                            {% if not plan_semester.is_uoc_full and not finished %}
                                 <tr><td>
                                     <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
                                         {%csrf_token %}
@@ -46,12 +57,13 @@
                                         <input type="hidden" name="year" value="{{ plan_year.year }}">
                                         <input type="submit" value="Add Course"><br><br>
                                     </form>
+
                                 </td></tr>                            
                             {% endif %}
                         </table>
                     </div>
                 {% endfor %}
-                <div style="clear: both;"></div>                
+                <div style="clear: both;"></div>
             </div>
             <div style="clear: both; height: 50px;"></div>
         {% endfor %}     
