@@ -36,9 +36,9 @@
                             {% for subject in plan_semester %}
                             <tr><td>
                                 <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a>
-									<form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}">
-									    <input type="hidden" name="subject" value="{{ subject.id }}">
+									<form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}" onsubmit="return confirm('Are you sure want to remove this course?');">
 									    {% csrf_token %}
+                                        <input type="hidden" name="subject" value="{{ subject.id }}">
 									    <input type="submit" value="Remove Course">
 									</form>
                             </td></tr>

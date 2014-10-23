@@ -70,23 +70,14 @@ def program_plan(request, program_plan):
                              },  
                              context_instance=RequestContext(request))
 
-def remove_course(request, program_plan_id):
-    try:
-        program_plan = Program_Plan.objects.get(id=program_plan_id)
-    except Program_Plan.DoesNotExist:
-        return HttpResponseRedirect(reverse('polygons.views.index'))
-    
-    subject_list = Semester_Plan.objects.filter(program_plan=program_plan.id)
-    
+
+@get_valid_program_plan
+def remove_course(request, program_plan):
     if request.method == 'POST':
         form = Remove_From_Plan_Form(request.POST)
         if form.is_valid():
             form.save(request, program_plan=program_plan)
             messages.info(request, COURSE_DELETED)
-            return HttpResponseRedirect(reverse('polygons.views.program_plan',
-                                            args=[program_plan.id]))
-        else:
-            form = Remove_From_Plan_Form(subjects=subject_list)
     
     return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                         args=[program_plan.id]))
