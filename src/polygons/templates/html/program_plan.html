@@ -32,7 +32,7 @@
                 {% for plan_semester in plan_year %}
                     <div class="semesterFrame">
                         <table> 
-                            <th>{{ plan_semester.semester }}</th>
+                            <th>{{ plan_semester.semester }} (UOC: {{ plan_semester.uoc }})</th>
                             {% for subject in plan_semester %}
                             <tr><td>
                                 <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a>
