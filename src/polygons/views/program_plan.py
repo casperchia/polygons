@@ -14,6 +14,8 @@ from polygons.forms.program_planning import Delete_Program_Plan_Form
 from polygons.forms.add_semester import New_Semester_Form
 from polygons.utils.views import render_to_pdf
 from polygons.utils.views import Program_Plan_Year
+from polygons.utils.views import Program_Plan_Semester
+from polygons.utils.views import get_formatted_plan
 from polygons.utils.views import Program_Plan_Semester 
 
 from functools import wraps
@@ -37,7 +39,8 @@ def new_semester(request,program_plan):
         form = New_Semester_Form(request.POST)
         if form.is_valid():
             form.save(program_plan)
-    return  HttpResponseRedirect(reverse('polygons.views.program_plan', args=[program_plan.id]))
+    return  HttpResponseRedirect(reverse('polygons.views.program_plan',
+                                         args=[program_plan.id]))
 
 @get_valid_program_plan
 def program_plan(request, program_plan):
@@ -54,15 +57,15 @@ def program_plan(request, program_plan):
     else:
         form = Add_Course_Form(program_plan=program_plan)
     
+    plan_years = get_formatted_plan(program_plan)
+
     return render_to_response('html/program_plan.html',
                              {
                                 'program_plan' : program_plan, 
-                                'no_of_year' : range(1, current_year+1),
-                                'subject_list' : subject_list,
-                                'final_year' : current_year,
-                                'final_semester' : current_semester
+                                'plan_years' : plan_years
                              },  
                              context_instance=RequestContext(request))
+
     
 @get_valid_program_plan
 def delete_program_plan(request, program_plan):
@@ -74,17 +77,8 @@ def delete_program_plan(request, program_plan):
 
 @get_valid_program_plan
 def program_plan_to_pdf(request, program_plan):
-    plan_years = []
-    for year in xrange(1, program_plan.current_year + 1):
-        plan_year = Program_Plan_Year(year)
-        for semester in Semester.objects.all():
-            plan_semester = Program_Plan_Semester(semester)
-            for semester_plan in Semester_Plan.objects.filter(program_plan=program_plan,
-                                                              semester=semester,
-                                                              year=year):
-                plan_semester.add_subject(semester_plan.subject)
-            plan_year.add_semester(plan_semester)
-        plan_years.append(plan_year)
+
+    plan_years = get_formatted_plan(program_plan)
     
     return render_to_pdf('pdf/program_plan.html',
                          {
