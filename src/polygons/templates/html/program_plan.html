@@ -66,11 +66,13 @@
                 <div style="clear: both;"></div>
             </div>
             <div style="clear: both; height: 50px;"></div>
-        {% endfor %}     
-          <div>
+        {% endfor %} 
+        {% if not finished %}    
+        <div>
             <form method="POST" action="{% url 'polygons.views.new_semester' program_plan.id %}"> 
             {%csrf_token %}
             <input type="submit" value="New Semester"><br><br>
             </form>
-        </div>     
+        </div>
+        {% endif %}     
     {% endblock %}
