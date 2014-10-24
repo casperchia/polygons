@@ -29,6 +29,9 @@ def course_listing(request):
         filter_form = Filter_Subjects_Form(request.POST)
         if filter_form.is_valid():
             subject_list = filter_form.save(subject_list)
+        else:
+            for error in filter_form.non_field_errors():
+                messages.error(request, error)
     else:
         filter_form = Filter_Subjects_Form()
         

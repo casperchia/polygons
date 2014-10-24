@@ -1,14 +1,32 @@
 @charset "utf-8";
 
-.fieldWrapper {
-   padding-top: 1%;
-   padding-bottom: 1%;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
+.filter_form_transition {
+   transition-property: height;
+   transition-duration: 0.5s;
+   transition-timing-function: ease;
+   transition-delay: 0s;
 }
 
-.label {
+#filter_form {
+   text-align: center;
+   overflow: hidden;
+}
+
+.field_wrapper {
+   padding-top: 1%;
+   padding-bottom: 1%;
+   display: inline-block;
+}
+
+#career_filter {
+   width: 20%;
+}
+
+#subject_area_filter {
+   width: 70%;
+}
+
+#letter_filter {
    width: 10%;
 }
 

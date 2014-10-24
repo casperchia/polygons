@@ -5,37 +5,46 @@
     <link href="{% static "css/program_plan.css" %}" rel="stylesheet" type="text/css">
     <script type="text/JavaScript" src="{% static "js/program_plan.js" %}"></script> 
     {% endblock %}
+
+                   {% block nav_bar %}
+                   <div class="nav_item">
+                      <button class="pure-button smallButton" onclick="window.prompt('Permalink:', window.location.href);">
+                         Permalink
+                      </button>
+                   </div>
+                   <div class="nav_item">
+                      <a href="{% url 'polygons.views.program_plan_to_pdf' program_plan.id %}" target="_blank">
+                         <button class="pure-button smallButton">
+                            Export to PDF
+                         </button>
+                      </a>
+                   </div>
+                   <div class="nav_item">
+                      <form method="POST" action="{% url 'polygons.views.delete_program_plan' program_plan.id %}" onsubmit="return confirm('Are you sure want to permanently delete this plan?');"> 
+                         {%csrf_token %}
+                         <button type="submit" class="pure-button smallButton">
+                            Delete Plan
+                         </button>
+                      </form>
+                   </div>
+                   {% if not finished %}
+                   <div class="nav_item">
+                      <form method="POST" action="{% url 'polygons.views.new_semester' program_plan.id %}"> 
+                         {%csrf_token %}
+                         <button type="submit" class="pure-button smallButton">
+                            Add Semester
+                         </button>
+                      </form>
+                   </div>
+                   {% endif %}
+                   {% endblock %}
+
     {% block body %}
-        <h2>Degree Planner - {{ program_plan.program }}</h2>
-        <div>
-            <input type="button" value="Save" onclick="alert('You can continue the plan later on via ' + window.location.href)">
-        </div>  
-
-        <div>
-            <h2>
-            <!-- Check if reached max UOC-->
-            {% if finished %}
-               <p> FULL
-            {% else %}
-                <p> {{ program_plan.uoc_tally }} / {{ program_plan.program.uoc }} UOC
-            {% endif %}
-            </h2>
-
-        <a href="{% url 'polygons.views.program_plan_to_pdf' program_plan.id %}" target="_blank">
-           <button class="pure-button smallButton" id="pdf_button">
-              Export to PDF
-           </button>
-        </a>
-          <form method="POST" action="{% url 'polygons.views.delete_program_plan' program_plan.id %}" onsubmit="return confirm('Are you sure want to permanently delete this plan?');"> 
-           {%csrf_token %}
-           <button type="submit" class="pure-button smallButton" id="delete_button">
-              Delete Plan
-           </button>
-        </form>
-        </div>
-        
+        <h1>
+            Program Plan ({% if finished %} FULL {% else %} {{ program_plan.uoc_tally }} / {{ program_plan.program.uoc }} UOC {% endif %})
+        </h1>
         <h2>
-            Program Plan
+           {{ program_plan.program }}
         </h2>
 
         <div id="remove_course_popup_container">
@@ -58,7 +67,7 @@
    			  </form>
            </div>
         </div>
-
+        
         {% for plan_year in plan_years %}
             <div class="yearFrame">
                 <div class="yearBanner">Year {{ plan_year.year }}</div>
@@ -80,7 +89,9 @@
                                         {%csrf_token %}
                                         <input type="hidden" name="semester" value="{{ plan_semester.semester.id }}">
                                         <input type="hidden" name="year" value="{{ plan_year.year }}">
-                                        <input type="submit" value="Add Course"><br><br>
+                                        <button type="submit" class="pure-button smallButton">
+                                           Add Course
+                                        </button>
                                     </form>
                                 </td></tr>                            
                             {% endif %}
@@ -91,12 +102,4 @@
             </div>
             <div style="clear: both; height: 50px;"></div>
         {% endfor %} 
-        {% if not finished %}    
-        <div>
-            <form method="POST" action="{% url 'polygons.views.new_semester' program_plan.id %}"> 
-            {%csrf_token %}
-            <input type="submit" value="New Semester"><br><br>
-            </form>
-        </div>
-        {% endif %}     
     {% endblock %}

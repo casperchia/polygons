@@ -85,7 +85,6 @@ def delete_program_plan(request, program_plan):
 
 @get_valid_program_plan
 def program_plan_to_pdf(request, program_plan):
-
     plan_years = get_formatted_plan(program_plan)
     
     return render_to_pdf('pdf/program_plan.html',
