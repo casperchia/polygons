@@ -7,7 +7,9 @@ from django.contrib import messages
 from polygons.models.Program_Plan import Program_Plan
 from polygons.messages import INVALID_PROGRAM_PLAN
 from polygons.messages import PROGRAM_PLAN_DELETED
+from polygons.messages import COURSE_DELETED
 from polygons.forms.add_course import Add_Course_Form
+from polygons.forms.remove_from_plan import Remove_From_Plan_Form
 from polygons.forms.program_planning import Delete_Program_Plan_Form
 from polygons.forms.add_semester import New_Semester_Form
 from polygons.utils.views import render_to_pdf
@@ -61,6 +63,17 @@ def program_plan(request, program_plan):
                              },  
                              context_instance=RequestContext(request))
 
+
+@get_valid_program_plan
+def remove_course(request, program_plan):
+    if request.method == 'POST':
+        form = Remove_From_Plan_Form(request.POST, program_plan=program_plan)
+        if form.is_valid():
+            form.save()
+            messages.info(request, COURSE_DELETED)
+    
+    return HttpResponseRedirect(reverse('polygons.views.program_plan',
+                                        args=[program_plan.id]))
     
 @get_valid_program_plan
 def delete_program_plan(request, program_plan):
