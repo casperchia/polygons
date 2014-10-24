@@ -3,8 +3,10 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.http import HttpResponse
 
 from polygons.models.Program_Plan import Program_Plan
+from polygons.models.Subject import Subject
 from polygons.messages import INVALID_PROGRAM_PLAN
 from polygons.messages import PROGRAM_PLAN_DELETED
 from polygons.messages import COURSE_DELETED
@@ -15,8 +17,10 @@ from polygons.forms.add_semester import New_Semester_Form
 from polygons.utils.views import render_to_pdf
 from polygons.utils.views import get_formatted_plan
 from polygons.utils.views import MAX_SEMESTER_UOC
+from polygons.utils.degree_planning import get_dependent_subjects
 
 from functools import wraps
+import json
 
 def get_valid_program_plan(view):
     @wraps(view)
@@ -74,6 +78,29 @@ def remove_course(request, program_plan):
     
     return HttpResponseRedirect(reverse('polygons.views.program_plan',
                                         args=[program_plan.id]))
+    
+def fetch_dependent_subjects(request, program_plan_id, subject_id):
+    response_data = {'subjects' : []}
+    
+    valid_data = True
+    
+    try:
+        program_plan = Program_Plan.objects.get(id=program_plan_id)
+    except Program_Plan.DoesNotExist:
+        valid_data = False
+        
+    try:
+        subject = Subject.objects.get(id=subject_id)
+    except Subject.DoesNotExist:
+        valid_data = False
+            
+    if valid_data:
+        for subject in get_dependent_subjects(program_plan,
+                                              subject).order_by('code'):
+            response_data['subjects'].append(str(subject))
+    
+    return HttpResponse(json.dumps(response_data),
+                        content_type='application/json')
     
 @get_valid_program_plan
 def delete_program_plan(request, program_plan):

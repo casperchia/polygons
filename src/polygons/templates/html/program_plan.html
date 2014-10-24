@@ -3,6 +3,7 @@
     {% block head %}
     {{ block.super }}
     <link href="{% static "css/program_plan.css" %}" rel="stylesheet" type="text/css">
+    <script type="text/JavaScript" src="{% static "js/program_plan.js" %}"></script> 
     {% endblock %}
 
                    {% block nav_bar %}
@@ -45,6 +46,30 @@
         <h2>
            {{ program_plan.program }}
         </h2>
+
+        <div id="remove_course_popup_container">
+           <div id="remove_course_popup">
+              <ul id="dependent_subjects">
+                 The following dependent courses will also be deleted from your plan:
+              </ul>
+              <div>
+                 Are you sure you want to delete the course?
+              </div>
+              <div>
+                 <button class="pure-button smallButton confirmation_button" onclick="location.reload();">
+                    No
+                 </button>
+   		        <form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}" class="confirmation_button">
+   			        {% csrf_token %}
+                    <input type="hidden" name="subject" value="" id="remove_course_field">
+   				     <button type="submit" class="pure-button smallButton">
+                       Yes
+                    </button>
+   			     </form>
+              </div>
+           </div>
+        </div>
+        
         {% for plan_year in plan_years %}
             <div class="yearFrame">
                 <div class="yearBanner">Year {{ plan_year.year }}</div>
@@ -53,13 +78,11 @@
                         <table> 
                             <th>{{ plan_semester.semester }} (UOC: {{ plan_semester.uoc }} / {{ MAX_SEMESTER_UOC }})</th>
                             {% for subject in plan_semester %}
-                            <tr><td>
-                                <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a>
-									<form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}" onsubmit="return confirm('Are you sure want to remove this course?');">
-									    {% csrf_token %}
-                                        <input type="hidden" name="subject" value="{{ subject.id }}">
-									    <input type="submit" value="Remove Course">
-									</form>
+                            <tr><td class="subject_row">
+                                <a href="{{ subject.handbook_link }}" class="subject_col subject_name" target="_blank">{{ subject }}</a>
+                                <div class="remove_course_button subject_col remove_subject_button" onclick="display_remove_course_popup('{% url 'polygons.views.fetch_dependent_subjects' program_plan.id subject.id %}', {{ subject.id }});">
+                                   X
+                                </div>
                             </td></tr>
                             {% endfor %}
                             {% if not plan_semester.is_uoc_full and not finished %}
@@ -72,7 +95,6 @@
                                            Add Course
                                         </button>
                                     </form>
-
                                 </td></tr>                            
                             {% endif %}
                         </table>
