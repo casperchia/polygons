@@ -29,6 +29,9 @@ def course_listing(request):
         filter_form = Filter_Subjects_Form(request.POST)
         if filter_form.is_valid():
             subject_list = filter_form.save(subject_list)
+        else:
+            for error in filter_form.non_field_errors():
+                messages.error(request, error)
     else:
         filter_form = Filter_Subjects_Form()
         
@@ -62,7 +65,7 @@ def add_course(request):
                                                 args=[program_plan.id]))
         else:
             for error in form.non_field_errors():
-               messages.error(request, error)
+                messages.error(request, error)
             return HttpResponseRedirect(reverse('polygons.views.course_listing'))
 
     return HttpResponseRedirect(reverse('polygons.views.course_listing'))
