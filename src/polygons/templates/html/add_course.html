@@ -4,54 +4,64 @@
       {% block head %}
       {{ block.super }}
       <link href="{% static "css/add_course.css" %}" rel="stylesheet" type="text/css">
+      <script type="text/JavaScript" src="{% static "js/add_course.js" %}"></script> 
       {% endblock %}
+                   
+                   {% block nav_bar %}
+                   <div class="nav_item">
+                      <form method="POST" action="{% url 'polygons.views.back_to_plan' %}">
+                      {% csrf_token %}
+                         <button type="submit" class="pure-button smallButton">
+                            Back To Plan
+                         </button>
+                      </form>
+                   </div>
+                   <div class="nav_item">
+                      <button class="pure-button smallButton" onclick="toggle_filter_display();">
+                         Filter Courses
+                      </button>
+                   </div>
+                   {% endblock %}
 
       {% block body %}
-      <div>
-      {{ add_form.non_field_errors }}
-      </div>
-      <form method="POST" action="{% url 'polygons.views.back_to_plan' %}">
-       {% csrf_token %}
-        <button type="submit" class="pure-button smallButton">Back</button>
-      </form>
-
-      <h2>Filter courses:</h2>
-      <form method="POST" action="{% url 'polygons.views.course_listing' %}">
+      <form method="POST" action="{% url 'polygons.views.course_listing' %}" id="filter_form">
+         <h2>Filter courses:</h2>
          {% csrf_token %}
-         {{ filter_form.non_field_errors }}
-         <div class="fieldWrapper">
-            <div class="label">
-               <label for="id_careers">Career:</label>
+         <div id="filter_fields">
+            <div class="field_wrapper" id="career_filter">
+               <div class="field">
+                  <div class="label">
+                     <label for="id_careers">Career:</label>
+                  </div>
+                  {{ filter_form.careers }}
+                  {{ filter_form.careers.errors }}
+               </div>
+            </div> 
+            <div class="field_wrapper" id="subject_area_filter">
+               <div class="field">
+                  <div class="label">
+                     <label for="id_subject_areas">Subject Area:</label>
+                  </div>
+                  {{ filter_form.subject_areas }}
+                  {{ filter_form.subject_areas.errors }}
+               </div>
+            </div> 
+            <div class="field_wrapper" id="letter_filter">
+               <div class="field">
+                  <div class="label">
+                     <label for="id_letters">Letter:</label>
+                  </div>
+                  {{ filter_form.letters }}
+                  {{ filter_form.letters.errors }}
+               </div>
             </div>
-            <div class="field">
-               {{ filter_form.careers }}
-               {{ filter_form.careers.errors }}
-            </div>
-         </div> 
-         <div class="fieldWrapper">
-            <div class="label">
-               <label for="id_subject_areas">Subject Area:</label>
-            </div>
-            <div class="field">
-               {{ filter_form.subject_areas }}
-               {{ filter_form.subject_areas.errors }}
-            </div>
-         </div> 
-         <div class="fieldWrapper">
-            <div class="label">
-               <label for="id_letters">Letter:</label>
-            </div>
-            <div class="field">
-               {{ filter_form.letters }}
-               {{ filter_form.letters.errors }}
-            </div>
-         </div> 
+         </div>
          <button type="submit" class="pure-button smallButton">
-            Filter
+            Update Filter
          </button>
       </form>
-      <h2>Select a course:</h2>
 
+      <h1>Select a course:</h1>
     <table>
         {% for subject in subject_list %}
         <tr>
