@@ -1,5 +1,57 @@
 @charset "utf-8";
 
+.subject_col {
+   display: inline-block;
+   vertical-align: middle;
+}
+
+.subject_name {
+   width: 93%;
+}
+
+.remove_subject_button {
+   width: 7%;
+   visibility: hidden;
+}
+
+.remove_subject_button:hover {
+   cursor: pointer;
+}
+
+.subject_row:hover .remove_subject_button {
+   visibility: visible;
+}
+
+#remove_course_popup_container {
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   background-color: black;
+   z-index: 2;
+   background-color: rgba(0, 0, 0, 0.5);
+   display: none;
+   text-align: center;
+}
+
+#remove_course_popup {
+   background-color: white;
+   display: inline-block;
+   padding: 3%;
+   border-radius: 5%;
+}
+
+#dependent_subjects {
+   display: none;
+   text-align: left;
+}
+
+.confirmation_button {
+   display: inline-block;
+   margin: 1%;
+}
+
 table, th, td, tr{
     height: 40px;
     width: 384px;

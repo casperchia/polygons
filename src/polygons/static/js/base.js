@@ -1,5 +1,5 @@
 function px_to_num(px_string) {
-   return Number(px_string.replace(/px$/, ''));
+   return Number(String(px_string).replace(/px$/, ''));
 }
 
 function which_transition_event(){
