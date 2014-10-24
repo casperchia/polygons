@@ -80,7 +80,7 @@
                             {% for subject in plan_semester %}
                             <tr><td>
                                 <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a>
-                                <div class="remove_course_button" onclick="display_remove_course_popup({{ program_plan.id }}, {{ subject.id }});">
+                                <div class="remove_course_button" onclick="display_remove_course_popup('{% url 'polygons.views.fetch_dependent_subjects' program_plan.id subject.id %}', {{ subject.id }});">
                                    X
                                 </div>
                             </td></tr>

@@ -9,3 +9,4 @@ from add_course import add_course
 from program_plan import remove_course
 from add_course import back_to_plan
 from program_plan import new_semester
+from program_plan import fetch_dependent_subjects

@@ -17,19 +17,34 @@ function center_popup_window() {
    popup.style.marginTop = (total_height - popup_height) / 2 + 'px';
 }
 
-function populate_dependent_subjects(program_plan_id, subject_id) {
-   // TODO
-   /*
-      * Make AJAX call to get list of dependent subjects
-      * If list is not empty, unhide the dependent_subjects div
-      * if the list is not empty, insert <li> into the dependent_subjects list
-   */
+function populate_dependent_subjects(ajax_url) {
+   var ajax = new XMLHttpRequest();
+   ajax.onreadystatechange=function()
+   {
+      if (ajax.readyState==4 && ajax.status==200) {
+         var data = JSON.parse(ajax.responseText);
+         var subject_list = document.getElementById('dependent_subjects');
+         
+         var num_subjects = data.subjects.length;
+         if (num_subjects > 0) {
+            subject_list.style.display = 'block';
+
+            for (var i = 0; i < num_subjects; i++) {
+               var subject_item = document.createElement("li");
+               subject_item.appendChild(document.createTextNode(data.subjects[i]));
+               subject_list.appendChild(subject_item);
+            }
+         }
+      }
+   };
+   ajax.open("GET", ajax_url, false);
+   ajax.send();
 }
 
-function display_remove_course_popup(program_plan_id, subject_id) {
+function display_remove_course_popup(ajax_url, subject_id) {
    document.body.style.overflowY = 'hidden'; // Disable scrolling
    document.getElementById('remove_course_popup_container').style.display = 'block';
    center_popup_window();
-   populate_dependent_subjects(program_plan_id, subject_id);
+   populate_dependent_subjects(ajax_url);
    document.getElementById('remove_course_field').value = subject_id;
 }
