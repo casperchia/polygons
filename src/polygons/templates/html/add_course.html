@@ -7,6 +7,9 @@
       {% endblock %}
 
       {% block body %}
+      <div>
+      {{ add_form.non_field_errors }}
+      </div>
       <form method="POST" action="{% url 'polygons.views.back_to_plan' %}">
        {% csrf_token %}
         <button type="submit" class="pure-button smallButton">Back</button>
@@ -59,6 +62,7 @@
                 <br>
                 Offered by: {{ subject.offered_by.name }}
             </td>
+            
             <td>
                 <form method="POST" action="{% url 'polygons.views.add_course' %}"> 
                     {%csrf_token %}

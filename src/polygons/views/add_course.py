@@ -6,7 +6,6 @@ from django.contrib import messages
 from polygons.models.Semester import Semester
 from polygons.models.Program_Plan import Program_Plan
 from polygons.messages import INVALID_ADD_COURSE_DATA
-from polygons.messages import SEMESTER_UOC_LIMIT
 from polygons.forms.add_course import ADD_COURSE_SESSION_KEY
 from polygons.utils.degree_planning import get_program_subjects
 from polygons.forms.add_course import Filter_Subjects_Form
@@ -23,7 +22,8 @@ def course_listing(request):
     program_plan = Program_Plan.objects.get(id=add_course_data['program_plan_id'])
     semester = Semester.objects.get(id=add_course_data['semester_id'])
 
-    subject_list = get_program_subjects(program_plan, semester)
+    subject_list = get_program_subjects(program_plan, add_course_data['year'],
+                                        semester)
     
     if request.method == 'POST':
         filter_form = Filter_Subjects_Form(request.POST)
@@ -51,9 +51,10 @@ def add_course(request):
     program_plan = Program_Plan.objects.get(id=add_course_data['program_plan_id'])
     semester = Semester.objects.get(id=add_course_data['semester_id'])
     year = add_course_data['year']
-    subject_list = get_program_subjects(program_plan, semester)
+    subject_list = get_program_subjects(program_plan, year, semester)
     
     if request.method == 'POST':
+
         form = Add_To_Plan_Form(request.POST, subjects=subject_list, program_plan=program_plan, semester=semester, year=year)
         if form.is_valid():
             form.save(request, program_plan, semester, year)
@@ -61,7 +62,7 @@ def add_course(request):
                                                 args=[program_plan.id]))
         else:
             for error in form.non_field_errors():
-               messages.error(request, error)
+                messages.error(request, error)
             return HttpResponseRedirect(reverse('polygons.views.course_listing'))
 
     return HttpResponseRedirect(reverse('polygons.views.course_listing'))

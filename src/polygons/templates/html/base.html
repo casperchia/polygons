@@ -30,12 +30,6 @@
       <div class="mainFrame">
       
             <div class="bannerFrame">
-         
-            <div class="loginFrame">
-               <!-- Ignore the grey text colour, the <a> tags below will be changed to <buttons> in a form -->
-               <a class="pure-button pure-button-primary" href="#">Login</a>&nbsp
-               <a class="pure-button pure-button-primary" href="#">Register</a>
-            </div>
 
             <div class="logo"><a href="{% url 'polygons.views.index' %}"><img src="{% static "images/PolygonsLogo.png" %}" alt="Polygons Logo" width="346" height="120"></a></div>
             
@@ -44,16 +38,6 @@
             <div class="pure-menu pure-menu-open pure-menu-horizontal">
                 <ul>
                    <li><a href="{% url 'polygons.views.degree_list' %}">Degree Planner</a></li>
-                   <li><a href="{% url 'polygons.views.review_page' %}">Course Reviews</a></li>
-                   <li>
-                    <div class="searchBox">
-                        <form class="pure-form">
-                           <input type="text" placeholder="i.e. COMP1917" class="pure-input-rounded">
-                           <button type="submit" class="pure-button smallButton">Search</button>
-                        </form>
-                    </div>
-                  </li>
-                   
                 </ul>
             </div>
             

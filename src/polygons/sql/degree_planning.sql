@@ -740,7 +740,9 @@ end;
 $$ language plpgsql;
 
 create function get_program_subjects(_program_id integer, _semester_id integer,
-                                     _existing_subjects integer array)
+                                     _existing_subjects integer array,
+                                     _past_subjects integer array,
+                                     _max_uoc integer)
 returns setof integer
 AS $$
 declare
@@ -786,6 +788,11 @@ begin
       select * into _subject
       from polygons_subject
       where id = _subject_id;
+
+      if (_subject.uoc > _max_uoc) then
+         -- Subject cannot fit in semester
+         continue;
+      end if;
 
       if (_existing_subjects @> array[_subject_id]) then
          -- Subject is already in plan
@@ -835,7 +842,7 @@ begin
             if (
                not(
                   select meets_subject_prereqs(_rule.id, _faculty_id,
-                     _existing_subjects)
+                     _past_subjects)
                )
             ) then
                _meets_prereqs := false;

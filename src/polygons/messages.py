@@ -8,5 +8,6 @@ COURSE_DELETED = 'The course has been removed from your plan.'
 
 PROGRAM_PLAN_DELETED = 'The progam plan has been deleted from the system.'
 SUBJECT_FILTRATION_REQUIRED = 'At least one form of filtration is required.'
+UOC_LIMIT_EXCEEDED = 'Cannot add course to plan. UOC limit for program exceeded'
 PROGRAM_PLAN_DELETED = 'The progam plan has been deleted from the system.'
 SEMESTER_UOC_LIMIT = 'Only a maximum of 27 UOC is allowed per semester.'

@@ -4,7 +4,6 @@ from program_details import program_details
 from program_plan import program_plan
 from program_plan import delete_program_plan
 from program_plan import program_plan_to_pdf
-from review_page import review_page
 from add_course import course_listing
 from add_course import add_course
 from program_plan import remove_course
