@@ -11,7 +11,10 @@ urlpatterns = patterns('polygons.views',
     url(r'^degree/plan/course/add/$', 'add_course'),
     url(r'^degree/plan/course/back/$', 'back_to_plan'),
     url(r'^degree/plan/semester/(?P<program_plan_id>\d+)/$', 'new_semester'),
-    url(r'^degree/plan/remove-course/(?P<program_plan_id>\d+)/$', 'remove_course'),
+    url(r'^degree/plan/remove-course/(?P<program_plan_id>\d+)/$', 'remove_course')
     url(r'^degree/plan/dependent-subjects/(?P<program_plan_id>\d+)/(?P<subject_id>\d+)/',
         'fetch_dependent_subjects')
 )
+
+handler404 = 'polygons.views.http.response_404'
+handler500 = 'polygons.views.http.response_500'
