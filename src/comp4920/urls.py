@@ -13,3 +13,6 @@ urlpatterns = patterns('polygons.views',
     url(r'^degree/plan/semester/(?P<program_plan_id>\d+)/$', 'new_semester'),
     url(r'^degree/plan/remove-course/(?P<program_plan_id>\d+)/$', 'remove_course')
 )
+
+handler404 = 'polygons.views.http.response_404'
+handler500 = 'polygons.views.http.response_500'
