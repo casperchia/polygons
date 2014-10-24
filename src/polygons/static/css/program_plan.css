@@ -16,6 +16,8 @@
 #remove_course_popup {
    background-color: white;
    display: inline-block;
+   padding: 3%;
+   border-radius: 5%;
 }
 
 #dependent_subjects {
