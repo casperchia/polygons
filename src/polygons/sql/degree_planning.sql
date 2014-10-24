@@ -911,6 +911,7 @@ declare
    _faculty_id integer;
    _existing_subject_id integer;
    _subject_id integer;
+   _temp_existing_subjects integer array;
 begin
    
    select * into _program
@@ -943,9 +944,16 @@ begin
 
             return next _existing_subject_id;
 
+            select array_agg(unnest) into _temp_existing_subjects
+            from (
+               select unnest(_existing_subjects)
+               except
+               select _existing_subject_id
+            ) sub;
+
             for _subject_id in (
                select get_dependent_subjects(_program.id, _existing_subject_id,
-                  array_remove(_existing_subjects, _existing_subject_id))
+                  _temp_existing_subjects)
             ) loop
                return next _subject_id;
             end loop;
