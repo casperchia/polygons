@@ -36,7 +36,26 @@
         <h2>
             Program Plan
         </h2>
-        
+
+        <div id="remove_course_popup">
+           <ul id="dependent_subjects">
+              The following dependent courses will also be deleted from your plan:
+           </ul>
+           <div>
+              Are you sure you want to delete the course?
+           </div>
+		     <form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}">
+			     {% csrf_token %}
+              <input type="hidden" name="subject" value="">
+              <button class="pure-button smallButton" onclick="location.reload();">
+                 No
+              </button>
+				  <button type="submit" class="pure-button smallButton">
+                 Yes
+              </button>
+			  </form>
+        </div>
+
         {% for plan_year in plan_years %}
             <div class="yearFrame">
                 <div class="yearBanner">Year {{ plan_year.year }}</div>
@@ -47,11 +66,6 @@
                             {% for subject in plan_semester %}
                             <tr><td>
                                 <a href="{{ subject.handbook_link }}" target="_blank">{{ subject }}</a>
-									<form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}" onsubmit="return confirm('Are you sure want to remove this course?');">
-									    {% csrf_token %}
-                                        <input type="hidden" name="subject" value="{{ subject.id }}">
-									    <input type="submit" value="Remove Course">
-									</form>
                             </td></tr>
                             {% endfor %}
                             {% if not plan_semester.is_uoc_full and not finished %}
