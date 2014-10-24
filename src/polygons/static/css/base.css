@@ -9,6 +9,10 @@ body {
 	color: #666666;
 }
 
+h1, h2 {
+   text-align: center;
+}
+
 #messages {
    list-style: none;
    color: #000000;
@@ -62,10 +66,13 @@ body {
 #nav_bar {
    padding-top: 1%;
    padding-bottom: 1%;
+   text-align: center;
 }
 
 .nav_item {
    display: inline-block;
+   padding-left: 1%;
+   padding-right: 1%;
 }
 
 .mainFrame{

@@ -1,15 +1,5 @@
 @charset "utf-8";
 
-#delete_button {
-   margin: 1%;
-   margin-left: 0;
-}
-
-#pdf_button {
-   margin: 1%;
-   margin-left: 0;
-}
-
 table, th, td, tr{
     height: 40px;
     width: 384px;
@@ -38,12 +28,15 @@ table{
 
 .yearBanner{
     width: auto;
-    height: 40px;
     background-color:#0075C9;
     color: #EBEBEB;
     text-align: center;
     border: 0px;
     font-family: "Lucida Grande", Verdana, Arial, Helvetica,sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
 .yearFrame{
