@@ -667,6 +667,15 @@ begin
       where pr.program_id = _program_id and rt.abbreviation = 'DS'
    ) loop
 
+      if (
+         select count(*) > 1
+         from polygons_stream_group_member
+            where acad_obj_group_id = _ds_acad_obj_group_id
+      ) then
+         -- Non-mandatory stream
+         continue;
+      end if;
+
       for _acad_obj_group_id in (
          select r.acad_obj_group_id
          from polygons_stream_group_member sgm join polygons_stream_rule sr on
