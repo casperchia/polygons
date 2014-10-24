@@ -67,9 +67,9 @@ def program_plan(request, program_plan):
 @get_valid_program_plan
 def remove_course(request, program_plan):
     if request.method == 'POST':
-        form = Remove_From_Plan_Form(request.POST)
+        form = Remove_From_Plan_Form(request.POST, program_plan=program_plan)
         if form.is_valid():
-            form.save(request, program_plan=program_plan)
+            form.save()
             messages.info(request, COURSE_DELETED)
     
     return HttpResponseRedirect(reverse('polygons.views.program_plan',
