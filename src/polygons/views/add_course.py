@@ -62,7 +62,7 @@ def add_course(request):
                                                 args=[program_plan.id]))
         else:
             for error in form.non_field_errors():
-               messages.error(request, error)
+                messages.error(request, error)
             return HttpResponseRedirect(reverse('polygons.views.course_listing'))
 
     return HttpResponseRedirect(reverse('polygons.views.course_listing'))
