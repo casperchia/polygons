@@ -20,11 +20,16 @@
    z-index: 2;
    background-color: rgba(0, 0, 0, 0.5);
    display: none;
+   text-align: center;
 }
 
 #remove_course_popup {
    background-color: white;
-   position: fixed;
+   display: inline-block;
+}
+
+#dependent_subjects {
+   display: none;
 }
 
 table, th, td, tr{
