@@ -22,6 +22,11 @@
    display: none;
 }
 
+.confirmation_button {
+   display: inline-block;
+   margin: 1%;
+}
+
 table, th, td, tr{
     height: 40px;
     width: 384px;

@@ -55,16 +55,18 @@
               <div>
                  Are you sure you want to delete the course?
               </div>
-   		     <form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}">
-   			     {% csrf_token %}
-                 <input type="hidden" name="subject" value="" id="remove_subject_field">
-                 <button class="pure-button smallButton" onclick="location.reload();">
+              <div>
+                 <button class="pure-button smallButton confirmation_button" onclick="location.reload();">
                     No
                  </button>
-   				  <button type="submit" class="pure-button smallButton">
-                    Yes
-                 </button>
-   			  </form>
+   		        <form method="POST" action="{% url 'polygons.views.remove_course' program_plan.id %}" class="confirmation_button">
+   			        {% csrf_token %}
+                    <input type="hidden" name="subject" value="" id="remove_course_field">
+   				     <button type="submit" class="pure-button smallButton">
+                       Yes
+                    </button>
+   			     </form>
+              </div>
            </div>
         </div>
         

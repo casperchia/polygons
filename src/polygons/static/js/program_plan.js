@@ -12,7 +12,7 @@ function document_height() {
 function center_popup_window() {
    var popup = document.getElementById('remove_course_popup');
    var popup_height = popup.currentStyle ? popup.currentStyle.height :
-                                           getComputedValue(popup, null).height;
+                                           getComputedStyle(popup, null).height;
    popup_height = px_to_num(popup_height);
    var total_height = document_height();
 
