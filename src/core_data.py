@@ -115,9 +115,6 @@ def rule_types():
     record = Rule_Type(abbreviation='CC', name='Core Course')
     records.append(record)
     
-    record = Rule_Type(abbreviation='RC', name='Recommended')
-    records.append(record)
-    
     record = Rule_Type(abbreviation='PE', name='Program Elective')
     records.append(record)
     
