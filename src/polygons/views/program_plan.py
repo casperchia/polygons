@@ -95,7 +95,8 @@ def fetch_dependent_subjects(request, program_plan_id, subject_id):
         valid_data = False
             
     if valid_data:
-        for subject in get_dependent_subjects(program_plan, subject):
+        for subject in get_dependent_subjects(program_plan,
+                                              subject).order_by('code'):
             response_data['subjects'].append(str(subject))
     
     return HttpResponse(json.dumps(response_data),

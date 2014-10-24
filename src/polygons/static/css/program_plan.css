@@ -22,6 +22,7 @@
 
 #dependent_subjects {
    display: none;
+   text-align: left;
 }
 
 .confirmation_button {
