@@ -13,6 +13,15 @@ h1, h2 {
    text-align: center;
 }
 
+a {
+   color: #0A0080;
+   text-decoration: none;
+}
+
+a:hover {
+   font-style: italic;
+}
+
 #messages {
    list-style: none;
    color: #000000;
