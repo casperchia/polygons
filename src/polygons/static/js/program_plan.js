@@ -1,5 +1,5 @@
 function document_height() {
-   var result = Math.max(
+   var result = Math.min(
       document.documentElement.clientHeight,
       document.body.scrollHeight,
       document.documentElement.scrollHeight,
@@ -11,9 +11,7 @@ function document_height() {
 
 function center_popup_window() {
    var popup = document.getElementById('remove_course_popup');
-   var popup_height = popup.currentStyle ? popup.currentStyle.height :
-                                           getComputedStyle(popup, null).height;
-   popup_height = px_to_num(popup_height);
+   var popup_height = px_to_num(popup.clientHeight);
    var total_height = document_height();
 
    popup.style.marginTop = (total_height - popup_height) / 2 + 'px';
@@ -30,8 +28,8 @@ function populate_dependent_subjects(program_plan_id, subject_id) {
 
 function display_remove_course_popup(program_plan_id, subject_id) {
    document.body.style.overflowY = 'hidden'; // Disable scrolling
+   document.getElementById('remove_course_popup_container').style.display = 'block';
    center_popup_window();
    populate_dependent_subjects(program_plan_id, subject_id);
    document.getElementById('remove_course_field').value = subject_id;
-   document.getElementById('remove_course_popup_container').style.display = 'block';
 }
