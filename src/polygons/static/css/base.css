@@ -59,6 +59,15 @@ body {
    max-width: 2%;
 }
 
+#nav_bar {
+   padding-top: 1%;
+   padding-bottom: 1%;
+}
+
+.nav_item {
+   display: inline-block;
+}
+
 .mainFrame{
 	width: 1000px;
 	height: auto;

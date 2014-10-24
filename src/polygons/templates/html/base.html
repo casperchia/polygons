@@ -35,10 +35,9 @@
             
             <div class="lineSegment"></div>
 
-            <div class="pure-menu pure-menu-open pure-menu-horizontal">
-                <ul>
-                   <li><a href="{% url 'polygons.views.degree_list' %}">Degree Planner</a></li>
-                </ul>
+            <div class="pure-menu pure-menu-open pure-menu-horizontal" id="nav_bar">
+               {% block nav_bar %}
+               {% endblock %}
             </div>
             
             

@@ -1,18 +1,25 @@
 {% extends "html/base.html" %}
+                   {% block nav_bar %}
+                   <div class="nav_item">
+                      <a href="{{ program.handbook_link }}" target="_blank">
+                         <button class="pure-button smallButton">
+                            Handbook Entry
+                         </button>
+                      </a>
+                   </div>
+                   <div class="nav_item">
+                      <form method="POST" action="{% url 'polygons.views.program_details' program.id %}">
+                         {% csrf_token %}
+                         <button type="submit" class="pure-button smallButton">
+                            Create Plan
+                         </button>
+                      </form>
+                   </div>
+                   {% endblock %}
+
       {% block body %}
       <div>
-         <h2>{{ program }}</h2>
-      </div>
-      <div>
-         <a href="{{ program.handbook_link }}" target="_blank">
-            Handbook Link
-         </a>
-      </div>
-      <div>
-         <form method="POST" action="{% url 'polygons.views.program_details' program.id %}">
-            {% csrf_token %}
-            <input type="submit" value="Create Plan">
-         </form>
+         <h1>{{ program }}</h1>
       </div>
       <div>
          <h2>
