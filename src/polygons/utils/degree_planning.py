@@ -24,7 +24,8 @@ def get_program_subjects(program_plan, year, semester):
                                                      semester=semester)
     uoc_tally = semester_subjects.aggregate(sum=Sum('subject__uoc')).get('sum', 0) or 0
     subjects = Semester_Plan.objects.filter(program_plan=program_plan)
-    past_subjects = subjects.exclude(year=year, semester=semester)
+    past_subjects = subjects.exclude(year__gte=year,
+                                     semester__abbreviation__gte=semester.abbreviation)
     
     with connection.cursor() as cursor:
         cursor.execute('select get_program_subjects(%s, %s, %s, %s, %s)',
