@@ -33,8 +33,6 @@
 
             <div class="logo"><a href="{% url 'polygons.views.index' %}"><img src="{% static "images/PolygonsLogo.png" %}" alt="Polygons Logo" width="346" height="120"></a></div>
             
-            <div class="lineSegment"></div>
-
             <div id="nav_bar">
                {% block nav_bar %}
                {% endblock %}
@@ -44,8 +42,6 @@
 
             </div> <!--bannerFrame-->
          
-         <div class="lineSegment"></div>
-               
          <div class="contentFrame"> <!-- body of page starts here! -->
 
             {% block body %}
