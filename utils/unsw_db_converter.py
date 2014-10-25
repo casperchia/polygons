@@ -19,6 +19,7 @@ NULL = r'\N'
 CACHE_DELIMITER = ' '
 HANDBOOK_PROGRAMS_CACHE_FILE = 'handbook_programs.txt'
 HANDBOOK_SUBJECTS_CACHE_FILE = 'handbook_subjects.txt'
+ADFA_SUBJECTS_FILE = 'adfa_subjects.txt'
 
 TABLE_ORDER = [
     'acad_object_groups',
@@ -39,6 +40,7 @@ TABLE_ORDER = [
     'subject_prereqs'
 ]
 
+ADFA_SUBJECT_CACHE = {}
 UNIQUE_DEGREES = {}
 HANDBOOK_CACHE = {
     'programs' : {},
@@ -119,7 +121,12 @@ def do_nothing_filter(**kwargs):
 def subjects__filter(**kwargs):
     career = Career.objects.filter(abbreviation=kwargs['career']).exists()
     uoc = kwargs['uoc'] != NULL
-    valid = career and uoc
+    try:
+        ADFA_SUBJECT_CACHE[kwargs['id']]
+        adfa = True
+    except KeyError:
+        adfa = False
+    valid = career and uoc and not adfa
     valid = valid and HANDBOOK_CACHE['subjects'][kwargs['id']]
 
     if not valid:
@@ -662,6 +669,16 @@ def saturate_handbook_cache():
         (subject_id,result) = subject.split(CACHE_DELIMITER)
         HANDBOOK_CACHE['subjects'][subject_id] = bool(int(result))
 
+def saturate_adfa_subject_cache():
+    try:
+        with open(ADFA_SUBJECTS_FILE, 'r') as f:
+            subjects = f.read().strip()
+    except IOError:
+        die ('Could not open ADFA subjects file!')
+
+    for subject in subjects.split(','):
+        ADFA_SUBJECT_CACHE[subject] = True
+
 def main():
     if len(sys.argv) != 2:
         die('Usage: %s dumpFilePath'%sys.argv[0])
@@ -674,6 +691,7 @@ def main():
 
     python_rep = gen_python_rep(dump)
     saturate_handbook_cache()
+    saturate_adfa_subject_cache()
     dump = reorder_dump(dump)
     convert_db_dump(dump, sys.stdout, python_rep)
 
