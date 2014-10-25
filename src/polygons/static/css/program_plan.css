@@ -1,5 +1,24 @@
 @charset "utf-8";
 
+.semester_label {
+   display: inline-block;
+   min-width: 90%;
+}
+
+#remove_semester_button {
+   display: inline-block;
+   max-width: 10%;
+   visibility: hidden;
+}
+
+#remove_semester_button:hover {
+   cursor: pointer;
+}
+
+.semester_row:hover #remove_semester_button {
+   visibility: visible;
+}
+
 .subject_col {
    display: inline-block;
    vertical-align: middle;
@@ -40,11 +59,23 @@
    display: inline-block;
    padding: 3%;
    border-radius: 5%;
+   visibility: hidden;
 }
 
 #dependent_subjects {
    display: none;
    text-align: left;
+}
+
+#remove_course_confirmation {
+   display: none;
+}
+
+#loading_animation {
+   display: none;
+   margin-left: auto;
+   margin-right: auto;
+   max-height: 3em;
 }
 
 .confirmation_button {

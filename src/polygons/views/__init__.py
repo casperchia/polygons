@@ -10,6 +10,7 @@ from program_plan import remove_course
 from add_course import back_to_plan
 from program_plan import new_semester
 from program_plan import fetch_dependent_subjects
+from program_plan import remove_semester
 
 from http import response_404
 from http import response_500
