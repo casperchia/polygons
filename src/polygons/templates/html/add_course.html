@@ -12,13 +12,13 @@
                       <form method="POST" action="{% url 'polygons.views.back_to_plan' %}">
                       {% csrf_token %}
                          <button type="submit" class="pure-button smallButton">
-                            Back To Plan
+                            <i class="fa fa-chevron-left"></i> Back To Plan
                          </button>
                       </form>
                    </div>
                    <div class="nav_item">
                       <button class="pure-button smallButton" onclick="toggle_filter_display();">
-                         Filter Courses
+                         Filter Courses <i class="fa fa-filter"></i>
                       </button>
                    </div>
                    {% endblock %}

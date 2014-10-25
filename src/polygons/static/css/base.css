@@ -14,7 +14,7 @@ h1, h2 {
 }
 
 a {
-   color: #0A0080;
+   color: #666666;
    text-decoration: none;
 }
 
@@ -207,3 +207,17 @@ a:hover {
 	float: left;
 }
 
+.button-blue{
+    background: #0078E7;
+    color: white; 
+}
+
+.button-red {
+    background: rgb(202, 60, 60); /* this is a maroon */
+    color: white; 
+}
+
+.button-green {
+    background: rgb(28, 184, 65); /* this is a green */
+    color: white;
+}   

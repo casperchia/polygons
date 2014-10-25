@@ -10,8 +10,8 @@
                    <div class="nav_item">
                       <form method="POST" action="{% url 'polygons.views.program_details' program.id %}">
                          {% csrf_token %}
-                         <button type="submit" class="pure-button smallButton">
-                            Create Plan
+                         <button type="submit" class="pure-button smallButton button-blue">
+                            Create Plan <i class="fa fa-plus"></i> 
                          </button>
                       </form>
                    </div>
