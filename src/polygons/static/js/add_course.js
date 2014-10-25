@@ -1,6 +1,7 @@
 var filter_form_height = '0px';
 
 function toggle_filter_display() {
+   window.scrollTo(0, 0);   
    var filter_form = document.getElementById('filter_form');
    var height = filter_form.currentStyle ? filter_form.currentStyle.height :
                                            getComputedStyle(filter_form, null).height;
