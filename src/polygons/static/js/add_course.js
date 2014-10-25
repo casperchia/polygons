@@ -15,11 +15,11 @@ function toggle_filter_display() {
 
 function capture_filter_height() {
    var filter_form = document.getElementById('filter_form');
-   filter_form_height = filter_form.clientHeight;
    filter_form.style.height = '0';
-   filter_form.style.position = 'static';
-   filter_form.style.visibility = 'visible';
    filter_form.style.overflow = 'hidden';
+   filter_form.style.position = 'static';
+   filter_form_height = filter_form.scrollHeight;
+   filter_form.style.visibility = 'visible';
    filter_form.className += ' filter_form_transition';
 }
 
