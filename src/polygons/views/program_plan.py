@@ -11,6 +11,7 @@ from polygons.messages import INVALID_PROGRAM_PLAN
 from polygons.messages import PROGRAM_PLAN_DELETED
 from polygons.messages import COURSE_DELETED
 from polygons.messages import SEMESTER_DELETED
+from polygons.messages import NEW_SEMESTER_ADDED
 from polygons.forms.add_course import Add_Course_Form
 from polygons.forms.remove_from_plan import Remove_From_Plan_Form
 from polygons.forms.program_planning import Delete_Program_Plan_Form
@@ -43,6 +44,7 @@ def new_semester(request,program_plan):
         form = New_Semester_Form(request.POST,program_plan=program_plan)
         if form.is_valid():
             form.save()
+            messages.info(request, NEW_SEMESTER_ADDED)
         else :
             for error in form.non_field_errors():
                 messages.error(request, error)
