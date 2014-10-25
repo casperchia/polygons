@@ -79,9 +79,12 @@
                             <th>{{ plan_semester.semester }} (UOC: {{ plan_semester.uoc }} / {{ MAX_SEMESTER_UOC }})</th>
                             {% for subject in plan_semester %}
                             <tr><td class="subject_row">
-                                <a href="{{ subject.handbook_link }}" class="subject_col subject_name" target="_blank">{{ subject }} - UOC: {{ subject.uoc }}</a>
+                                <a href="{{ subject.handbook_link }}" class="subject_col subject_name" target="_blank">{{ subject }}</a>
                                 <div class="remove_course_button subject_col remove_subject_button" onclick="display_remove_course_popup('{% url 'polygons.views.fetch_dependent_subjects' program_plan.id subject.id %}', {{ subject.id }});">
                                    X
+                                </div>
+                                <div>
+                                   UOC: {{ subject.uoc }}
                                 </div>
                             </td></tr>
                             {% endfor %}
