@@ -1,5 +1,24 @@
 @charset "utf-8";
 
+.semester_label {
+   display: inline-block;
+   min-width: 90%;
+}
+
+#remove_semester_button {
+   display: inline-block;
+   max-width: 10%;
+   visibility: hidden;
+}
+
+#remove_semester_button:hover {
+   cursor: pointer;
+}
+
+.semester_row:hover #remove_semester_button {
+   visibility: visible;
+}
+
 .subject_col {
    display: inline-block;
    vertical-align: middle;

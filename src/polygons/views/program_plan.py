@@ -10,10 +10,12 @@ from polygons.models.Subject import Subject
 from polygons.messages import INVALID_PROGRAM_PLAN
 from polygons.messages import PROGRAM_PLAN_DELETED
 from polygons.messages import COURSE_DELETED
+from polygons.messages import SEMESTER_DELETED
 from polygons.forms.add_course import Add_Course_Form
 from polygons.forms.remove_from_plan import Remove_From_Plan_Form
 from polygons.forms.program_planning import Delete_Program_Plan_Form
-from polygons.forms.add_semester import New_Semester_Form
+from polygons.forms.semester import New_Semester_Form
+from polygons.forms.semester import Remove_Semester_Form
 from polygons.utils.views import render_to_pdf
 from polygons.utils.views import get_formatted_plan
 from polygons.utils.views import MAX_SEMESTER_UOC
@@ -120,3 +122,16 @@ def program_plan_to_pdf(request, program_plan):
                             'plan_years' : plan_years
                          },
                          str(program_plan.program))
+
+@get_valid_program_plan
+def remove_semester(request, program_plan):
+    if request.method == 'POST':
+        form = Remove_Semester_Form(request.POST, program_plan=program_plan)
+        if form.is_valid():
+            form.save()
+            messages.info(request, SEMESTER_DELETED)
+        else:
+            for error in form.non_field_errors():
+                messages.error(request, error)
+    return HttpResponseRedirect(reverse('polygons.views.program_plan',
+                                        args=[program_plan.id]))

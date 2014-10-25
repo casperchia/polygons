@@ -8,6 +8,7 @@ from polygons.models.Program import Program
 from polygons.models.Program_Group_Member import Program_Group_Member
 from polygons.models.Semester import Semester
 from polygons.models.Semester_Plan import Semester_Plan
+from polygons.models.Program_Plan import START_YEAR
 
 from comp4920.settings import PDFCROWD_USERNAME
 from comp4920.settings import PDFCROWD_API_KEY
@@ -37,9 +38,11 @@ def render_to_pdf(template_path, context_data, file_name):
 
 class Program_Plan_Year(object):
     
-    def __init__(self, year):
+    def __init__(self, year, is_last=False, is_first=False):
         self.__year = year
         self.__plan_semesters = []
+        self.__is_last = is_last
+        self.__is_first = is_first
         
     def __iter__(self):
         for plan_semester in self.__plan_semesters:
@@ -49,16 +52,32 @@ class Program_Plan_Year(object):
     def year(self):
         return self.__year
     
+    @property
+    def is_last(self):
+        return self.__is_last
+    
+    @property
+    def is_first(self):
+        return self.__is_first
+    
     def add_semester(self, plan_semester):
+        plan_semester.set_is_last(True)
+        if self.__plan_semesters:
+            self.__plan_semesters[-1].set_is_last(False)
+        else:
+            plan_semester.set_is_first(True)
         self.__plan_semesters.append(plan_semester)
 
 class Program_Plan_Semester(object):
     
-    def __init__(self, semester):
+    def __init__(self, semester, plan_year):
         self.__semester = semester
+        self.__plan_year = plan_year
         self.__subjects = []
         self.__uoc = 0
         self.__is_uoc_full = False
+        self.__is_last = False
+        self.__is_first = False
         
     def __iter__(self):
         for subject in self.__subjects:
@@ -76,6 +95,20 @@ class Program_Plan_Semester(object):
     def uoc(self):
         return self.__uoc
     
+    def set_is_last(self, is_last):
+        self.__is_last = is_last
+    
+    @property
+    def is_last(self):
+        return self.__plan_year.is_last and self.__is_last
+    
+    def set_is_first(self, is_first):
+        self.__is_first = is_first
+        
+    @property
+    def is_first(self):
+        return self.__plan_year.is_first and self.__is_first
+    
     def add_subject(self, subject):
         self.__subjects.append(subject)
         self.__uoc += subject.uoc
@@ -86,8 +119,19 @@ class Program_Plan_Semester(object):
 
 def get_formatted_plan(program_plan):
     plan_years = []
-    for year in xrange(1, program_plan.current_year + 1):
-        plan_year = Program_Plan_Year(year)
+    for year in xrange(START_YEAR, program_plan.current_year + 1):
+        if year == program_plan.current_year:
+            is_last_year = True
+        else:
+            is_last_year = False
+            
+        if year == START_YEAR:
+            is_first_year = True
+        else:
+            is_first_year = False
+            
+        plan_year = Program_Plan_Year(year, is_last=is_last_year,
+                                      is_first=is_first_year)
         for semester in Semester.objects.all():
             add_semester = False
 
@@ -99,7 +143,7 @@ def get_formatted_plan(program_plan):
                 add_semester = True
                 
             if add_semester:
-                plan_semester = Program_Plan_Semester(semester)
+                plan_semester = Program_Plan_Semester(semester, plan_year)
                 for semester_plan in Semester_Plan.objects.filter(program_plan=program_plan,
                                                                   semester=semester,
                                                                   year=year):

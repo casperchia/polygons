@@ -82,11 +82,23 @@
                 {% for plan_semester in plan_year %}
                     <div class="semesterFrame">
                         <table> 
-                            <th>{{ plan_semester.semester }} (UOC: {{ plan_semester.uoc }} / {{ MAX_SEMESTER_UOC }})</th>
+                            <th class="semester_row">
+                               <div class="semester_label">
+                                  {{ plan_semester.semester }} (UOC: {{ plan_semester.uoc }} / {{ MAX_SEMESTER_UOC }})
+                               </div>
+                               {% if not plan_semester.is_first and plan_semester.is_last and plan_semester.uoc == 0 %}
+                               <form method="POST" action="{% url 'polygons.views.remove_semester' program_plan.id %}" id="remove_semester_button">
+                                  {% csrf_token %}
+                                  <div onclick="document.getElementById('remove_semester_button').submit();" title="Remove semester">
+                                    X
+                                  </div>
+                               </form>
+                               {% endif %}
+                            </th>
                             {% for subject in plan_semester %}
                             <tr><td class="subject_row">
-                                <a href="{{ subject.handbook_link }}" class="subject_col subject_name" target="_blank">{{ subject }}</a>
-                                <div class="remove_course_button subject_col remove_subject_button" onclick="display_remove_course_popup('{% url 'polygons.views.fetch_dependent_subjects' program_plan.id subject.id %}', {{ subject.id }});">
+                                <a href="{{ subject.handbook_link }}" class="subject_col subject_name" target="_blank" title="Handbook link">{{ subject }}</a>
+                                <div class="remove_course_button subject_col remove_subject_button" onclick="display_remove_course_popup('{% url 'polygons.views.fetch_dependent_subjects' program_plan.id subject.id %}', {{ subject.id }});" title="Remove course">
                                    X
                                 </div>
                             </td></tr>
@@ -94,7 +106,7 @@
                             {% if not plan_semester.is_uoc_full and not finished %}
                                 <tr><td>
                                     <form method="POST" action="{% url 'polygons.views.program_plan' program_plan.id %}"> 
-                                        {%csrf_token %}
+                                        {% csrf_token %}
                                         <input type="hidden" name="semester" value="{{ plan_semester.semester.id }}">
                                         <input type="hidden" name="year" value="{{ plan_year.year }}">
                                         <button type="submit" class="pure-button smallButton">
