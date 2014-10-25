@@ -17,12 +17,14 @@ function center_popup_window() {
    popup.style.marginTop = (total_height - popup_height) / 2 + 'px';
 }
 
-function populate_dependent_subjects(sjax_url) {
-   var sjax = new XMLHttpRequest();
-   sjax.onreadystatechange=function()
+function populate_dependent_subjects(ajax_url) {
+   document.getElementById('loading_animation').style.display = 'block';   
+
+   var ajax = new XMLHttpRequest();
+   ajax.onreadystatechange=function()
    {
-      if (sjax.readyState==4 && sjax.status==200) {
-         var data = JSON.parse(sjax.responseText);
+      if (ajax.readyState==4 && ajax.status==200) {
+         var data = JSON.parse(ajax.responseText);
          var subject_list = document.getElementById('dependent_subjects');
          
          var num_subjects = data.subjects.length;
@@ -35,16 +37,20 @@ function populate_dependent_subjects(sjax_url) {
                subject_list.appendChild(subject_item);
             }
          }
+         
+         document.getElementById('loading_animation').style.display = 'none';
+         document.getElementById('remove_course_confirmation').style.display = 'block';
       }
    };
-   sjax.open("GET", sjax_url, false);
-   sjax.send();
+   ajax.open("GET", ajax_url, true);
+   ajax.send();
 }
 
-function display_remove_course_popup(sjax_url, subject_id) {
-   document.body.style.overflowY = 'hidden'; // Disable scrolling
+function display_remove_course_popup(ajax_url, subject_id) {
    document.getElementById('remove_course_popup_container').style.display = 'block';
+   document.body.style.overflowY = 'hidden'; // Disable scrolling
+   populate_dependent_subjects(ajax_url);
    center_popup_window();
-   populate_dependent_subjects(sjax_url);
+   document.getElementById('remove_course_popup').style.visibility = 'visible';
    document.getElementById('remove_course_field').value = subject_id;
 }

@@ -57,10 +57,11 @@
               <ul id="dependent_subjects">
                  The following dependent courses will also be deleted from your plan:
               </ul>
-              <div>
-                 Are you sure you want to delete the course?
-              </div>
-              <div>
+              <img src="{% static "images/loading.gif" %}" alt="Loading animation" id="loading_animation">
+              <div id="remove_course_confirmation">
+                 <div>
+                    Are you sure you want to delete the course?
+                 </div>
                  <button class="pure-button smallButton confirmation_button" onclick="location.reload();">
                     No
                  </button>
