@@ -39,7 +39,8 @@ def new_semester(request,program_plan):
         if form.is_valid():
             form.save()
         else :
-            messages.error(request,MAX_YEAR_LIMIT)
+            for error in form.non_field_errors():
+                messages.error(request, error)
     return  HttpResponseRedirect(reverse('polygons.views.program_plan',
                                          args=[program_plan.id]))
 
