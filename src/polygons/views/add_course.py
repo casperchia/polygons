@@ -26,14 +26,14 @@ def course_listing(request):
                                         semester)
     
     if request.method == 'POST':
-        filter_form = Filter_Subjects_Form(request.POST)
+        filter_form = Filter_Subjects_Form(request.POST, subjects=subject_list)
         if filter_form.is_valid():
             subject_list = filter_form.save(subject_list)
         else:
             for error in filter_form.non_field_errors():
                 messages.error(request, error)
     else:
-        filter_form = Filter_Subjects_Form()
+        filter_form = Filter_Subjects_Form(subjects=subject_list)
         
     subject_list = subject_list.order_by('code')
 
