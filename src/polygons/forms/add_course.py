@@ -6,8 +6,6 @@ from polygons.models.Subject_Area import Subject_Area
 from polygons.models.Program_Plan import START_YEAR
 from polygons.messages import SUBJECT_FILTRATION_REQUIRED
 
-import string
-
 ADD_COURSE_SESSION_KEY = 'add_course'
 
 class Add_Course_Form(forms.Form):
@@ -34,17 +32,28 @@ class Add_Course_Form(forms.Form):
         request.session.save()
         
 class Filter_Subjects_Form(forms.Form):
-    
-    careers = forms.ModelMultipleChoiceField(queryset=Career.objects.all(),
-                                             required=False)
-    subject_areas = forms.ModelMultipleChoiceField(queryset=Subject_Area.objects.all(),
-                                                   required=False)
-    
+
     def __init__(self, *args, **kwargs):
+        subjects = kwargs.pop('subjects')
         super(Filter_Subjects_Form, self).__init__(*args, **kwargs)
         
-        choices = [(l, l) for l in list(string.uppercase)]
-        self.fields['letters'] = forms.MultipleChoiceField(choices=choices)
+        career_ids = subjects.distinct('career').values_list('career',
+                                                             flat=True)
+        careers = Career.objects.filter(id__in=career_ids)
+        self.fields['careers'] = forms.ModelMultipleChoiceField(queryset=careers,
+                                                                required=False)
+        
+        subject_area_ids = subjects.distinct('subject_area').values_list('subject_area',
+                                                                         flat=True)
+        subject_areas = Subject_Area.objects.filter(id__in=subject_area_ids)
+        self.fields['subject_areas'] = forms.ModelMultipleChoiceField(queryset=subject_areas,
+                                                                      required=False)
+        
+        first_letters = {}
+        for subject in subjects:
+            first_letter = subject.code[0]
+            first_letters[first_letter] = (first_letter, first_letter)
+        self.fields['letters'] = forms.MultipleChoiceField(choices=first_letters.values())
         self.fields['letters'].required = False
         
     def clean(self):

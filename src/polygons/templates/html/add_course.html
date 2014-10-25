@@ -16,14 +16,17 @@
                          </button>
                       </form>
                    </div>
+                   {% if subject_list %}
                    <div class="nav_item">
                       <button class="pure-button smallButton" onclick="toggle_filter_display();">
                          Filter Courses <i class="fa fa-filter"></i>
                       </button>
                    </div>
+                   {% endif %}
                    {% endblock %}
 
       {% block body %}
+      {% if subject_list %}
       <form method="POST" action="{% url 'polygons.views.course_listing' %}" id="filter_form">
          <h2>Filter courses:</h2>
          {% csrf_token %}
@@ -83,4 +86,12 @@
         </tr>
         {% endfor %}
     </table>
+    {% else %}
+    <h1>
+      There are no subjects to choose from...
+    </h1>
+    <div>
+      Try creating a new semester and adding courses there, or try removing courses with smaller UOC and replacing them with courses of larger UOC, in order to fill your degree.
+    </div>
+    {% endif %}
     {% endblock %}
