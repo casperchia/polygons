@@ -10,6 +10,7 @@ from polygons.models.Subject import Subject
 from polygons.messages import INVALID_PROGRAM_PLAN
 from polygons.messages import PROGRAM_PLAN_DELETED
 from polygons.messages import COURSE_DELETED
+from polygons.messages import MAX_YEAR_LIMIT
 from polygons.forms.add_course import Add_Course_Form
 from polygons.forms.remove_from_plan import Remove_From_Plan_Form
 from polygons.forms.program_planning import Delete_Program_Plan_Form
@@ -38,9 +39,12 @@ def get_valid_program_plan(view):
 @get_valid_program_plan
 def new_semester(request,program_plan):
     if request.method == 'POST':
-        form = New_Semester_Form(request.POST)
+        form = New_Semester_Form(request.POST,program_plan=program_plan)
         if form.is_valid():
-            form.save(program_plan)
+            form.save()
+        else :
+            for error in form.non_field_errors():
+                messages.error(request, error)
     return  HttpResponseRedirect(reverse('polygons.views.program_plan',
                                          args=[program_plan.id]))
 
