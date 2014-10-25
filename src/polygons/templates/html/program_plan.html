@@ -101,6 +101,9 @@
                                 <div class="remove_course_button subject_col remove_subject_button" onclick="display_remove_course_popup('{% url 'polygons.views.fetch_dependent_subjects' program_plan.id subject.id %}', {{ subject.id }});" title="Remove course">
                                    X
                                 </div>
+                                <div>
+                                   UOC: {{ subject.uoc }}
+                                </div>
                             </td></tr>
                             {% endfor %}
                             {% if not plan_semester.is_uoc_full and not finished %}
