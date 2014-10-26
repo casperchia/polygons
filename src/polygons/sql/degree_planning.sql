@@ -747,11 +747,115 @@ begin
 
 end;
 $$ language plpgsql;
+            
+create function meet_coreqs(_program_id integer, _pending_subject_id integer,
+                            _current_subjects integer array)
+returns boolean
+AS $$
+declare
+   _subject record;
+   _rule record;
+   _acad_obj_group record;
+   _meets_coreqs boolean := false;
+   _had_coreq boolean := false;
+   _temp_meets_coreqs boolean;
+   _subject_ids integer array;
+   _subject_id integer;
+   _uoc_tally integer;
+begin
+
+   for _rule in (
+      select r.*
+      from polygons_subject_coreq sc join polygons_rule r on (sc.rule_id=r.id)
+      where sc.subject_id = _pending_subject_id
+   ) loop
+
+      _had_coreq := true;
+
+      _temp_meets_coreqs := true;
+
+      select * into _acad_obj_group
+      from polygons_acad_obj_group_type aogt join polygons_acad_obj_group aog
+         on (aogt.id=aog.type_id) 
+      where aog.id = _rule.acad_obj_group_id;
+      
+      if (_acad_obj_group.name = 'program') then
+
+         if (
+            not exists(
+               select *
+               from expand_program_rule(_rule.acad_obj_group_id)
+               where expand_program_rule = _program_id
+            )
+         ) then
+            _temp_meets_coreqs := false;
+         end if;
+
+      elsif (_acad_obj_group.name = 'subject') then
+
+         select array_agg(expand_subject_rule) into _subject_ids
+         from expand_subject_rule(_rule.acad_obj_group_id, null);
+
+         _uoc_tally := 0;
+
+         for _subject_id in (
+            select unnest(_current_subjects)
+         ) loop
+
+            if (
+               exists (
+                  select *
+                  from unnest(_subject_ids)
+                  where unnest = _subject_id
+               )
+            ) then
+
+               select * into _subject
+               from polygons_subject
+               where id = _subject_id;
+
+               _uoc_tally := _uoc_tally + _subject.uoc;
+
+            end if;
+
+         end loop;
+
+         if (_uoc_tally < _rule.min) then
+            _temp_meets_coreqs := false;
+         end if;
+
+      end if;
+
+      if (_acad_obj_group.logical_or) then
+         _meets_coreqs := _meets_coreqs or _temp_meets_coreqs;
+
+         if (_meets_coreqs) then
+            exit;
+         end if;
+
+      elsif (not _temp_meets_coreqs) then
+         _meets_coreqs := false;
+         exit;
+      else
+         _meets_coreqs := true;
+      end if;
+
+   end loop;
+
+   if (not _had_coreq) then
+      _meets_coreqs := true;
+   end if;
+
+   return _meets_coreqs;
+
+end;
+$$ language plpgsql;
 
 create function get_program_subjects(_program_id integer, _semester_id integer,
                                      _existing_subjects integer array,
                                      _past_subjects integer array,
-                                     _max_uoc integer)
+                                     _max_uoc integer,
+                                     _current_subjects integer array)
 returns setof integer
 AS $$
 declare
@@ -878,6 +982,14 @@ begin
             continue;
          end if;
    
+      end if;
+
+      if (
+         not(
+            select meet_coreqs(_program_id, _subject.id, _current_subjects)
+         )
+      ) then
+         continue;
       end if;
  
       _subjects := array_append(_subjects, _subject_id);
