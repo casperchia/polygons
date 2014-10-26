@@ -702,6 +702,29 @@ acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
 acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True)
 acad_obj_group.save()
 
+subject = Subject.objects.get(code='MATH1131')
+member = Subject_Group_Member(subject=subject, acad_obj_group=acad_obj_group)
+member.save()
+
+subject = Subject.objects.get(code='MATH1141')
+member = Subject_Group_Member(subject=subject, acad_obj_group=acad_obj_group)
+member.save()
+
+subject = Subject.objects.get(code='MATH1151')
+member = Subject_Group_Member(subject=subject, acad_obj_group=acad_obj_group)
+member.save()
+
+rule_type = Rule_Type.objects.get(abbreviation='CQ')
+rule = Rule(type=rule_type, min=6, acad_obj_group=acad_obj_group)
+rule.save()
+
+subject = Subject.objects.get(code='MATH1081')
+coreq = Subject_Coreq(subject=subject, rule=rule)
+coreq.save()
+acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
+acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True)
+acad_obj_group.save()
+
 subject = Subject.objects.get(code='MECH4001')
 member = Subject_Group_Member(subject=subject, acad_obj_group=acad_obj_group)
 member.save()
