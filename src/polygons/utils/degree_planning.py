@@ -26,6 +26,8 @@ def get_program_subjects(program_plan, year, semester):
     subjects = Semester_Plan.objects.filter(program_plan=program_plan)
     past_subjects = subjects.exclude(year__gte=year,
                                      semester__abbreviation__gte=semester.abbreviation)
+    existing_subjects = subjects.exclude(year__gt=year,
+                                         semester__abbreviation__gt=semester.abbreviation)
     
     with connection.cursor() as cursor:
         cursor.execute('select get_program_subjects(%s, %s, %s, %s, %s, %s)',
@@ -33,7 +35,7 @@ def get_program_subjects(program_plan, year, semester):
                         list(subjects.values_list('subject', flat=True)),
                         list(past_subjects.values_list('subject', flat=True)),
                         MAX_SEMESTER_UOC - uoc_tally,
-                        list(semester_subjects.values_list('subject',
+                        list(existing_subjects.values_list('subject',
                                                            flat=True))])
         results = cursor.fetchall()
     
