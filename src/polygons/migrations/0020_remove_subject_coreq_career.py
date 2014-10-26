@@ -7,12 +7,12 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polygons', '0018_auto_20141026_1148'),
+        ('polygons', '0019_auto_20141026_1305'),
     ]
 
     operations = [
-        migrations.AlterUniqueTogether(
-            name='subject_coreq',
-            unique_together=set([('subject', 'rule')]),
+        migrations.RemoveField(
+            model_name='subject_coreq',
+            name='career',
         ),
     ]
