@@ -23,3 +23,4 @@ from Subject_Pattern_Cache import Subject_Pattern_Cache
 from Subject_Area import Subject_Area
 from Program_Plan import Program_Plan
 from Semester_Plan import Semester_Plan
+from Subject_Coreq import Subject_Coreq
