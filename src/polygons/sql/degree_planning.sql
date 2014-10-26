@@ -522,7 +522,7 @@ begin
    from polygons_program_rule pr join polygons_rule r on (pr.rule_id=r.id)
       join polygons_rule_type rt on (r.type_id=rt.id)
    where pr.program_id=_program_id and rt.abbreviation not in
-      ('DS', 'LR', 'MR', 'RQ');
+      ('DS', 'LR', 'MR');
 
    for _ds_acad_obj_group_id in (
       select r.acad_obj_group_id
@@ -536,7 +536,7 @@ begin
          (sgm.stream_id=sr.stream_id) join polygons_rule r on 
          (sr.rule_id=r.id) join polygons_rule_type rt on (r.type_id=rt.id)
       where sgm.acad_obj_group_id = _ds_acad_obj_group_id and
-         rt.abbreviation not in ('LR', 'MR', 'RQ');
+         rt.abbreviation not in ('LR', 'MR');
 
       _rule_ids := _rule_ids || _temp_rule_ids;
 
@@ -992,7 +992,7 @@ begin
          (r.acad_obj_group_id=aog.id) join polygons_acad_obj_group_type aogt
          on (aog.type_id=aogt.id) join polygons_rule_type rt on
          (r.type_id=rt.id)
-      where aogt.name = 'subject' and rt.abbreviation not in ('DS', 'MR', 'LR', 'RQ')
+      where aogt.name = 'subject' and rt.abbreviation not in ('DS', 'MR', 'LR')
    ) loop
 
       _uoc_tally := 0;
@@ -1036,7 +1036,7 @@ begin
    from polygons_program_rule pr join polygons_rule r on (pr.rule_id=r.id)
       join polygons_rule_type rt on (r.type_id=rt.id)
    where pr.program_id in (6400, 554, 747, 529) and rt.abbreviation not in
-      ('DS', 'LR', 'MR', 'RQ');
+      ('DS', 'LR', 'MR');
 
    for _ds_acad_obj_group_id in (
       select r.acad_obj_group_id
@@ -1050,7 +1050,7 @@ begin
          (sgm.stream_id=sr.stream_id) join polygons_rule r on 
          (sr.rule_id=r.id) join polygons_rule_type rt on (r.type_id=rt.id)
       where sgm.acad_obj_group_id = _ds_acad_obj_group_id and
-         rt.abbreviation not in ('LR', 'MR', 'RQ');
+         rt.abbreviation not in ('LR', 'MR');
 
       _rule_ids := _rule_ids || _temp_rule_ids;
 

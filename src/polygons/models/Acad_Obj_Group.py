@@ -9,6 +9,7 @@ class Acad_Obj_Group(models.Model):
     enumerated = models.BooleanField(default=False)
     parent = models.ForeignKey('self', on_delete=models.PROTECT, null=True)
     definition = models.TextField(null=True)
+    logical_or = models.BooleanField(default=False)
     
     class Meta:
         app_label = 'polygons'
