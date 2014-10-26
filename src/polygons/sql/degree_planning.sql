@@ -748,7 +748,7 @@ begin
 end;
 $$ language plpgsql;
             
-create function meet_coreqs(_program_id integer, _subject_id integer,
+create function meet_coreqs(_program_id integer, _pending_subject_id integer,
                             _current_subjects integer array)
 returns boolean
 AS $$
@@ -765,9 +765,9 @@ declare
 begin
 
    for _rule in (
-      select *
-      from polygons_subject_coreq
-      where _subject_id = _subject_id
+      select r.*
+      from polygons_subject_coreq sc join polygons_rule r on (sc.rule_id=r.id)
+      where sc.subject_id = _pending_subject_id
    ) loop
 
       _had_coreq := true;
@@ -799,7 +799,7 @@ begin
          _uoc_tally := 0;
 
          for _subject_id in (
-            select unnest(_existing_subjects)
+            select unnest(_current_subjects)
          ) loop
 
             if (
@@ -828,9 +828,16 @@ begin
 
       if (_acad_obj_group.logical_or) then
          _meets_coreqs := _meets_coreqs or _temp_meets_coreqs;
+
+         if (_meets_coreqs) then
+            exit;
+         end if;
+
       elsif (not _temp_meets_coreqs) then
          _meets_coreqs := false;
          exit;
+      else
+         _meets_coreqs := true;
       end if;
 
    end loop;
