@@ -679,7 +679,8 @@ rule.save()
 
 subject = Subject.objects.get(code='MARK5815')
 coreq = Subject_Coreq(subject=subject, rule=rule)
-coreq.save()acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
+coreq.save()
+acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
 acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True, logical_or=True)
 acad_obj_group.save()
 
@@ -1097,7 +1098,8 @@ rule.save()
 
 subject = Subject.objects.get(code='SERV2003')
 coreq = Subject_Coreq(subject=subject, rule=rule)
-coreq.save()acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
+coreq.save()
+acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
 acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True)
 acad_obj_group.save()
 
@@ -1111,7 +1113,8 @@ rule.save()
 
 subject = Subject.objects.get(code='SOCW3001')
 coreq = Subject_Coreq(subject=subject, rule=rule)
-coreq.save()acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
+coreq.save()
+acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
 acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True)
 acad_obj_group.save()
 
@@ -1125,7 +1128,8 @@ rule.save()
 
 subject = Subject.objects.get(code='SOMA9751')
 coreq = Subject_Coreq(subject=subject, rule=rule)
-coreq.save()acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
+coreq.save()
+acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
 acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True)
 acad_obj_group.save()
 
