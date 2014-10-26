@@ -7,6 +7,8 @@ PATTERN_DUMP_ARCHIVE_PATH=../misc/"$PATTERN_DUMP_ARCHIVE_FILE"
 DB_DUMP_FILE=dump.sql
 DB_NAME=polygons
 CUSTOM_SQL_PATH=polygons/sql/
+COREQS_FILE=coreqs.py
+COREQS_PATH=../utils/"$COREQS_FILE"
 
 psql -U postgres -l >/dev/null 2>&1
 if [[ $? -ne 0 ]]; then
@@ -49,4 +51,8 @@ for filePath in $(find "$CUSTOM_SQL_PATH" -type f); do
    psql -U postgres polygons -f "$filePath" >/dev/null
 done;
 
-rm -f "$DB_DUMP_ARCHIVE_FILE" "$PATTERN_DUMP_ARCHIVE_FILE" "$DB_DUMP_FILE"
+echo "Inserting the corequisite data..."
+cp "$COREQS_PATH" .
+./"$COREQS_FILE"
+
+rm -f "$DB_DUMP_ARCHIVE_FILE" "$PATTERN_DUMP_ARCHIVE_FILE" "$DB_DUMP_FILE" "$COREQS_FILE"
