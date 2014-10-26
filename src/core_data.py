@@ -127,6 +127,9 @@ def rule_types():
     record = Rule_Type(abbreviation='RQ', name='Prerequisite')
     records.append(record)
     
+    record = Rule_Type(abbreviation='CQ', name='Corequisite')
+    records.append(record)
+    
     record = Rule_Type(abbreviation='DS', name='Stream')
     records.append(record)
     
