@@ -95,6 +95,12 @@ def subjects__subject_area(**kwargs):
 def acad_obj_groups__gtype(**kwargs):
     return str(Acad_Obj_Group_Type.objects.get(name=kwargs['gtype']).id)
 
+def acad_obj_groups__gtype(**kwargs):
+    if kwargs['glogic'] == 'and':
+        return 'false'
+    elif kwargs['glogic'] == 'or':
+        return 'true'
+
 def subjects__career(**kwargs):
     return str(Career.objects.get(abbreviation=kwargs['career']).id)
 
@@ -253,13 +259,15 @@ def subject_areas__filter(**kwargs):
 TABLES_TO_EDIT = {
     'acad_object_groups' : {
         'new_table_name' : 'polygons_acad_obj_group',
-        'delete_columns' : ['glogic', 'gdefby', 'negated'],
+        'delete_columns' : ['gdefby', 'negated'],
         'rename_columns' : {
             'gtype' : 'type_id',
-            'parent' : 'parent_id'
+            'parent' : 'parent_id',
+            'glogic' : 'logical_or'
         },
         'alter_columns' : {
-            'gtype' : acad_obj_groups__gtype 
+            'gtype' : acad_obj_groups__gtype,
+            'glogic' : acad_obj_groups__glogic
         }, 
         'new_columns' : {
             'enumerated' : acad_obj_groups__enumerated
