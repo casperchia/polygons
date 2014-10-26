@@ -1,1 +1,44 @@
 MARK5800 or MARK5801 or enrolment in program 7291 or 5291 or 8291
+acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
+acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True, logical_or=True)
+acad_obj_group.save()
+
+subject = Subject.objects.get(code='MARK5800')
+member = Subject_Group_Member(subject=subject, acad_obj_group=acad_obj_group)
+member.save()
+
+subject = Subject.objects.get(code='MARK5801')
+member = Subject_Group_Member(subject=subject, acad_obj_group=acad_obj_group)
+member.save()
+
+rule_type = Rule_Type.objects.get(abbreviation='CQ')
+rule = Rule(type=rule_type, min=6, acad_obj_group=acad_obj_group)
+rule.save()
+
+subject = Subject.objects.get(code='MARK5819')
+coreq = Subject_Coreq(subject=subject, rule=rule)
+coreq.save()
+
+acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='program')
+acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True, logical_or=True)
+acad_obj_group.save()
+
+program = Program.objects.get(code='7291')
+member = Program_Group_Member(program=program, acad_obj_group=acad_obj_group)
+member.save()
+
+program = Program.objects.get(code='5291')
+member = Program_Group_Member(program=program, acad_obj_group=acad_obj_group)
+member.save()
+
+program = Program.objects.get(code='8291')
+member = Program_Group_Member(program=program, acad_obj_group=acad_obj_group)
+member.save()
+
+rule_type = Rule_Type.objects.get(abbreviation='CQ')
+rule = Rule(type=rule_type, min=1, acad_obj_group=acad_obj_group)
+rule.save()
+
+subject = Subject.objects.get(code='MARK5819')
+coreq = Subject_Coreq(subject=subject, rule=rule)
+coreq.save()
