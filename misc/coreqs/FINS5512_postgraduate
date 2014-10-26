@@ -30,10 +30,6 @@ program = Program.objects.get(code='7273')
 member = Program_Group_Member(program=program, acad_obj_group=acad_obj_group)
 member.save()
 
-program = Program.objects.get(code='8007')
-member = Program_Group_Member(program=program, acad_obj_group=acad_obj_group)
-member.save()
-
 rule_type = Rule_Type.objects.get(abbreviation='CQ')
 rule = Rule(type=rule_type, min=1, acad_obj_group=acad_obj_group)
 rule.save()

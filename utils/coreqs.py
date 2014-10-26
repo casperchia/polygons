@@ -153,7 +153,7 @@ subject = Subject.objects.get(code='COMM5002')
 coreq = Subject_Coreq(subject=subject, rule=rule)
 coreq.save()
 acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
-acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True, logical_or=True)
+acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True)
 acad_obj_group.save()
 
 subject = Subject.objects.get(code='COMM5002')
@@ -162,22 +162,6 @@ member.save()
 
 rule_type = Rule_Type.objects.get(abbreviation='CQ')
 rule = Rule(type=rule_type, min=6, acad_obj_group=acad_obj_group)
-rule.save()
-
-subject = Subject.objects.get(code='COMM5003')
-coreq = Subject_Coreq(subject=subject, rule=rule)
-coreq.save()
-
-acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='program')
-acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True, logical_or=True)
-acad_obj_group.save()
-
-program = Program.objects.get(code='8728')
-member = Program_Group_Member(program=program, acad_obj_group=acad_obj_group)
-member.save()
-
-rule_type = Rule_Type.objects.get(abbreviation='CQ')
-rule = Rule(type=rule_type, min=1, acad_obj_group=acad_obj_group)
 rule.save()
 
 subject = Subject.objects.get(code='COMM5003')
@@ -348,10 +332,6 @@ program = Program.objects.get(code='7273')
 member = Program_Group_Member(program=program, acad_obj_group=acad_obj_group)
 member.save()
 
-program = Program.objects.get(code='8007')
-member = Program_Group_Member(program=program, acad_obj_group=acad_obj_group)
-member.save()
-
 rule_type = Rule_Type.objects.get(abbreviation='CQ')
 rule = Rule(type=rule_type, min=1, acad_obj_group=acad_obj_group)
 rule.save()
@@ -433,7 +413,7 @@ subject = Subject.objects.get(code='GMAT2550')
 coreq = Subject_Coreq(subject=subject, rule=rule)
 coreq.save()
 acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='subject')
-acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True, logical_or=True)
+acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True)
 acad_obj_group.save()
 
 subject = Subject.objects.get(code='INFS5984')
@@ -442,22 +422,6 @@ member.save()
 
 rule_type = Rule_Type.objects.get(abbreviation='CQ')
 rule = Rule(type=rule_type, min=6, acad_obj_group=acad_obj_group)
-rule.save()
-
-subject = Subject.objects.get(code='INFS5906')
-coreq = Subject_Coreq(subject=subject, rule=rule)
-coreq.save()
-
-acad_obj_group_type = Acad_Obj_Group_Type.objects.get(name='program')
-acad_obj_group = Acad_Obj_Group(type=acad_obj_group_type, enumerated=True, logical_or=True)
-acad_obj_group.save()
-
-program = Program.objects.get(code='8407')
-member = Program_Group_Member(program=program, acad_obj_group=acad_obj_group)
-member.save()
-
-rule_type = Rule_Type.objects.get(abbreviation='CQ')
-rule = Rule(type=rule_type, min=1, acad_obj_group=acad_obj_group)
 rule.save()
 
 subject = Subject.objects.get(code='INFS5906')
@@ -539,7 +503,7 @@ subject = Subject.objects.get(code='MARK2051')
 member = Subject_Group_Member(subject=subject, acad_obj_group=acad_obj_group)
 member.save()
 
-subject = Subject.objects.get(code='MARK52151')
+subject = Subject.objects.get(code='MARK2151')
 member = Subject_Group_Member(subject=subject, acad_obj_group=acad_obj_group)
 member.save()
 

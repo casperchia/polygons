@@ -95,11 +95,11 @@ def subjects__subject_area(**kwargs):
 def acad_obj_groups__gtype(**kwargs):
     return str(Acad_Obj_Group_Type.objects.get(name=kwargs['gtype']).id)
 
-def acad_obj_groups__gtype(**kwargs):
-    if kwargs['glogic'] == 'and':
-        return 'false'
-    elif kwargs['glogic'] == 'or':
+def acad_obj_groups__glogic(**kwargs):
+    if kwargs['glogic'] == 'or':
         return 'true'
+    else:
+        return 'false'
 
 def subjects__career(**kwargs):
     return str(Career.objects.get(abbreviation=kwargs['career']).id)

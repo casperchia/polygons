@@ -6,7 +6,7 @@ subject = Subject.objects.get(code='MARK2051')
 member = Subject_Group_Member(subject=subject, acad_obj_group=acad_obj_group)
 member.save()
 
-subject = Subject.objects.get(code='MARK52151')
+subject = Subject.objects.get(code='MARK2151')
 member = Subject_Group_Member(subject=subject, acad_obj_group=acad_obj_group)
 member.save()
 

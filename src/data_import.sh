@@ -9,6 +9,7 @@ DB_NAME=polygons
 CUSTOM_SQL_PATH=polygons/sql/
 COREQS_FILE=coreqs.py
 COREQS_PATH=../utils/"$COREQS_FILE"
+SEQ_RESET_FILE=../misc/reset_seqs.sql
 
 psql -U postgres -l >/dev/null 2>&1
 if [[ $? -ne 0 ]]; then
@@ -50,6 +51,9 @@ echo "Inserting custom DB functions..."
 for filePath in $(find "$CUSTOM_SQL_PATH" -type f); do
    psql -U postgres polygons -f "$filePath" >/dev/null
 done;
+
+echo "Resetting the necessary PostgreSQL sequences..."
+psql -U postgres "$DB_NAME" -f "$SEQ_RESET_FILE" >/dev/null
 
 echo "Inserting the corequisite data..."
 cp "$COREQS_PATH" .
