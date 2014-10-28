@@ -866,6 +866,7 @@ declare
    _rule record;
    _aog_type_name text;
    _meets_prereqs boolean;
+   _had_prereqs boolean;
    _uoc_tally integer := 0;
    _subject record;
    _subjects integer array;
@@ -924,6 +925,7 @@ begin
       end if;
 
       _meets_prereqs := true;
+      _had_prereqs := false;
 
       for _rule in (
          select r.*
@@ -931,6 +933,8 @@ begin
             (sp.rule_id=r.id)
          where subject_id = _subject_id and career_id = _program.career_id
       ) loop
+      
+         _had_prereqs := true;
 
          select aogt.name into _aog_type_name
          from polygons_acad_obj_group_type aogt join polygons_acad_obj_group aog
@@ -968,7 +972,7 @@ begin
 
       if (not _meets_prereqs) then
          continue;
-      elsif (_subject.career_id <> _program.career_id) then
+      elsif (not _had_prereqs and _subject.career_id <> _program.career_id) then
 
          if (
             exists(
